@@ -2,9 +2,9 @@
     <div :style="navbaStyle" class="navbar">
 
         <!-- 左侧图标区域  回到首页区域-->
-        <div class="left-icon">
+        <router-link to="/" class="left-icon">
             <v-icon class="home" name="fa-home" scale="2" />
-        </div>
+        </router-link>
 
         <!-- 占位符区域 -->
         <div style="width: 20%;"></div>

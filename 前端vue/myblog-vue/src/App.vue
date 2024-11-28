@@ -1,23 +1,21 @@
 <template>
     <div class="particle-container">
+        <!-- 粒子效果 -->
         <Particles id="tsparticles" :options="options" class="particle" />
         <Header class="on-up"></Header>
-
-        <Home />
-
-        <Footer />
+        <RouterView />
     </div>
 </template>
 
 <script setup>
 import Header from './components/Header.vue';
 import Home from './views/Home.vue';
-import Footer from './components/Footer.vue';
 //配置particles
 const options = {
     background: {
         color: {
-            value: '#0d47a1',
+            // value: '#0d47a1',
+            value: 'aliceblue;',
         },
         // image: './image/2.jpg',
         // image: "url('~/image/2.jpg')",
@@ -30,12 +28,14 @@ const options = {
     interactivity: {
         events: {
             onClick: {
-                enable: true,
-                mode: 'push',
+                enable: false,
+                // mode: 'push',
+                mode: 'bubble',
             },
             onHover: {
-                enable: true,
-                mode: 'repulse',
+                enable: false,
+                // mode: 'repulse',
+                mode: 'push',
             },
             resize: true,
         },
@@ -57,21 +57,23 @@ const options = {
     },
     particles: {
         color: {
-            value: '#ffffff',
+            // value: '#ffffff',
+            value: '#dddd',
         },
-        links: {
-            color: '#ffffff',
-            distance: 150,
-            enable: true,
-            opacity: 0.5,
-            width: 1,
-        },
+        // links: {
+        //     color: '#dddd',
+        //     // color: '#ffffff',
+        //     distance: 150,
+        //     enable: true,
+        //     opacity: 0.5,
+        //     width: 1,
+        // },
         move: {
             direction: 'none',
             enable: true,
             outMode: 'bounce',
             random: false,
-            speed: 6,
+            speed: 1,
             straight: false,
         },
         number: {
@@ -82,14 +84,16 @@ const options = {
             value: 80,
         },
         opacity: {
-            value: 0.5,
+            // value: 0.5,
+            value: 5,
         },
         shape: {
-            type: 'circle',
+            // type: 'circle',
+            type: 'star',
         },
         size: {
             random: true,
-            value: 5,
+            value: 10,
         },
     },
     detectRetina: true,
@@ -98,8 +102,8 @@ const options = {
 </script>
 
 <style scoped>
-
 .particle-container {
+    height: 100%;
     position: relative;
     z-index: 0;
     /* 容器的z-index设置为0 */

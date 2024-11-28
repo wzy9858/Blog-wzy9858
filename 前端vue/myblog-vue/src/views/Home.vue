@@ -41,7 +41,7 @@
         <div class="contain">
 
             <div class="items">
-                <!-- 下面时文章的每一个内容区域 -->
+                <!-- 下面 文章的每一个内容区域 -->
                 <div class="item">
                     <div class="item-image">
                         <img src="https://oss.adu88.top/blog/images/1719541484048.png" alt="">
@@ -71,7 +71,8 @@
                 </div>
                 <div class="item">
                     <div class="item-image">
-                        <img src="https://file.moyublog.com/d/file/2021-02-11/595eeb99baf7dab3a91036eb26e48bf1.jpg" alt="">
+                        <img src="https://file.moyublog.com/d/file/2021-02-11/595eeb99baf7dab3a91036eb26e48bf1.jpg"
+                            alt="">
                     </div>
 
                     <div class="title">
@@ -114,10 +115,11 @@
             </div>
         </div>
     </div>
+    <Footer />
 </template>
 
 <script setup>
-
+import Footer from '../components/Footer.vue';
 import gsap from 'gsap';
 // 文章的tip信息点击动画
 function num() {
@@ -197,7 +199,9 @@ onBeforeUnmount(() => {
 </script>
 <style scoped>
 /* 针对桌面电脑 */
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 767px) {
+
+    /* @media only screen and (min-width: 1024px) { */
     .split-page {
         padding: 50px 0;
         display: flex;
@@ -235,7 +239,7 @@ onBeforeUnmount(() => {
         width: 49%;
         height: 400px;
         border-radius: 1rem;
-        border: 2px solid black;
+        border: 2px solid rgb(155, 150, 150);
         margin-bottom: 20px;
     }
 
@@ -250,11 +254,10 @@ onBeforeUnmount(() => {
 
     .tip-item {
         width: 32%;
-        background-color: aqua;
+        background-color: rgb(29, 124, 172);
         margin: 0 1rem 1rem 0rem;
         border-radius: 1rem;
         overflow: hidden;
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -273,7 +276,7 @@ onBeforeUnmount(() => {
 
     .tip-item {
         width: 32%;
-        background-color: aqua;
+        background-color: rgb(29, 124, 172);
         margin: 0 1rem 1rem 0rem;
         border-radius: 1rem;
         overflow: hidden;
@@ -281,7 +284,6 @@ onBeforeUnmount(() => {
         display: flex;
         justify-content: center;
         align-items: center;
-
     }
 
     .description {
@@ -303,7 +305,7 @@ onBeforeUnmount(() => {
         width: 100%;
         height: 400px;
         border-radius: 1rem;
-        border: 2px solid black;
+        border: 2px solid rgb(155, 150, 150);
         margin-bottom: 20px;
     }
 
@@ -327,66 +329,13 @@ onBeforeUnmount(() => {
 }
 
 /* 针对平板 */
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-
-    .tip-item {
-        width: 32%;
-        background-color: aqua;
-        margin: 0 1rem 1rem 0rem;
-        border-radius: 1rem;
-        overflow: hidden;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-    }
-
-    .description {
-        margin-top: 70px;
-        display: flex;
-        flex-direction: column;
-        height: 45rem;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .right-container {
-        display: none;
-    }
-
-    .item {
-        background-color: aliceblue;
-        width: 100%;
-        height: 400px;
-        border-radius: 1rem;
-        border: 2px solid black;
-        margin-bottom: 20px;
-    }
-
-    .contain {
-        display: flex;
-        width: 90%;
-        margin: 0 auto;
-        flex-wrap: wrap;
-        height: 100%;
-    }
-
-    .items {
-        display: flex;
-        flex-wrap: wrap;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
-    }
-
-}
+/* @media only screen and (min-width: 768px) and (max-width: 1023px) {
+} */
 
 
 .item:hover {
     border: 2px solid rgb(231, 232, 234);
-    box-shadow: 20px 20px 20px rgb(27, 27, 27);
+    box-shadow: 0px 0px 20px rgb(62, 109, 178);
 }
 
 .item:hover img {
@@ -396,7 +345,6 @@ onBeforeUnmount(() => {
 }
 
 .tip {
-
     width: 100%;
     display: flex;
     flex-direction: row;

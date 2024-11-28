@@ -12,6 +12,7 @@ import './assets/fonts/text.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+import router from './router/index.ts';
 addIcons(FaFlag, GiRocketThruster, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, GiArchiveResearch, RiMenuFoldFill, PxSortNumeric);
 
 
@@ -19,4 +20,5 @@ const app = createApp(App)
 app.component("v-icon", OhVueIcon);
 app.use(Particles);
 app.use(ElementPlus);
+app.use(router);
 app.mount('#app')
