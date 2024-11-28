@@ -35,7 +35,6 @@
                     <v-icon class="addOne" name="gi-rocket-thruster" scale="2" />
 
                     <span style="margin-top: 3rem; font-size: large; font-weight: bold;">{{ addOneNum }}</span>
-
                 </div>
             </div>
         </div>
@@ -44,7 +43,6 @@
             <div class="items">
                 <!-- 下面时文章的每一个内容区域 -->
                 <div class="item">
-
                     <div class="item-image">
                         <img src="https://oss.adu88.top/blog/images/1719541484048.png" alt="">
                     </div>
@@ -67,42 +65,13 @@
                         <div class="center-all">
                             <!-- IoTimeOutline -->
                             <v-icon name="io-time-outline" scale="1" />
-                            2024-11-28 
+                            2024-11-28
                         </div>
                     </div>
                 </div>
                 <div class="item">
-
                     <div class="item-image">
-                        <img src="https://oss.adu88.top/blog/images/1719541484048.png" alt="">
-                    </div>
-
-                    <div class="title">
-                        <h1>这是菜鸟拯救世界的博客</h1>
-                    </div>
-
-                    <div class="tab">
-                        标签 访问量 时间
-                    </div>
-                </div>
-                <div class="item">
-
-                    <div class="item-image">
-                        <img src="https://oss.adu88.top/blog/images/1719541484048.png" alt="">
-                    </div>
-
-                    <div class="title">
-                        <h1>这是菜鸟拯救世界的博客</h1>
-                    </div>
-
-                    <div class="tab">
-                        标签 访问量 时间
-                    </div>
-                </div>
-                <div class="item">
-
-                    <div class="item-image">
-                        <img src="https://oss.adu88.top/blog/images/1719541484048.png" alt="">
+                        <img src="https://file.moyublog.com/d/file/2021-02-11/595eeb99baf7dab3a91036eb26e48bf1.jpg" alt="">
                     </div>
 
                     <div class="title">
@@ -110,10 +79,28 @@
                     </div>
 
                     <div class="tab">
-                        标签 访问量 时间
+                        <!-- PxLabelAltMultiple -->
+                        <div class="center-all" style="margin-right: 1rem;">
+                            <v-icon name="px-label-alt-multiple" scale="1" />
+                            标签
+                        </div>
+                        <div class="center-all" style="margin-right: 1rem;">
+                            <!-- GiCampfire -->
+                            <v-icon name="gi-campfire" scale="1" />
+                            12
+                        </div>
+                        <div class="center-all">
+                            <!-- IoTimeOutline -->
+                            <v-icon name="io-time-outline" scale="1" />
+                            2024-11-28
+                        </div>
                     </div>
                 </div>
 
+                <div class="split-page">
+                    <el-pagination background layout="prev, pager, next" :total="20" :page-size="10" />
+                    <!-- page Size 每页显示10个  -->
+                </div>
             </div>
 
             <div class="right-container">
@@ -211,6 +198,13 @@ onBeforeUnmount(() => {
 <style scoped>
 /* 针对桌面电脑 */
 @media only screen and (min-width: 1024px) {
+    .split-page {
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+
     .right-container {
         width: 18%;
         display: flex;
@@ -270,6 +264,13 @@ onBeforeUnmount(() => {
 
 /* 针对所有手机 */
 @media only screen and (max-width: 767px) {
+    .split-page {
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+
     .tip-item {
         width: 32%;
         background-color: aqua;
@@ -297,6 +298,7 @@ onBeforeUnmount(() => {
     }
 
     .item {
+        cursor: pointer;
         background-color: aliceblue;
         width: 100%;
         height: 400px;

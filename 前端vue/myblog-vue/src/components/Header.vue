@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar">
+    <div :style="navbaStyle" class="navbar">
 
         <!-- 左侧图标区域  回到首页区域-->
         <div class="left-icon">
@@ -26,13 +26,18 @@
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </li>
             </ul>
-            <div class="phone-menu">
+
+            
+            <div class="phone-menu" @click="drawer = true">
                 <v-icon name="ri-menu-fold-fill" scale="1.8" />
             </div>
 
         </div>
-
     </div>
+
+    <el-drawer v-model="drawer" title="菜鸟拯救世界のblog" :direction="direction" :size="350" style="font-family: myfont1;">
+        <span>Hi, there!</span>
+    </el-drawer>
 
 </template>
 
@@ -40,30 +45,40 @@
 import { ref } from 'vue';
 import gsap from 'gsap';
 
+import type { DrawerProps } from 'element-plus'
+const drawer = ref(false)
+const direction = ref<DrawerProps['direction']>('ltr')
 //隐藏导航栏的方法
 function hiddenNav() {
-    gsap.to(".navbar", { y: -50, duration: 1 }); // 将.box元素沿x轴移动200px，持续时间为1秒
-    // gsap.from(".box", { x: -200, duration: 1 }); // 将.box元素从-200px位置移动到原位置，持续时间为1秒
-    //gsap.fromTo(".box", { x: -200 }, { x: 200, duration: 1 }); // 将.box元素从-200px移动到200px，持续时间为1秒
-    //gsap.set(".box", { x: 200 }); // 立即将.box元素沿x轴移动到200px的位置
+    gsap.to(".navbar", { y: -200, duration: 1 }); // 将.box元素沿y轴移动200px，持续时间为1秒    
 }
 function emergeNav() {
     gsap.to(".navbar", { y: 0, duration: 1 });
 }
 
+let navbaStyle = ref({ backgroundColor: 'transparent' });
 // 定义响应式变量存储上一次滚动位置
 const lastScrollTop = ref(0);
 const handleScroll = () => {
     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     // 判断滚动方向
     if (currentScrollTop > lastScrollTop.value) {
-
         hiddenNav()
-        // console.log('下滑屏幕');
+        console.log('下滑屏幕');
     } else {
+        console.log('上滑屏幕');
+        
+        if (window.scrollY === 0) {
+            navbaStyle.value.backgroundColor = 'transparent'
+            // 鼠标不能往上滑了
+            navbaStyle.value.backgroundColor = 'transparent'
+        } else {
+            // 鼠标还能往上滑
+            navbaStyle.value.backgroundColor = 'white'
+        }
         emergeNav()
-        // console.log('上滑屏幕');
     }
+
     // 更新上一次滚动位置
     lastScrollTop.value = currentScrollTop;
 };
@@ -88,6 +103,7 @@ onBeforeUnmount(() => {
 
 /* 针对平板 */
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+
     /* CSS规则 */
     .phone-menu {
         display: none;
@@ -114,14 +130,14 @@ onBeforeUnmount(() => {
 
 
 .navbar {
+    top: 0;
     width: 100%;
     height: 70px;
     z-index: 1000;
     background-color: transparent;
-    /* background-color: antiquewhite; */
+    position: fixed;
     display: flex;
     align-items: center;
-
     transition: top 0.3s;
     /* 平滑过渡效果 */
 
