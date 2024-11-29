@@ -69,14 +69,15 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="item">
-                    <div class="item-image">
-                        <img src="https://file.moyublog.com/d/file/2021-02-11/595eeb99baf7dab3a91036eb26e48bf1.jpg"
-                            alt="">
+                    <div class="item-text">
+                        <h1>这是菜鸟拯救世界的篇博客</h1>
                     </div>
 
                     <div class="title">
-                        <h2>这是菜鸟拯救世界的博客</h2>
+                        <h2>这是菜鸟拯救世界的第二篇博客</h2>
                     </div>
 
                     <div class="tab">
@@ -154,7 +155,7 @@ function addOne() {
 
 // 打字机效果
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-const text = "欲买桂花同载酒，终不似，少年游"; // 要显示的文本
+const text = "欲买桂花同载酒，终不似，少年游！"; // 要显示的文本
 const typedText = ref(''); // 已显示的文本
 const isTyping = ref(true); // 是否正在打字
 const speed = 100; // 打字速度，单位为毫秒
@@ -344,6 +345,12 @@ onBeforeUnmount(() => {
     transition: transform 0.3s ease;
 }
 
+.item:hover .item-text {
+    transform: scale(1.01);
+    border: 2px solid rgb(231, 232, 234);
+    transition: transform 0.3s ease;
+}
+
 .tip {
     width: 100%;
     display: flex;
@@ -361,6 +368,16 @@ onBeforeUnmount(() => {
     flex-wrap: wrap;
 }
 
+.item-text {
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 1rem;
+}
 
 .item-image {
     /* display: flex;

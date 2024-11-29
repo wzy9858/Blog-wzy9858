@@ -48,7 +48,7 @@
         </div>
         <!-- 文章尾部样式 -->
         <PageFooter></PageFooter>
-        
+
     </div>
 
 </template>
@@ -70,6 +70,7 @@ const scrollElement = document.documentElement;
     .computer-catalog {
         display: none;
     }
+
     .weave {
         background-color: rgb(20, 115, 197);
         width: 100%;
@@ -86,8 +87,9 @@ const scrollElement = document.documentElement;
     .article-content {
         background-color: aliceblue;
         width: 100%;
-        height: 100%;        
+        height: 100%;
     }
+
     .phone-catalog {
         background-color: antiquewhite;
         border-radius: 1rem;
@@ -103,13 +105,15 @@ const scrollElement = document.documentElement;
     .phone-catalog {
         display: none;
     }
+
     .computer {
         display: flex;
         justify-content: center;
     }
-    .computer-catalog{
+
+    .computer-catalog {
         /* width: 10%; */
-        
+
         /* padding: 0.5rem; */
         background-color: antiquewhite;
         border-radius: 1rem;
@@ -163,8 +167,4 @@ const scrollElement = document.documentElement;
     flex-direction: column;
     background-color: aliceblue;
 }
-
-
-
-
 </style>

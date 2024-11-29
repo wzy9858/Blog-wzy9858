@@ -3,6 +3,7 @@ import About from '../views/About.vue';
 import Home from '../views/Home.vue';
 import Article from '../views/Article.vue';
 import Archives from '../views/Archives/Archives.vue';
+import Record from '../views/Record.vue';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -25,6 +26,9 @@ const router = createRouter({
   },{
     path: '/about',
     component: About,
+  },{
+    path: '/record',
+    component: Record,
   }
   ],
 })

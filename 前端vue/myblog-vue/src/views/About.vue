@@ -9,7 +9,7 @@
 
         <!-- 下半部分 -->
         <div class="about-content">
-            <MdPreview :id="id" :modelValue="text" />
+            <MdPreview :id="id" :modelValue="state.text" :previewTheme="state.theme" />
         </div>
 
         <PageFooter />
@@ -20,13 +20,15 @@
 
 <script setup lang="ts">
 import PageFooter from '../components/PageFooter.vue';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { MdPreview } from 'md-editor-v3';
 // preview.css相比style.css少了编辑器那部分样式
 import 'md-editor-v3/lib/preview.css';
 const id = 'preview-only';
-const text = ref('# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n##### 大');
-
+const state = reactive({
+    text: '# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n##### 大',
+    theme: 'cyanosis',
+});
 </script>
 
 <style scoped>
@@ -37,6 +39,7 @@ const text = ref('# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n
     height: 310px;
     width: 100%;
 }
+
 .about-container {
     padding-top: 70px;
     width: 100%;
@@ -46,12 +49,18 @@ const text = ref('# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
 }
 
 .about-content {
     background-color: aliceblue;
     width: 90%;
     height: 100%;
+}
+
+/* 针对桌面电脑 */
+@media only screen and (min-width: 767px) {
+    .about-content {
+        width: 75%;
+    }
 }
 </style>

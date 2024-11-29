@@ -12,23 +12,22 @@
         <div class="container-items center-all">
             <ul class="items">
                 <RouterLink to="/archives" class="center-all item">
-                    <v-icon class="archive" name="gi-archive-research" scale="1.8" />
+                    <v-icon class="archive" name="px-archive" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 归档 </span>
                 </RouterLink>
 
-                <RouterLink to="" class="center-all item">
+                <RouterLink to="/record" class="center-all item">
                     <v-icon class="archive" name="bi-battery-full" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 记录 </span>
                 </RouterLink>
 
-                <RouterLink to="/about" class="center-all item" >
-                    <v-icon class="archive" name="gi-archive-research" scale="1.8" />
+                <RouterLink to="/about" class="center-all item">
+                    <v-icon class="archive" name="co-about-me" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </RouterLink>
             </ul>
 
-            
-            <div class="phone-menu" @click="drawer = true">
+            <div class="phone-menu" @click="drawer = true;">
                 <v-icon name="ri-menu-fold-fill" scale="1.8" />
             </div>
 
@@ -36,7 +35,28 @@
     </div>
 
     <el-drawer v-model="drawer" title="菜鸟拯救世界のblog" :direction="direction" :size="350" style="font-family: myfont1;">
-        <span>Hi, there!</span>
+        <div class="side-container">
+            <span style="height: 1rem; width: 100%; padding-bottom: 1rem;">Hi,最近还好吗?</span>
+            <div class="side-menu">
+                <div class="side-menu-item" @click="btn_archive()">
+                    <v-icon class="archive" name="px-archive" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 归档 </span>
+                </div>
+
+                <div class="side-menu-item" @click="btn_record()">
+                    <v-icon class="archive" name="bi-battery-full" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 记录 </span>
+                </div>
+
+                <div class="side-menu-item" @click="btn_about()">
+                    <!-- CoAboutMe -->
+                    <v-icon class="archive" name="co-about-me" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 关于 </span>
+                </div>
+            </div>
+
+        </div>
+
     </el-drawer>
 
 </template>
@@ -44,8 +64,25 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import gsap from 'gsap';
-
 import type { DrawerProps } from 'element-plus'
+import { useRouter } from 'vue-router';
+
+let router = useRouter()
+// 侧边栏的按钮点击事件
+function btn_archive() {
+    router.push('/archives')
+    drawer.value = false;
+}
+function btn_about() {
+    router.push('/about')
+    drawer.value = false;
+}
+function btn_record() {
+    router.push('/record')
+    drawer.value = false;
+}
+
+
 const drawer = ref(false)
 const direction = ref<DrawerProps['direction']>('ltr')
 //隐藏导航栏的方法
@@ -67,7 +104,7 @@ const handleScroll = () => {
         console.log('下滑屏幕');
     } else {
         console.log('上滑屏幕');
-        
+
         if (window.scrollY === 0) {
             navbaStyle.value.backgroundColor = 'transparent'
             // 鼠标不能往上滑了
@@ -126,6 +163,39 @@ onBeforeUnmount(() => {
         margin-left: auto;
         margin-right: 1rem;
     }
+
+    .side-container {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+
+    .side-menu {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+
+    .side-menu-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0.5rem;
+        width: 100%;
+        /* background-color: aqua; */
+    }
+
+    .side-menu-item:hover {
+        background-color: rgb(173, 164, 164);
+    }
+
+
 }
 
 
@@ -153,7 +223,7 @@ onBeforeUnmount(() => {
 
 .item {
     margin-left: 40px;
-   
+
 }
 
 .item:hover {
