@@ -1,7 +1,9 @@
 * {
     margin: 0;
 }
-
+a {
+  text-decoration: none;
+}
 
 /* 上下左右对齐 */
 .center-all {

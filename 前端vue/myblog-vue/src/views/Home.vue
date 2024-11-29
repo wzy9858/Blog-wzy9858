@@ -339,7 +339,7 @@ onBeforeUnmount(() => {
 }
 
 .item:hover img {
-    transform: scale(1.20);
+    transform: scale(1.30);
     border: 2px solid rgb(231, 232, 234);
     transition: transform 0.3s ease;
 }
@@ -377,7 +377,7 @@ onBeforeUnmount(() => {
     height: 100%;
     width: 100%;
     object-fit: contain;
-    transform: scale(1.1);
+    transform: scale(1.2);
     /* background-color: aliceblue; */
 }
 

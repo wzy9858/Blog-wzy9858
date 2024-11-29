@@ -11,20 +11,20 @@
         <!-- item区域 -->
         <div class="container-items center-all">
             <ul class="items">
-                <li class="center-all item">
+                <RouterLink to="/archives" class="center-all item">
                     <v-icon class="archive" name="gi-archive-research" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 归档 </span>
-                </li>
+                </RouterLink>
 
-                <li class="center-all item">
-                    <v-icon class="archive" name="gi-archive-research" scale="1.8" />
-                    <span style="font-size: 1.3rem;"> 分类 </span>
-                </li>
+                <RouterLink to="" class="center-all item">
+                    <v-icon class="archive" name="bi-battery-full" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 记录 </span>
+                </RouterLink>
 
-                <li class="center-all item">
+                <RouterLink to="/about" class="center-all item" >
                     <v-icon class="archive" name="gi-archive-research" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
-                </li>
+                </RouterLink>
             </ul>
 
             
@@ -153,10 +153,11 @@ onBeforeUnmount(() => {
 
 .item {
     margin-left: 40px;
+   
 }
 
 .item:hover {
-    background-color: aqua;
+    background-color: rgb(177, 190, 190);
     border-radius: 1rem;
 }
 

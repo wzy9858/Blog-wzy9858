@@ -47,14 +47,14 @@
             <MdCatalog class="computer-catalog" :editorId="id" :scrollElement="scrollElement" />
         </div>
         <!-- 文章尾部样式 -->
-        <div class="article-footer">
-            <span style="font-family: myfont1; font-size: 30px;">菜鸟拯救世界のblog</span>
-        </div>
+        <PageFooter></PageFooter>
+        
     </div>
 
 </template>
 
 <script setup>
+import PageFooter from '../components/PageFooter.vue';
 import { ref } from 'vue';
 import { MdPreview, MdCatalog } from 'md-editor-v3';
 // preview.css相比style.css少了编辑器那部分样式
@@ -166,12 +166,5 @@ const scrollElement = document.documentElement;
 
 
 
-.article-footer {
-    width: 100%;
-    height: 180px;
-    background-color: aliceblue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 </style>
