@@ -26,12 +26,22 @@
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </RouterLink>
             </ul>
-
-            <div class="phone-menu" @click="drawer = true;">
-                <v-icon name="ri-menu-fold-fill" scale="1.8" />
-            </div>
-
         </div>
+
+        <div class="phone-menu" @click="drawer = true;">
+            <v-icon class="menu" name="ri-menu-fold-fill" scale="1.8" />
+        </div>
+
+        <div class="hiddenOnPhone" style="width: 15%;"></div>
+        <div class="container-items center-all hiddenOnPhone">
+            <ul class="items">
+                <li class="center-all item" @click="login()">
+                    <v-icon class="archive" name="hi-login" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 登录 </span>
+                </li>
+            </ul>
+        </div>
+
     </div>
 
     <el-drawer v-model="drawer" title="菜鸟拯救世界のblog" :direction="direction" :size="350" style="font-family: myfont1;">
@@ -53,11 +63,50 @@
                     <v-icon class="archive" name="co-about-me" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </div>
+                <div class="side-menu-item" @click="login()">
+                    <v-icon class="archive" name="hi-login" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 登录 </span>
+
+                </div>
+            </div>
+        </div>
+    </el-drawer>
+
+    <!-- 用户登录对话框 -->
+    <el-dialog class="dialog-width" v-model="dialogVisible">
+        <div class="login-container">
+            <div class="login-header">
+                Blog
             </div>
 
-        </div>
+            <div class="login-form">
+                <el-tabs class="demo-tabs" v-model="activeName" style="width: 100%;display: flex;align-items: center;">
+                    <el-tab-pane label="登录" name="first" style="width: 100%;">
+                        <el-form style="max-width: 600px;width: 100%;" label-width="auto">
+                            <el-form-item style="width: 100%;">
+                                <el-input class="input-width" v-model="inputUserName" placeholder="请输入用户名" />
+                            </el-form-item>
 
-    </el-drawer>
+                            <el-form-item>
+                                <el-input v-model="inputPassWord" placeholder="请输入密码" type="password" />
+                            </el-form-item>
+                            <div class="center-all" style="width: 100%;">
+                                <el-button type="primary" style="width: 100%;">登录</el-button>
+                            </div>
+                        </el-form>
+                    </el-tab-pane>
+
+                    <el-tab-pane label="注册" name="second" style="width: 100%;">
+                        <div style="font-family: myfont1; margin: 2rem;">
+                            注册功能暂未开放,请联系管理员拿取账号!
+                        </div>
+                    </el-tab-pane>
+                </el-tabs>
+            </div>
+
+
+        </div>
+    </el-dialog>
 
 </template>
 
@@ -66,6 +115,13 @@ import { ref } from 'vue';
 import gsap from 'gsap';
 import type { DrawerProps } from 'element-plus'
 import { useRouter } from 'vue-router';
+
+let dialogVisible = ref(false)
+
+let inputUserName = ref('')
+let inputPassWord = ref('')
+let activeName = ref('first')
+
 
 let router = useRouter()
 // 侧边栏的按钮点击事件
@@ -82,6 +138,10 @@ function btn_record() {
     drawer.value = false;
 }
 
+function login() {
+    dialogVisible.value = true
+    drawer.value = false;
+}
 
 const drawer = ref(false)
 const direction = ref<DrawerProps['direction']>('ltr')
@@ -101,9 +161,9 @@ const handleScroll = () => {
     // 判断滚动方向
     if (currentScrollTop > lastScrollTop.value) {
         hiddenNav()
-        console.log('下滑屏幕');
+        // console.log('下滑屏幕');
     } else {
-        console.log('上滑屏幕');
+        // console.log('上滑屏幕');
 
         if (window.scrollY === 0) {
             navbaStyle.value.backgroundColor = 'transparent'
@@ -115,7 +175,6 @@ const handleScroll = () => {
         }
         emergeNav()
     }
-
     // 更新上一次滚动位置
     lastScrollTop.value = currentScrollTop;
 };
@@ -129,26 +188,67 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-/* 针对桌面电脑 */
-@media only screen and (min-width: 1024px) {
+/* 针对桌面电脑和平板  */
+@media only screen and (min-width: 768px) {
 
     /* CSS规则 */
     .phone-menu {
         display: none;
     }
-}
 
-/* 针对平板 */
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .input-width {
+        width: 100%;
+    }
 
-    /* CSS规则 */
-    .phone-menu {
-        display: none;
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .dialog-width {
+        width: 584px;
     }
 }
+
+
+
 
 /* 针对所有手机 */
 @media only screen and (max-width: 767px) {
+
+    .dialog-width {
+        width: 100%;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        /* width: 70%; */
+        flex-direction: column;
+    }
+
+    .hiddenOnPhone {
+        display: none
+    }
+
+    .input-width {
+        width: 200px;
+    }
+
+
+    .phone-menu {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
 
     /* CSS规则 */
     .items {
@@ -194,9 +294,8 @@ onBeforeUnmount(() => {
     .side-menu-item:hover {
         background-color: rgb(173, 164, 164);
     }
-
-
 }
+
 
 
 .navbar {
@@ -250,8 +349,22 @@ onBeforeUnmount(() => {
     height: 100%;
 }
 
-.phone-menu:hover {
+.phone-menu .menu:hover {
     background-color: aqua;
     border-radius: 0.2rem;
+}
+
+.login-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: myfont1;
+    font-size: 50px;
+    margin-bottom: 1rem;
+}
+
+.login-form {
+    width: 100%;
 }
 </style>

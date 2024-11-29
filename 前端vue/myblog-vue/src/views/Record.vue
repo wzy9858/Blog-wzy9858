@@ -28,9 +28,9 @@
 
                 <!-- 这个是内容区域 -->
                 <div class="text-container">
-                    
-                        <MdPreview :id="id" :modelValue="state.text" :previewTheme="state.theme" />
-                  
+
+                    <MdPreview :id="id" :modelValue="state.text" :previewTheme="state.theme" />
+
 
                 </div>
 
@@ -50,7 +50,7 @@
 <script setup>
 import Footer from '../components/Footer.vue';
 import gsap from 'gsap';
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { MdPreview } from 'md-editor-v3';
 // preview.css相比style.css少了编辑器那部分样式
 import 'md-editor-v3/lib/preview.css';
@@ -59,9 +59,6 @@ const state = reactive({
     text: '# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n##### 大',
     theme: 'mk-cute',
 });
-
-
-
 let text = '人生若只如初见，何事秋风悲画扇。'
 function textDace() {
 
@@ -76,7 +73,9 @@ function textDace() {
     }
 }
 
-
+onMounted(() => {
+    textDace()
+})
 
 </script>
 <style scoped>
