@@ -68,9 +68,44 @@
                     <span style="font-size: 1.3rem;"> 登录 </span>
 
                 </div>
+
+
+                <div class="">
+                    <el-menu>
+                        <el-sub-menu index="1">
+                            <template #title>
+                                <v-icon class="io-setting-outline" name="io-settings-outline" scale="1.5" />
+                                <span style="font-size: 1.3rem;"> 管理 </span>
+                                <!-- <el-icon>
+                                        <location />
+                                    </el-icon>
+                                    <span>Navigator One</span> -->
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="1-1" @click="articleManage()">
+                                    <v-icon class="archive" name="hi-login" scale="1.4" />
+                                    <span style="font-size: 1.3rem;"> 文章 </span>
+                                </el-menu-item>
+                                <el-menu-item index="1-2" @click="visitorManage()">
+                                    <v-icon class="archive" name="hi-login" scale="1.4" />
+                                    <span style="font-size: 1.3rem;"> 访客 </span>
+                                </el-menu-item>
+                                <el-menu-item index="1-3" @click="accountManage()">
+                                    <v-icon class="archive" name="hi-login" scale="1.4" />
+                                    <span style="font-size: 1.3rem;"> 账号 </span>
+                                </el-menu-item>
+
+                            </el-menu-item-group>
+                        </el-sub-menu>
+                    </el-menu>
+
+                </div>
+
             </div>
         </div>
     </el-drawer>
+
+
 
     <!-- 用户登录对话框 -->
     <el-dialog class="dialog-width" v-model="dialogVisible">
@@ -140,6 +175,20 @@ function btn_record() {
 
 function login() {
     dialogVisible.value = true
+    drawer.value = false;
+}
+//侧边栏的按钮点击事件 中的管理按钮的一些点击事件
+function articleManage() {
+    router.push('/articleManage')
+    drawer.value = false;
+}
+function visitorManage() {
+    router.push('/visitorManage')
+    drawer.value = false;
+
+}
+function accountManage() {
+    router.push('/accountManage')
     drawer.value = false;
 }
 
