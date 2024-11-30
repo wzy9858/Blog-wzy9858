@@ -197,7 +197,7 @@ onBeforeUnmount(() => {
     }
 
     .input-width {
-        width: 100%;
+        width: 380px;
     }
 
     .login-container {
@@ -210,7 +210,7 @@ onBeforeUnmount(() => {
     }
 
     .dialog-width {
-        width: 584px;
+        width: 100%;
     }
 }
 
@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
     }
 
     .input-width {
-        width: 200px;
+        width: 100%;
     }
 
 
