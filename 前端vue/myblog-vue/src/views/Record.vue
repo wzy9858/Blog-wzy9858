@@ -59,7 +59,7 @@ const state = reactive({
     text: '# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n##### 大',
     theme: 'mk-cute',
 });
-let text = '人生若只如初见，何事秋风悲画扇。'
+let text = '人生若只如初见'
 function textDace() {
 
     for (let i = 0; i < text.length; i++) {
@@ -147,7 +147,7 @@ onMounted(() => {
     align-items: center;
     border-radius: 1rem;
     font-family: myfont1;
-    font-size: 1.7rem;
+    font-size: 3rem;
 }
 
 /* 针对桌面电脑 */
