@@ -27,7 +27,7 @@
 
                 <el-table-column fixed="right" label="操作" min-width="65">
                     <template #default>
-                        <el-button type="primary" size="small" @click="handleClick">
+                        <el-button type="primary" size="small" @click="handleClick = true">
                             备注
                         </el-button>
                     </template>
@@ -36,12 +36,29 @@
         </div>
 
     </div>
+
+    <!-- 点击事件 -->
+    <el-dialog v-model="handleClick" title="访客备注" width="500" center>
+        <div class="center-all">
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">备注</span>
+                <el-input v-model="inputTitle" style="width: 160px;" placeholder="请输入文章标题" />
+            </div>
+            <div style="padding: 0.5rem;">
+                <el-button type="success" size="small" @click="handleClick">
+                    保存
+                </el-button>
+            </div>
+        </div>
+
+    </el-dialog>
 </template>
 
 <script setup lang="ts">
-const handleClick = () => {
-    console.log('click')
-}
+import { ref } from 'vue';
+
+const handleClick = ref(false)
+const inputTitle = ref('')
 
 const tableData = [
     {
@@ -62,7 +79,7 @@ const tableData = [
         zip: 'CA 90036',
         tag: 'Office',
     },
-    
+
 ]
 
 </script>

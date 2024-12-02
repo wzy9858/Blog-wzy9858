@@ -9,6 +9,7 @@ import ManageAccount from '../views/Manage/ManageAccount.vue';
 import ManageArticle from '../views/Manage/ManageArticle.vue';
 import ManageVisitor from '../views/Manage/ManageVisitor.vue';
 
+import EditArticle from '../views/EditArticle.vue';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -43,6 +44,9 @@ const router = createRouter({
   }, {
     path: '/visitorManage',
     component: ManageVisitor,
+  }, {
+    path: '/edit',
+    component: EditArticle,
   }
   ],
 })
