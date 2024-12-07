@@ -15,11 +15,15 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import router from './router/index.ts';
+
+import { createPinia } from 'pinia';
 addIcons(FaFlag, GiRocketThruster, CoAboutMe, HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill, PxSortNumeric);
 
 const app = createApp(App)
+
 app.component("v-icon", OhVueIcon);
 app.use(Particles);
 app.use(ElementPlus);
 app.use(router);
+app.use(createPinia())
 app.mount('#app')

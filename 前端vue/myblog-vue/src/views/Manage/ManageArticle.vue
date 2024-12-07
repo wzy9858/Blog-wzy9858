@@ -2,7 +2,7 @@
     <div class="manage-article-container">
         <!-- 顶栏标签 -->
         <div class="top-tab">
-            <el-button type="success" size="small" @click="handleClick">
+            <el-button type="success" size="small" @click="createArticle">
                 新建文章
             </el-button>
             <el-button type="danger" size="small" @click="handleClick">
@@ -93,10 +93,17 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+let router = useRouter()
 // 是否加密
 const value1 = ref(true)
 
 const handleClick = ref(false)
+
+function createArticle(){
+    router.push('/edit')
+}
+
 const inputTitle = ref('')
 
 

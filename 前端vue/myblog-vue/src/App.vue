@@ -10,6 +10,38 @@
 <script setup>
 import Header from './components/Header.vue';
 import Home from './views/Home.vue';
+
+import { onMounted } from 'vue';
+import { http } from './ts/axios';
+onMounted(() => {
+    const startTime = new Date();//开始计时
+})
+//关闭之后
+window.addEventListener('beforeunload', function (event) {
+    //结束计时 并转化成秒
+    const endTime = new Date();
+    const elapsedTimeInMilliseconds = endTime - startTime;
+    const elapsedTimeInSeconds = elapsedTimeInMilliseconds / 1000;
+
+    // 退出之后计算时间并发给数据库
+    http.get('/test').then(
+        s => {
+            console.log("发送请求成功");
+        }
+    ).catch(
+        e => {
+            console.log("发送请求失败");
+        }
+    )
+    
+
+});
+
+
+
+
+
+
 //配置particles
 const options = {
     background: {
