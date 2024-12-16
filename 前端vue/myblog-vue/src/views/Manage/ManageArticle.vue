@@ -9,6 +9,7 @@
                 删除所选
             </el-button>
         </div>
+        
         <!-- 表格 -->
         <div class="table">
             <el-table :data="tableData" style="width: 100%">
@@ -38,9 +39,8 @@
         </div>
     </div>
 
-
     <!-- 点击 -->
-    <el-dialog v-model="handleClick" title="编辑文章" width="500" center>
+    <el-dialog v-model="handleClick" title="编辑" width="500" center>
         <div class="edit-container">
             <div style="padding: 0.5rem;">
                 <span style="padding: 0.5rem;">作者</span>
@@ -85,6 +85,10 @@
                 <el-button type="success" size="small" @click="handleClick">
                     保存文章
                 </el-button>
+                
+                 <el-button type="success" size="small" @click="editArticle">
+                    修改文章
+                </el-button>
             </div>
         </div>
     </el-dialog>
@@ -100,8 +104,15 @@ const value1 = ref(true)
 
 const handleClick = ref(false)
 
-function createArticle(){
+
+//修改文章的按钮 应该传过去文章的id并且跳转到修改文章页面,
+function editArticle(){
     router.push('/edit')
+}
+
+function createArticle(){
+    handleClick.value = true
+    // router.push('/edit')
 }
 
 const inputTitle = ref('')

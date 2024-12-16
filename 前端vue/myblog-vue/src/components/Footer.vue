@@ -10,6 +10,18 @@
                     菜鸟拯救世界
                 </div>
             </div>
+            
+            <div class="item">
+                <div class="word-box">
+                    本站已运行
+                </div>
+                <div class="number-box" style="background-color: hotpink;">
+                    {{ date }}
+                </div>
+            </div>
+
+
+
             <a class="item" href="https://beian.miit.gov.cn/" style="text-decoration: none;">
                 <div class="word-box">
                     豫ICP备
@@ -27,11 +39,29 @@
                 </div>
             </div>
 
+
+
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+let date = ref('')
+
+function getData() {
+    const startDate: any = new Date(2024, 11 - 1, 21);
+    const now: any = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    date.value = days+'天 '+hours+'小时 '+minutes+'分钟 '+seconds+'秒'
+}
+
+// var intervalId = setInterval(() => { date.value = new Date().toLocaleTimeString() }, 1000); 得到了当前时间
+setInterval(getData, 1000);
 
 </script>
 
@@ -61,6 +91,7 @@
         justify-content: center;
         -webkit-user-select: none;
         user-select: none;
+        margin-bottom: 20px;
     }
 
 }

@@ -39,12 +39,11 @@
             </div>
         </div>
         <div class="contain">
-
             <div class="items">
                 <!-- 下面 文章的每一个内容区域 -->
                 <div class="item">
                     <div class="item-image">
-                        <img src="https://oss.adu88.top/blog/images/1719541484048.png" alt="">
+                        <img src="../assets/img/img_load_fail.png" alt="">
                     </div>
 
                     <div class="title">
@@ -197,6 +196,8 @@ onBeforeUnmount(() => {
     // 清除定时器
     clearTimeout(intervalId);
 });
+
+
 </script>
 <style scoped>
 /* 针对桌面电脑 */

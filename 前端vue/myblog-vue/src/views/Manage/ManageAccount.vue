@@ -1,6 +1,6 @@
 <template>
     <div class="account-manage-container">
-        <h1>管理账号页面</h1>
+        <h1>正在加急开发中</h1>
     </div>
 
 </template>
