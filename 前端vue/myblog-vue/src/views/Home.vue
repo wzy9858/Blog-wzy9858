@@ -29,47 +29,52 @@
                     <!-- <h1>访客数量</h1> -->
                     <v-icon class="vistiorNum" name="pi-rhydon" scale="2" />
                 </div>
+
                 <div class="tip-item" @click="addOne()">
                     <!-- GiRocketThruster -->
                     <v-icon class="addOne" name="gi-rocket-thruster" scale="2" />
 
                     <span style="margin-top: 3rem; font-size: large; font-weight: bold;">{{ addOneNum }}</span>
                 </div>
+
             </div>
         </div>
         <div class="contain">
             <div class="items">
+
                 <!-- 下面 文章的每一个内容区域 -->
-                <div class="item">
+                <div class="item" v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
+                    <!-- 首页图片 -->
                     <div class="item-image">
-                        <img src="../assets/img/img_load_fail.png" alt="">
+                        <img v-if="item.homeDisplayImageUrl != ''" :src="item.homeDisplayImageUrl" alt="">
+                        <img v-else src="../assets/img/img_load_fail.png" alt="">
                     </div>
 
+                    <!-- 标题 -->
                     <div class="title">
-                        <h2>这是菜鸟拯救世界的博客</h2>
+                        <h2>{{ item.articleTitle }}</h2>
                     </div>
 
                     <div class="tab">
                         <!-- PxLabelAltMultiple -->
                         <div class="center-all" style="margin-right: 1rem;">
                             <v-icon name="px-label-alt-multiple" scale="1" />
-                            标签
+                            {{ item.tags }}
                         </div>
                         <div class="center-all" style="margin-right: 1rem;">
                             <!-- GiCampfire -->
                             <v-icon name="gi-campfire" scale="1" />
-                            12
+                            {{ item.popularity }}
                         </div>
                         <div class="center-all">
                             <!-- IoTimeOutline -->
                             <v-icon name="io-time-outline" scale="1" />
-                            2024-11-28
+                            {{ item.createdAt }}
                         </div>
                     </div>
                 </div>
 
-
-                <div class="item">
+                <!-- <div class="item">
                     <div class="item-text">
                         <h1>这是菜鸟拯救世界的篇博客</h1>
                     </div>
@@ -79,26 +84,24 @@
                     </div>
 
                     <div class="tab">
-                        <!-- PxLabelAltMultiple -->
                         <div class="center-all" style="margin-right: 1rem;">
                             <v-icon name="px-label-alt-multiple" scale="1" />
                             标签
                         </div>
                         <div class="center-all" style="margin-right: 1rem;">
-                            <!-- GiCampfire -->
                             <v-icon name="gi-campfire" scale="1" />
                             12
                         </div>
                         <div class="center-all">
-                            <!-- IoTimeOutline -->
                             <v-icon name="io-time-outline" scale="1" />
                             2024-11-28
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="split-page">
-                    <el-pagination background layout="prev, pager, next" :total="20" :page-size="10" />
+                    <el-pagination background layout="prev, pager, next" :total=pagination.total
+                        :page-size=pagination.pageSize @current-change="changePage" />
                     <!-- page Size 每页显示10个  -->
                 </div>
             </div>
@@ -118,6 +121,65 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus'
+let router = useRouter();
+
+function toArticle(id, index) {
+    // console.log(id);
+    router.push(`/article?id=${id}`);
+}
+
+// 以下是发请求的代码
+import { getArtilesList } from '../ts/axios/articleHttp'
+onMounted(
+    () => {
+        getArtilesList(1).then(
+            s => {
+                pagination.value.total = s.data.data.total;
+                articleList.value = s.data.data.list;
+
+            }
+        ).catch(
+            e => {
+                ElMessage.error("网络错误")
+            }
+        )
+    }
+)
+
+let articleList = ref([{
+    "id": 3,
+    "articleTitle": "第1篇文章",
+    "articleContent": null,
+    "createdAt": "2024-12-17 13:57:50",
+    "updatedAt": "2024-12-17 13:57:50",
+    "isEncrypted": 1,
+    "tags": "tag1,tag3",
+    "popularity": 10,
+    "homeDisplayImageUrl": "",
+    "isPinned": 10,
+    "owner": "user3"
+}])
+
+let pagination = ref({
+    total: 20, // 总条目数
+    pageSize: 10, // 每页显示条目数
+    currentPage: 1 // 当前页码
+});
+//下方页码改变的时候
+function changePage(newPage) {
+    getArtilesList(newPage).then(
+        s => {
+            pagination.value.total = s.data.data.total;
+            articleList.value = s.data.data.list;
+        }
+    ).catch()
+}
+
+
+
+
 import Footer from '../components/Footer.vue';
 import gsap from 'gsap';
 // 文章的tip信息点击动画
@@ -152,7 +214,7 @@ function addOne() {
 }
 
 // 打字机效果
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, reactive } from 'vue';
 const text = "欲买桂花同载酒，终不似，少年游！"; // 要显示的文本
 const typedText = ref(''); // 已显示的文本
 const isTyping = ref(true); // 是否正在打字
@@ -187,9 +249,9 @@ const clearText = () => {
     intervalId = setTimeout(clearText, speed);
 };
 
-onMounted(() => {
-    type();
-});
+// onMounted(() => {
+type();
+// });
 
 onBeforeUnmount(() => {
     // 清除定时器

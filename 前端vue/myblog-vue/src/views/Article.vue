@@ -4,26 +4,35 @@
         <div class="article-header">
             <div style="padding-bottom: 1rem;">
                 <span style="font-size: 30px; font-family: myfont1;">
-                    一款Springboot+vue3开发的博客系统
+
+                    {{ article.articleTitle }}
                 </span>
             </div>
             <div>
                 <!-- 15px -->
                 <span style="margin-right: 0.5rem; font-size: 15px;">
                     <v-icon name="px-label-alt-multiple" scale="1" />
-                    标签
+                    {{ article.tags }}
                 </span>
 
 
                 <span style="margin-right: 0.5rem; font-size: 15px;">
                     <v-icon name="gi-campfire" scale="1" />
-                    114
+                    {{ article.popularity }}
                 </span>
 
                 <span style="margin-right: 0.5rem; font-size: 15px;">
                     <v-icon name="io-time-outline" scale="1" />
-                    2024-11-28
+                    更新于 {{ article.updatedAt }}
                 </span>
+
+                <span style="margin-right: 0.5rem; font-size: 15px;">
+                    <v-icon name="io-time-outline" scale="1" />
+                    创建于 {{ article.createdAt }}
+                </span>
+
+
+
             </div>
         </div>
 
@@ -49,19 +58,69 @@
         <!-- 文章尾部样式 -->
         <PageFooter></PageFooter>
 
+        <Footer />
+
     </div>
+
 
 </template>
 
 <script setup>
+import Footer from '../components/Footer.vue';
 import PageFooter from '../components/PageFooter.vue';
 import { ref } from 'vue';
 import { MdPreview, MdCatalog } from 'md-editor-v3';
+
+import { useRoute } from 'vue-router';
+import { onMounted } from 'vue';
+
+import { getArticleById } from '../ts/axios/articleHttp';
+
 // preview.css相比style.css少了编辑器那部分样式
 import 'md-editor-v3/lib/preview.css';
 const id = 'preview-only';
-const text = ref('# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n##### 大');
+const text = ref('# Hello Word!');
 const scrollElement = document.documentElement;
+
+
+
+
+let route = useRoute();
+let article = ref({
+    "id": 1,
+    "articleTitle": "菜鸟拯救世界的Blog",
+    "articleContent": "Hello world",
+    "createdAt": "2024-12-17 13:57:50",
+    "updatedAt": "2024-12-17 13:57:50",
+    "isEncrypted": 1,
+    "tags": "tag1,tag3",
+    "popularity": 10,
+    "homeDisplayImageUrl": "",
+    "isPinned": 10,
+    "owner": "user3"
+})
+
+
+onMounted(() => {
+    let id = ref(route.query.id)
+    // console.log(id.value);
+    getArticleById(id.value).then(
+        s => {
+            article.value = s.data.data.article
+            // console.log(article.value);
+            text.value = s.data.data.article.articleContent
+        }
+    ).catch(
+        e => {     
+            ElMessage.error("网络错误")
+        }
+    )
+
+
+})
+
+
+
 </script>
 
 <style scoped>

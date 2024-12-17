@@ -35,7 +35,8 @@ public class ArticleController {
      * id 标题 创建时间 更新时间  是否加密 标签 热度 主页图片url 置顶数值 作者
      * 按照置顶数值进行排序
      */
-    @GetMapping("getList/{id}")
+
+    @GetMapping("getList/{id}") //此方法在主页调用 根据页数查找
     public R getList(@PathVariable Integer id) {//传过来页数
         //设置分页参数  第几页 页容量
         Page<Articles> page = new Page<>(id, 10);
@@ -44,7 +45,33 @@ public class ArticleController {
         List<Articles> list = page.getRecords();
         R ok = R.ok();
         ok.data("hasNext", page.hasNext());
+        ok.data("total", page.getTotal());
         ok.data("list", list);
+        return ok;
+    }
+
+    @GetMapping("/getAllInfo")
+    public R getAllInfo() {//此页面为归档页面调用  返回所有信息
+        List<Articles> allInfo = articlesMapper.getAllInfo();
+        R ok = R.ok();
+        ok.data("total", allInfo.size());
+        ok.data("list", allInfo);
+        return ok;
+
+    }
+
+
+    /***
+     * 根据id查询一篇文章
+     * 注意： 这里需要进行用户鉴权,因为有加密的文章
+     */
+    @GetMapping("/getArticleById/{id}")
+    public R getOneArticle(@PathVariable Integer id) {
+
+        Articles one = articlesMapper.selectById(id);
+        R ok = R.ok();
+        ok.data("article", one);
+
         return ok;
     }
 

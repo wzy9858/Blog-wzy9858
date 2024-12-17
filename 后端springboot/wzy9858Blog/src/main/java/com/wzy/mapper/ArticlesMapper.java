@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wzy.pojo.Articles;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
 * @author Sonder
 * @description 针对表【articles】的数据库操作Mapper
@@ -14,6 +16,8 @@ public interface ArticlesMapper extends BaseMapper<Articles> {
 
 
     IPage<Articles> selectPageVo(IPage<?> page, Integer id);
+
+    List<Articles> getAllInfo();
 }
 
 
