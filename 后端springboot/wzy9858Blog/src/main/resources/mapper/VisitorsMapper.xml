@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzy.mapper.VisitorsMapper">
+
+    <resultMap id="BaseResultMap" type="com.wzy.pojo.Visitors">
+            <id property="visitorId" column="visitor_id" jdbcType="INTEGER"/>
+            <result property="ipAddress" column="ip_address" jdbcType="VARCHAR"/>
+            <result property="geoLocation" column="geo_location" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="deviceInfo" column="device_info" jdbcType="VARCHAR"/>
+            <result property="firstVisitTime" column="first_visit_time" jdbcType="TIMESTAMP"/>
+            <result property="lastVisitTime" column="last_visit_time" jdbcType="TIMESTAMP"/>
+            <result property="visitDuration" column="visit_duration" jdbcType="INTEGER"/>
+            <result property="visitFrequency" column="visit_frequency" jdbcType="INTEGER"/>
+            <result property="visitorNotes" column="visitor_notes" jdbcType="VARCHAR"/>
+            <result property="isBlacklisted" column="is_blacklisted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        visitor_id,ip_address,geo_location,
+        user_agent,device_info,first_visit_time,
+        last_visit_time,visit_duration,visit_frequency,
+        visitor_notes,is_blacklisted
+    </sql>
+</mapper>

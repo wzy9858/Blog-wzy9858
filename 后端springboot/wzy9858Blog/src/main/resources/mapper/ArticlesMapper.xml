@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzy.mapper.ArticlesMapper">
+
+    <resultMap id="BaseResultMap" type="com.wzy.pojo.Articles">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="articleTitle" column="article_title" jdbcType="VARCHAR"/>
+            <result property="articleContent" column="article_content" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+            <result property="isEncrypted" column="is_encrypted" jdbcType="TINYINT"/>
+            <result property="tags" column="tags" jdbcType="VARCHAR"/>
+            <result property="popularity" column="popularity" jdbcType="INTEGER"/>
+            <result property="homeDisplayImageUrl" column="home_display_image_url" jdbcType="VARCHAR"/>
+            <result property="isPinned" column="is_pinned" jdbcType="INTEGER"/>
+            <result property="owner" column="owner" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,article_title,article_content,
+        created_at,updated_at,is_encrypted,
+        tags,popularity,home_display_image_url,
+        is_pinned,owner
+    </sql>
+</mapper>

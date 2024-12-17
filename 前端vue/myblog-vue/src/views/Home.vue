@@ -5,7 +5,6 @@
             <div class="" style="margin-bottom: 1rem;">
                 <h1 style="font-family: myfont1;">菜鸟拯救世界のblog</h1>
             </div>
-
             <div class="typewriter">
                 {{ typedText }}
             </div>
