@@ -113,3 +113,81 @@ public class ArticlesServiceImpl extends ServiceImpl<ArticlesMapper, Articles>
 </mapper>
 ```
 
+分页插件的使用
+
+```java
+@Configuration
+public class MyConfig {
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        //mybatis-plus插件集合, 任何mybatis-plus插件加入到这个集合即可
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
+    }
+}
+```
+
+```java
+@Autowired
+	ArticlesMapper articlesMapper;
+	@Test
+	public void getList(){
+		//设置分页参数  第几页 页容量
+		Page<Articles> page = new Page<>(1, 5);
+		articlesMapper.selectPage(page, null);
+		//获取分页数据
+		List<Articles> list = page.getRecords();
+		list.forEach(System.out::println);
+		System.out.println("当前页："+page.getCurrent());
+		System.out.println("每页显示的条数："+page.getSize());
+		System.out.println("总记录数："+page.getTotal());
+		System.out.println("总页数："+page.getPages());
+		System.out.println("是否有上一页："+page.hasPrevious());
+		System.out.println("是否有下一页："+page.hasNext());
+	}
+```
+
+自定义分页插件的使用
+
+```java
+    IPage<Articles> selectPageVo(IPage<?> page, Integer id);//在mapper中 并且写出相应的语句 调用这个方法,剩下与上方一致
+```
+
+
+
+
+
+## 参数的接收
+
+param参数接收（名字相同可以省略`@RequestParam("name")`）
+
+请求:`http://localhost:8080/param/data?name=xx&stuAge=18`
+
+```
+@RequestParam("name") String name, @RequestParam("stuAge") int age){
+@RequestParam(value = "stuAge",required = false,defaultValue = "18")
+//可以设置默认值
+```
+
+多个相同的param参数可以使用列表接收
+
+请求:`http://localhost:8080/param/mul?hbs=吃&hbs=喝v`
+
+```java
+@RequestParam List<String> hbs   //java函数内的参数
+```
+
+路径参数的接收
+
+```java
+@GetMapping("/user/{id}/{name}")
+@ResponseBody
+public String getUser(@PathVariable Long id, 
+                      @PathVariable("name") String uname) 
+```
+
+
+
+## 相应工具类
+

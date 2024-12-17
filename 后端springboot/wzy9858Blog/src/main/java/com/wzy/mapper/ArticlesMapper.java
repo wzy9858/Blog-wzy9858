@@ -1,5 +1,6 @@
 package com.wzy.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wzy.pojo.Articles;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface ArticlesMapper extends BaseMapper<Articles> {
 
+
+    IPage<Articles> selectPageVo(IPage<?> page, Integer id);
 }
 
 

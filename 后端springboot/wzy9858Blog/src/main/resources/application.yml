@@ -4,7 +4,7 @@ spring:
     druid:
       url: jdbc:mysql:///wzy9858blog
       username: root
-      password: mima
+      password: kdyq1108
       driver-class-name: com.mysql.cj.jdbc.Driver
   jackson: #数据库涉及到时间
     date-format: yyyy-MM-dd HH:mm:ss
