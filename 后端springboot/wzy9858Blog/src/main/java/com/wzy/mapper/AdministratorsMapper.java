@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface AdministratorsMapper extends BaseMapper<Administrators> {
 
+
+
+    Administrators selectSuperInfo();
 }
 
 

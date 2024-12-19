@@ -14,6 +14,7 @@
             <result property="creationTime" column="creation_time" jdbcType="TIMESTAMP"/>
             <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
             <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="isSuperAdmin" column="is_super_admin" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -21,4 +22,12 @@
         bio,avatar_url,ip_address,
         creation_time,last_login_time,email
     </sql>
+
+    <select id="selectSuperInfo" resultType="com.wzy.pojo.Administrators">
+        select  account,nickname,password,
+                bio,avatar_url,ip_address,
+                creation_time,last_login_time,email
+        from administrators
+        where is_super_admin = 1
+    </select>
 </mapper>

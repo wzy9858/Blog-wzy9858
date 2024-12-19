@@ -17,6 +17,7 @@
     "pinia": "^2.3.0",
     "vue": "^3.5.12",
     "vue-router": "^4.5.0",
+    "vue3-cookies": "^1.0.6",
     "vue3-particles": "^1.43.1"
   },
   "devDependencies": {

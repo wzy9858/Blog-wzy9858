@@ -2,9 +2,13 @@
     <div>
         <!-- 博客首页的文字描述区域 -->
         <div class="description">
-            <div class="" style="margin-bottom: 1rem;">
-                <h1 style="font-family: myfont1;">菜鸟拯救世界のblog</h1>
+            <div style="margin-bottom: 1rem;">
+                <div class="top-info">
+                    <el-avatar :size="200" :src="head_img" />
+                    <span style="font-family: myfont1; font-size: 2rem;margin-top: 0.5rem;">{{ nickname }}</span>
+                </div>
             </div>
+
             <div class="typewriter">
                 {{ typedText }}
             </div>
@@ -124,7 +128,8 @@
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus'
 let router = useRouter();
-
+let head_img = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png")
+let nickname = ref('')
 function toArticle(id, index) {
     // console.log(id);
     router.push(`/article?id=${id}`);
@@ -132,6 +137,7 @@ function toArticle(id, index) {
 
 // 以下是发请求的代码
 import { getArtilesList } from '../ts/axios/articleHttp'
+import { getSuperInfo } from '../ts/axios/adminHttp';
 onMounted(
     () => {
         getArtilesList(1).then(
@@ -145,6 +151,15 @@ onMounted(
                 ElMessage.error("网络错误")
             }
         )
+
+        getSuperInfo().then(
+            s => {
+                head_img.value = s.data.data.admin.avatarUrl
+                nickname.value = s.data.data.admin.nickname
+                // state.text = s.data.data.admin.bio
+                console.log(s);
+            }
+        ).catch()
     }
 )
 
@@ -493,6 +508,7 @@ onBeforeUnmount(() => {
 
 /* 以下是打字机的效果 */
 .typewriter {
+    margin-bottom: 2rem;
     font-family: 'Courier New', Courier, monospace;
     /* 打字机字体 */
     white-space: nowrap;
@@ -523,5 +539,12 @@ onBeforeUnmount(() => {
     50% {
         border-color: black
     }
+}
+
+.top-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>

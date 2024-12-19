@@ -1,8 +1,11 @@
 package com.wzy.wzy9858blog;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wzy.mapper.AdministratorsMapper;
 import com.wzy.mapper.ArticlesMapper;
+import com.wzy.pojo.Administrators;
 import com.wzy.pojo.Articles;
+import com.wzy.util.JwtHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,16 +15,22 @@ import java.util.List;
 
 @SpringBootTest
 class Wzy9858BlogApplicationTests {
-
-	@Test
-	void contextLoads() {
-		Articles articles = new Articles();
-		articles.setArticleTitle("第一");
-		System.out.println(articles);
-	}
-
 	@Autowired
 	ArticlesMapper articlesMapper;
+
+	@Autowired
+	AdministratorsMapper administratorsMapper;
+
+
+	@Autowired
+	JwtHelper jwtHelper;
+	@Test
+	void contextLoads() {
+//		String jwt = jwtHelper.createJwt(666);
+//		jwtHelper.parseJwt(jwt);
+	}
+
+
 	@Test
 	public void getList(){
 

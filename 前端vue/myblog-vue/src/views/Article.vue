@@ -66,6 +66,7 @@
 </template>
 
 <script setup>
+
 import Footer from '../components/Footer.vue';
 import PageFooter from '../components/PageFooter.vue';
 import { ref } from 'vue';
@@ -78,11 +79,11 @@ import { getArticleById } from '../ts/axios/articleHttp';
 
 // preview.css相比style.css少了编辑器那部分样式
 import 'md-editor-v3/lib/preview.css';
+
+
 const id = 'preview-only';
 const text = ref('# Hello Word!');
 const scrollElement = document.documentElement;
-
-
 
 
 let route = useRoute();
@@ -100,7 +101,6 @@ let article = ref({
     "owner": "user3"
 })
 
-
 onMounted(() => {
     let id = ref(route.query.id)
     // console.log(id.value);
@@ -111,12 +111,10 @@ onMounted(() => {
             text.value = s.data.data.article.articleContent
         }
     ).catch(
-        e => {     
+        e => {
             ElMessage.error("网络错误")
         }
     )
-
-
 })
 
 

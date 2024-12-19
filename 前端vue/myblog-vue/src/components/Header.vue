@@ -33,7 +33,7 @@
         </div>
 
         <div class="hiddenOnPhone" style="width: 15%;"></div>
-        <div class="container-items center-all hiddenOnPhone">
+        <div v-if="cookies.get('accountToken') == null" class="container-items center-all hiddenOnPhone">
             <ul class="items">
                 <li class="center-all item" @click="login()">
                     <v-icon class="archive" name="hi-login" scale="1.8" />
@@ -42,11 +42,56 @@
             </ul>
         </div>
 
+        <!-- 登录成功后的头像显示 --电脑端的 -->
+        <div v-else class="hiddenOnPhone center-all">
+            <el-dropdown>
+                <span>
+                    <div class="center-all">
+                        <el-avatar :src="head_img" />
+                        <span style="margin-left: 0.2rem;">{{ nickname }}</span>
+                    </div>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item @click="quitlogin">退出登录</el-dropdown-item>
+                        <!-- <el-dropdown-item>Action 2</el-dropdown-item>
+                        <el-dropdown-item>Action 3</el-dropdown-item>
+                        <el-dropdown-item disabled>Action 4</el-dropdown-item>
+                        <el-dropdown-item divided>Action 5</el-dropdown-item> -->
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </div>
+
     </div>
 
+
+
+    <!-- 手机端侧边栏 -->
     <el-drawer v-model="drawer" title="菜鸟拯救世界のblog" :direction="direction" :size="350" style="font-family: myfont1;">
         <div class="side-container">
+
+            <div v-if="cookies.get('accountToken') != null" class="center-all" style="margin-bottom: 3rem;">
+                <el-dropdown>
+                    <span>
+                        <div class="center-all">
+                            <el-avatar :src="head_img" />
+                            <span style="margin-left: 0.2rem;">{{ nickname }}</span>
+                        </div>
+                    </span>
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item @click="quitlogin">退出登录</el-dropdown-item>
+                            <!-- <el-dropdown-item>Action 2</el-dropdown-item>
+                        <el-dropdown-item>Action 3</el-dropdown-item>
+                        <el-dropdown-item disabled>Action 4</el-dropdown-item>
+                        <el-dropdown-item divided>Action 5</el-dropdown-item> -->
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
+            </div>
             <span style="height: 1rem; width: 100%; padding-bottom: 1rem;">Hi,最近还好吗?</span>
+
             <div class="side-menu">
                 <div class="side-menu-item" @click="btn_archive()">
                     <v-icon class="archive" name="px-archive" scale="1.8" />
@@ -63,14 +108,13 @@
                     <v-icon class="archive" name="co-about-me" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </div>
-                <div class="side-menu-item" @click="login()">
+
+                <div v-if="cookies.get('accountToken') == null" class="side-menu-item" @click="login()">
                     <v-icon class="archive" name="hi-login" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 登录 </span>
-
                 </div>
 
-
-                <div class="">
+                <div v-else class="manage">
                     <el-menu>
                         <el-sub-menu index="1">
                             <template #title>
@@ -113,21 +157,22 @@
             <div class="login-header">
                 Blog
             </div>
-
             <div class="login-form">
                 <el-tabs class="demo-tabs" v-model="activeName" style="width: 100%;display: flex;align-items: center;">
                     <el-tab-pane label="登录" name="first" style="width: 100%;">
                         <el-form style="max-width: 600px;width: 100%;" label-width="auto">
                             <el-form-item style="width: 100%;">
-                                <el-input class="input-width" v-model="inputUserName" placeholder="请输入用户名" />
+                                <el-input class="input-width" v-model="inputUserName" placeholder="请输入邮箱" />
                             </el-form-item>
 
                             <el-form-item>
                                 <el-input v-model="inputPassWord" placeholder="请输入密码" type="password" />
                             </el-form-item>
+
                             <div class="center-all" style="width: 100%;">
-                                <el-button type="primary" style="width: 100%;">登录</el-button>
+                                <el-button type="primary" style="width: 100%;" @click="accountLogin">登录</el-button>
                             </div>
+
                         </el-form>
                     </el-tab-pane>
 
@@ -145,20 +190,71 @@
 
 </template>
 
+
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import gsap from 'gsap';
 import type { DrawerProps } from 'element-plus'
 import { useRouter } from 'vue-router';
 
 let dialogVisible = ref(false)
-
 let inputUserName = ref('')
 let inputPassWord = ref('')
+import { ElMessage } from 'element-plus'
+import { accountLogin as userLogin } from '../ts/axios/adminHttp';
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+let head_img = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png")
+let nickname = ref('')
+import { getSuperInfo } from '../ts/axios/adminHttp';
+
+onMounted(() => {
+    if (cookies.get("accountToken") != null) {
+        // head_img = s.data.data.avatarUrl
+        getSuperInfo().then(
+            s => {
+                head_img.value = s.data.data.admin.avatarUrl
+                nickname.value = s.data.data.admin.nickname
+            }
+        ).catch()
+
+    }
+})
+
+function accountLogin() {
+
+    userLogin(inputUserName.value, inputPassWord.value).then(
+        s => {
+            console.log(s);
+            if (s.data.code != 404) {
+                dialogVisible.value = false//登录成功关闭对话框
+                ElMessage.success("登录成功")
+                head_img.value = s.data.data.avatarUrl
+                nickname.value = s.data.data.nickname
+                cookies.set("accountToken", s.data.data.token, '1h')
+                window.location.reload();
+            } else {
+                ElMessage.error("账号或密码错误")
+            }
+        }
+    ).catch(
+        e => {
+            ElMessage.error("网络出错了")
+        }
+    )
+
+}
+
+// 注销登录的方法
+function quitlogin() {
+    cookies.remove("accountToken")
+    window.location.reload();
+}
+
 let activeName = ref('first')
-
-
 let router = useRouter()
+
+
 // 侧边栏的按钮点击事件
 function btn_archive() {
     router.push('/archives')

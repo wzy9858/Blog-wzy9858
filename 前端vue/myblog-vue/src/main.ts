@@ -17,6 +17,7 @@ import 'element-plus/dist/index.css'
 import router from './router/index.ts';
 
 import { createPinia } from 'pinia';
+import VueCookies from 'vue3-cookies';
 addIcons(FaFlag, GiRocketThruster, CoAboutMe, HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill, PxSortNumeric);
 
 const app = createApp(App)
@@ -26,4 +27,5 @@ app.use(Particles);
 app.use(ElementPlus);
 app.use(router);
 app.use(createPinia())
+app.use(VueCookies);
 app.mount('#app')
