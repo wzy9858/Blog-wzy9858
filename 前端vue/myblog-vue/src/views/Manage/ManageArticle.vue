@@ -2,10 +2,10 @@
     <div class="manage-article-container">
         <!-- 顶栏标签 -->
         <div class="top-tab">
-            <el-button type="success" size="small" @click="createArticleBtn">
+            <el-button type="success" size="small" @click="createArticleInfoBtn">
                 新建文章
             </el-button>
-            <el-button type="danger" size="small" @click="handleClick">
+            <el-button type="danger" size="small" @click="deleteArticle">
                 删除所选
             </el-button>
         </div>
@@ -16,7 +16,7 @@
 
                 <el-table-column type="selection" width="28" />
 
-                <el-table-column fixed prop="id" label="id" width="90" />
+                <el-table-column fixed prop="id" label="id" width="50" />
                 <el-table-column prop="owner" label="作者" width="90" />
                 <el-table-column prop="articleTitle" label="标题" width="120" />
 
@@ -28,21 +28,24 @@
 
                 <el-table-column prop="isPinned" label="置顶值" width="90" />
 
-
-
-                <el-table-column prop="homeDisplayImageUrl" label="主页图片地址" width="120" />
-
-
+                <el-table-column prop="homeDisplayImageUrl" label="主页图片地址" width="320" />
 
                 <el-table-column fixed="right" label="操作" min-width="65">
-                    <template #default>
-                        <el-button type="primary" size="small" plain @click="handleClick = true">
+                    <template #default="{ row }">
+                        <el-button type="primary" size="small" plain @click="editArticleInfo(row)">
                             修改
                         </el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </div>
+
+        <div class="split-page">
+            <el-pagination background layout="prev, pager, next" :total=pagination.total :page-size=pagination.pageSize
+                @current-change="changePage" />
+            <!-- page Size 每页显示10个  -->
+        </div>
+
     </div>
 
     <!-- 点击 -->
@@ -102,12 +105,17 @@
 
     </el-dialog>
 
+
+
+
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus'
+import { createArticle } from '../../ts/axios/articleHttp';
+import { toRefs, onMounted } from 'vue';
 let router = useRouter()
 // 是否加密
 const value1 = ref(true)
@@ -120,7 +128,7 @@ function handleSelectionChange(selection) {
     selection.forEach((element) => {
         deleteId.push(element.id)
     });
-    console.log(deleteId);
+    // console.log(deleteId);
 }
 
 
@@ -137,6 +145,7 @@ function formatDateTime(date) {
 const date = new Date(); // 假设这是你给定的日期时间
 const formattedDateTime = formatDateTime(date);
 console.log(formattedDateTime); // 输出: 2024-12-17 13:57:50
+
 let article = reactive({
     id: 0,
     articleTitle: "",
@@ -151,11 +160,9 @@ let article = reactive({
     owner: "菜鸟拯救世界"
 })
 
-import { createArticle } from '../../ts/axios/articleHttp';
-import { toRefs } from 'vue';
+
 // 保存文章
 function saveArticle() {
-
     if (article.articleTitle == "") {
         ElMessage.error("标题不能为空")
     } else {
@@ -168,9 +175,8 @@ function saveArticle() {
         createArticle(article).then(
             s => {
                 // if()
-
-
-                ElMessage.success("创建成功")
+                ElMessage.success("保存成功")
+                upData()
             }
         ).catch(
             e => {
@@ -179,21 +185,93 @@ function saveArticle() {
         )
     }
 }
+import { deleteArticles } from '../../ts/axios/articleHttp';
+function deleteArticle() {
+    // deleteId 是一个集合包含了要删除的id
+    if (deleteId.length == 0) {
+        console.log("选中为空未删除");
+    } else {
+        deleteArticles(deleteId).then(
+            s => {
+                if (s.data.code == 200) {
+                    ElMessage.success("删除成功")
+                    // 删除成功更新表格内容
+                    upData()
+
+                } else {
+                    ElMessage.error("出现异常")
+                }
+            }
+        ).catch(
+            e => {
+                ElMessage.error("出现异常")
+            }
+        )
+    }
+}
+
 
 //修改文章的按钮 应该传过去文章的id并且跳转到修改文章页面,
 function editArticle() {
-    router.push('/edit')
+    saveArticle()//编辑文章的内容的时候先保存当前文章
+    router.push(`/edit?id=${article.id}`)
+}
+// 点击修改按钮 修改文章信息
+function editArticleInfo(row) {
+    // 点击修改的时候应该拿到表格这一条的相关信息
+    // console.log(row);//row就是
+    article = row;
+    // console.log(row.articleTitle);
+
+    handleClick.value = true
 }
 
-function createArticleBtn() {
+// 点击创建文章 
+function createArticleInfoBtn() {
+
     handleClick.value = true
+
     // router.push('/edit')
 }
-
 const inputTitle = ref('')
+let pagination = ref({
+    total: 20, // 总条目数
+    pageSize: 10, // 每页显示条目数
+    currentPage: 1 // 当前页码
+});
+// 挂载的时候获取文章列表
+import { getArtilesList } from '../../ts/axios/articleHttp'
 
+function upData() {
+    getArtilesList(currentPage.value).then(
+        s => {
+            pagination.value.total = s.data.data.total;
+            tableData.value = s.data.data.list;
+        }
+    ).catch(
+        e => {
+            ElMessage.error("网络错误")
+        }
+    )
+}
 
-const tableData = [
+onMounted(
+    () => {
+        upData()
+    }
+)
+//下方页码改变的时候
+let currentPage = ref(1)
+function changePage(newPage) {
+    currentPage.value = newPage
+    getArtilesList(newPage).then(
+        s => {
+            pagination.value.total = s.data.data.total;
+            tableData.value = s.data.data.list;
+        }
+    ).catch()
+}
+const tableData = ref([
     {
         id: 0,
         articleTitle: "",
@@ -220,12 +298,19 @@ const tableData = [
         owner: "菜鸟拯救世界"
     }
 
-]
+])
 
 
 </script>
 
 <style scoped>
+.split-page {
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
 .edit-container {
     display: flex;
     justify-content: center;

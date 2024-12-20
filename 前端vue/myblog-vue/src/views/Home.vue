@@ -138,13 +138,13 @@ function toArticle(id, index) {
 // 以下是发请求的代码
 import { getArtilesList } from '../ts/axios/articleHttp'
 import { getSuperInfo } from '../ts/axios/adminHttp';
+
 onMounted(
     () => {
         getArtilesList(1).then(
             s => {
                 pagination.value.total = s.data.data.total;
                 articleList.value = s.data.data.list;
-
             }
         ).catch(
             e => {

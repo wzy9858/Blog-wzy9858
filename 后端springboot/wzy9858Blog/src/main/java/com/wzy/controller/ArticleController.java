@@ -70,7 +70,7 @@ public class ArticleController {
 
 
     /***
-     * 根据id查询一篇文章
+     * 根据id查询一篇文章内容
      * 注意： 这里需要进行用户鉴权,因为有加密的文章
      */
     @GetMapping("/getArticleById/{id}")
@@ -85,6 +85,7 @@ public class ArticleController {
     }
 
     /**
+     * 传过来有id就是更新文章 没有id就是创建文章
      * 创建文章 需要鉴权 jwt
      */
     @PostMapping("/create")
@@ -99,9 +100,82 @@ public class ArticleController {
                     System.out.println(cookie.getValue());
                     Boolean b = jwtHelper.parseJwt(cookie.getValue());
                     if (b) {
-                        articles.setArticleContent("默认文章内容");
-                                int i = articlesMapper.insert(articles);
-                        return R.ok();
+
+                        if (articles.getId() != 0) {//有id就是更新文章
+
+                            int i = articlesMapper.updateById(articles);
+                            return R.ok();
+                        } else {
+                            articles.setArticleContent("默认文章内容");
+                            int i = articlesMapper.insert(articles);
+                            return R.ok();
+                        }
+
+
+                    } else {
+                        return R.error().message("jwt令牌解析失败");
+                    }
+                }
+            }
+            return R.error().message("未携带目标cookie");
+        }
+    }
+
+    /***
+     * 根据发过来的id集合删除文章
+     * 需要验证cookies
+     */
+
+    @DeleteMapping("/deleteByIds")
+    public R deleteByIds(@RequestParam("id") List<Integer> ids, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return R.error().message("未携带cookie");
+        } else {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("accountToken")) {
+                    Boolean b = jwtHelper.parseJwt(cookie.getValue());
+                    if (b) {
+                        int count = 0;
+                        for (Integer id : ids) {
+                            articlesMapper.deleteById(id);
+                            count++;
+                        }
+                        if (count == ids.size())
+                            return R.ok();
+                        else
+                            return R.error().message("删除数据不完全");
+
+                    } else {
+                        return R.error().message("jwt令牌解析失败");
+                    }
+                }
+            }
+            return R.error().message("未携带目标cookie");
+        }
+    }
+
+
+    @PutMapping("saveArticleContent")
+    public R saveArticle(@RequestBody Articles articles, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        System.out.println(articles);
+        if (cookies == null) {
+            return R.error().message("未携带cookie");
+        } else {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("accountToken")) {
+                    System.out.println(cookie.getValue());
+                    Boolean b = jwtHelper.parseJwt(cookie.getValue());
+                    if (b) {
+//                        articles 保存文章 根据id
+                        int i = articlesMapper.updateById(articles);
+                        if(i==1){
+                            return R.ok();
+                        }else {
+                            return R.error().message("失败出错啦");
+                        }
+
                     } else {
                         return R.error().message("jwt令牌解析失败");
                     }

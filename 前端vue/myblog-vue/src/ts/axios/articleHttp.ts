@@ -22,7 +22,7 @@ export function getArticleById(id: number) {
     )
 }
 
-// 归档页面 或许文章的一些提示信息
+// 归档页面 文章的一些提示信息
 
 export function getAllInfo() {
     return http.get('/article/getAllInfo').then(
@@ -47,3 +47,27 @@ export function createArticle(article: any) {
         )
 }
 
+// 删除文章 传过去待删除id的集合
+export function deleteArticles(ids:[]) {
+    let strPath = ''
+    ids.forEach(item => {
+        strPath = strPath + "id=" + item + "&"
+    })
+    strPath = strPath.substring(0, strPath.length - 1)
+    // console.log(strPath);
+    
+    return axios.delete(`/api/article/deleteByIds?${strPath}`,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}
+
+// 保存文章 需要验证jwt
+export function saveArticleContent(article:any) {  
+    return axios.put('/api/article/saveArticleContent',article,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

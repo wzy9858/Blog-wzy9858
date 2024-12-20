@@ -3,13 +3,12 @@ package com.wzy.wzy9858blog;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wzy.mapper.AdministratorsMapper;
 import com.wzy.mapper.ArticlesMapper;
-import com.wzy.pojo.Administrators;
 import com.wzy.pojo.Articles;
+import com.wzy.util.IpUtil;
 import com.wzy.util.JwtHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -24,10 +23,20 @@ class Wzy9858BlogApplicationTests {
 
 	@Autowired
 	JwtHelper jwtHelper;
+
+
+
+
+
 	@Test
 	void contextLoads() {
-//		String jwt = jwtHelper.createJwt(666);
-//		jwtHelper.parseJwt(jwt);
+		try {
+			String ipInfo = IpUtil.getIpInfo("39.149.168.118");
+			System.out.println(ipInfo);
+		}catch (Exception e){
+
+		}
+
 	}
 
 

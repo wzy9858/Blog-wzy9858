@@ -71,6 +71,9 @@ public class Visitors implements Serializable {
      */
     private Integer isBlacklisted;
 
+    private String accessPath;
+
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
