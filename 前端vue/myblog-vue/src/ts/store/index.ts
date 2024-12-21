@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-export const articleList = defineStore('main', {
+export const accountPinia = defineStore('account', {
     state: () => {
         return {
-            info: "pinia 可以使用"
+            bio: ""
         }
     },
     getters: {},

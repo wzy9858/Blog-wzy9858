@@ -38,8 +38,8 @@ import { ElMessage } from 'element-plus'
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { getArticleById } from '../ts/axios/articleHttp';
-const inputTitle = ref('')
-const inputLabel = ref('')
+// const inputTitle = ref('')
+// const inputLabel = ref('')
 let route = useRoute();
 const text = ref('# Hello Editor');
 let article = ref({
@@ -50,7 +50,7 @@ import { saveArticleContent } from '../ts/axios/articleHttp';
 // 文章保存事件
 function handleSave() {
 
-    console.log("保存");
+    // console.log("保存");
     article.value.articleContent = text.value
     saveArticleContent(article.value).then(
         s => {

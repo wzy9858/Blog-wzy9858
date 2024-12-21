@@ -33,8 +33,26 @@
         <javax-xml-bind-version>2.3.1</javax-xml-bind-version>
         <jwt-version>0.9.1</jwt-version>
         <ip2region-version>2.7.0</ip2region-version>
+        <UserAgentUtils-version>1.21</UserAgentUtils-version>
     </properties>
     <dependencies>
+        <!--        解析用户代理的依赖-->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>${UserAgentUtils-version}</version>
+        </dependency>
+<!--邮件发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!--        Aop-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
 
         <!-- ip2region -->
@@ -92,10 +110,13 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
-
 </project>

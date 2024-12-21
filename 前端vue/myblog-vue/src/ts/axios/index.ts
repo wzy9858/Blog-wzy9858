@@ -1,8 +1,8 @@
 import axios from 'axios';
-
+import NProgress from 'nprogress';
 
 const http = axios.create({
-    baseURL: 'http://127.0.0.1:8080', // 设置基础URL
+    baseURL: 'http://139.9.114.22:8080', // 设置基础URL
     timeout: 5000, // 请求超时时间
 });
 
@@ -11,11 +11,13 @@ http.interceptors.request.use(
     // 设置请求头配置信息
     config => {
         config.headers.Accept = 'application/json, text/plain, text/html,*/*'
+        NProgress.start();
         return config
     },
     // 设置请求错误处理函数
     error => {
         // console.log("request error")
+        NProgress.done();
         return Promise.reject(error)
     }
 )

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 博客首页的文字描述区域 -->
-        <div class="description">
+        <div class="description animate__animated animate__rotateIn animate__delay-0.3s animate__faster animate__repeat-1 ">
             <div style="margin-bottom: 1rem;">
                 <div class="top-info">
                     <el-avatar :size="200" :src="head_img" />
@@ -43,11 +43,14 @@
 
             </div>
         </div>
+
         <div class="contain">
             <div class="items">
+                  <!-- <div class="animate__animated animate__zoomIn animate__delay-2s animate__slower animate__repeat-2"> -->
 
                 <!-- 下面 文章的每一个内容区域 -->
-                <div class="item" v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
+                <div v-animate-onscroll.repeat="{down: 'animated animate__bounceIn'}" class="item " v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
+     
                     <!-- 首页图片 -->
                     <div class="item-image">
                         <img v-if="item.homeDisplayImageUrl != ''" :src="item.homeDisplayImageUrl" alt="">
@@ -157,7 +160,7 @@ onMounted(
                 head_img.value = s.data.data.admin.avatarUrl
                 nickname.value = s.data.data.admin.nickname
                 // state.text = s.data.data.admin.bio
-                console.log(s);
+                // console.log(s);
             }
         ).catch()
     }

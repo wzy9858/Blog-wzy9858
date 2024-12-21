@@ -5,6 +5,12 @@
         <Header class="on-up"></Header>
         <RouterView />
     </div>
+
+
+    
+    <el-backtop :bottom="100">
+    <v-icon name="co-vertical-align-top" scale="1.8" />
+  </el-backtop>
 </template>
 
 <script setup>

@@ -6,9 +6,11 @@ spring:
       username: root
       password: kdyq1108
       driver-class-name: com.mysql.cj.jdbc.Driver
+
   jackson: #数据库涉及到时间
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -20,4 +22,8 @@ mybatis-plus:
 jwtHelper:
   key: wzy9858
   validTime: 1 #单位 小时
+
+  server:
+    use-forward-headers: true # 启用转发头
+    forwarded-headers-strategy: native # 使用原生的转发头策略
 

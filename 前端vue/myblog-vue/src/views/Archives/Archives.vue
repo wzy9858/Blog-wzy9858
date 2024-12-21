@@ -1,14 +1,14 @@
 <template>
-    <div class="archives-container">
-        <div style="width: 100%; height: 310px;display: flex;justify-content: center;align-items: center;">
+    <div class="archives-container ">
+        <div style="width: 100%; height: 310px;display: flex;justify-content: center;align-items: center;" class="animate__animated animate__zoomIn animate__delay-0.2s animate__faster animate__repeat-1">
             <span style="font-family: myfont1; font-size: 3rem">归档</span>
         </div>
 
-        <div class="timeline-container">
+        <div class="timeline-container animate__animated animate__rollIn animate__delay-0.2s animate__faster animate__repeat-1">
             <!-- 菜单切换 文章归档 开发日志 -->
-            <div>
+            <!-- <div>
 
-            </div>
+            </div> -->
 
             <!-- 一个菜单盒子 可以显示文章总数 -->
             <div class="title">
@@ -17,13 +17,13 @@
                     篇文章</span>
             </div>
 
-            <el-timeline style="max-width: 600px">
+            <el-timeline style="max-width: 600px;">
 
-                <el-timeline-item type="primary" timestamp="2018/4/12" placement="top"
+                <el-timeline-item type="primary" :timestamp="item.createdAt" placement="top"
                     v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
                     <el-card>
-                        <h4>{{ item.articleTitle }}</h4>
-                        <p> {{ item.createdAt }}</p>
+                        <h2>{{ item.articleTitle }}</h2>
+                        <!-- <p> {{ item.createdAt }}</p> -->
                     </el-card>
                 </el-timeline-item>
 

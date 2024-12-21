@@ -8,8 +8,10 @@ import Record from '../views/Record.vue';
 import ManageAccount from '../views/Manage/ManageAccount.vue';
 import ManageArticle from '../views/Manage/ManageArticle.vue';
 import ManageVisitor from '../views/Manage/ManageVisitor.vue';
-
+import EditAboutMe from '../views/EditAboutMe.vue';
 import EditArticle from '../views/EditArticle.vue';
+import NProgress from 'nprogress';
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -47,7 +49,19 @@ const router = createRouter({
   }, {
     path: '/edit',
     component: EditArticle,
+  },{
+    path: '/editAboutMe',
+    component:EditAboutMe
   }
+
   ],
 })
+router.beforeEach((to, from, next) => {
+  NProgress.start();
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
 export default router;

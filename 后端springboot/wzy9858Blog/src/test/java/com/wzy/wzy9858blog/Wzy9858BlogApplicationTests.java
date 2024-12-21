@@ -10,6 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -29,13 +33,19 @@ class Wzy9858BlogApplicationTests {
 
 
 	@Test
-	void contextLoads() {
-		try {
-			String ipInfo = IpUtil.getIpInfo("39.149.168.118");
-			System.out.println(ipInfo);
-		}catch (Exception e){
-
-		}
+	void contextLoads() throws IOException {
+		String ipInfo = IpUtil.getIpInfo("171.10.92.133");
+		System.out.println(ipInfo);
+//		LocalDateTime now = LocalDateTime.now();
+//
+//		// 定义时间格式
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//		// 格式化当前日期和时间
+//		String formattedDateTime = now.format(formatter);
+//
+//		// 输出当前日期和时间
+//		System.out.println("当前时间: " + formattedDateTime);
 
 	}
 

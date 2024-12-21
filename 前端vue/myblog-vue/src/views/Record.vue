@@ -2,7 +2,7 @@
     <div class="record-container">
 
         <!-- 顶部的卡片 -->
-        <div class="card-container">
+        <div class="card-container  animate__animated animate__zoomIn animate__delay-0.2s animate__faster animate__repeat-1">
             <div class="card-content" @click="textDace()">
                 <span v-for="item, index in text" :class='"oneword" + index'>{{ item }}</span>
                 <!-- 人生若只如初见，何事秋风悲画扇。 -->
@@ -10,9 +10,9 @@
         </div>
 
         <!-- 这是内容展示区域 -->
-        <div class="content-container">
+        <div class="content-container ">
 
-            <div class="content-item">
+            <div class="content-item animate__animated animate__zoomIn animate__delay-0.2s animate__faster animate__repeat-1">
 
                 <!-- 这个是头像极其签名部分 -->
                 <div class="profile">
@@ -27,16 +27,13 @@
                 </div>
 
                 <!-- 这个是内容区域 -->
+                <!-- 直接遍历这个 -->
                 <div class="text-container">
-
                     <MdPreview :id="id" :modelValue="state.text" :previewTheme="state.theme" />
-
-
                 </div>
 
                 <!-- 这个是底部按钮区域 -->
                 <div>
-
                 </div>
 
             </div>
@@ -56,7 +53,7 @@ import { MdPreview } from 'md-editor-v3';
 import 'md-editor-v3/lib/preview.css';
 const id = 'preview-only';
 const state = reactive({
-    text: '# Hello Editor \n## Hello World \n ### nihao \n #### 耳机 \n##### 大',
+    text: '# 正在开发中 \n## 最好用的功能',
     theme: 'mk-cute',
 });
 let text = '人生若只如初见'
@@ -109,6 +106,7 @@ onMounted(() => {
 }
 
 .content-container {
+    margin-bottom: 1.5rem;
     height: 100%;
     width: 100%;
     display: flex;

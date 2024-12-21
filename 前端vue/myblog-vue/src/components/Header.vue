@@ -467,6 +467,7 @@ onBeforeUnmount(() => {
 
 .item {
     margin-left: 40px;
+    color:black;
 
 }
 

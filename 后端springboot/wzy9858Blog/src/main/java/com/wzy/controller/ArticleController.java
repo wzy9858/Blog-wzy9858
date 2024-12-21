@@ -44,7 +44,7 @@ public class ArticleController {
      */
 
     @GetMapping("getList/{id}") //此方法在主页调用 根据页数查找
-    public R getList(@PathVariable Integer id) {//传过来页数
+    public R getList(@PathVariable Integer id,HttpServletRequest request) {//传过来页数
         //设置分页参数  第几页 页容量
         Page<Articles> page = new Page<>(id, 10);
         articlesMapper.selectPageVo(page, null);//这个id什么用处
@@ -59,7 +59,7 @@ public class ArticleController {
     }
 
     @GetMapping("/getAllInfo")
-    public R getAllInfo() {//此页面为归档页面调用  返回所有信息
+    public R getAllInfo(HttpServletRequest request) {//此页面为归档页面调用  返回所有信息
         List<Articles> allInfo = articlesMapper.getAllInfo();
         R ok = R.ok();
         ok.data("total", allInfo.size());
@@ -74,7 +74,7 @@ public class ArticleController {
      * 注意： 这里需要进行用户鉴权,因为有加密的文章
      */
     @GetMapping("/getArticleById/{id}")
-    public R getOneArticle(@PathVariable Integer id) {
+    public R getOneArticle(@PathVariable Integer id,HttpServletRequest request) {
 
         Articles one = articlesMapper.selectById(id);
         R ok = R.ok();

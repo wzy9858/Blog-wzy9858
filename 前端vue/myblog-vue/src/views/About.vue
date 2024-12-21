@@ -1,8 +1,8 @@
 <template>
-    <div class="about-container">
+    <div class="about-container animate__animated animate__zoomIn animate__delay-0.2s animate__faster animate__repeat-1">
 
         <!-- 上半部分 -->
-        <div class="about-top">
+        <div class="about-top ">
             <div class="top-info">
                 <el-avatar :size="200" :src="head_img" />
                   <span style="font-family: myfont1; font-size: 3rem">{{nickname}}</span>

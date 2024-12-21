@@ -45,4 +45,22 @@ public class JwtHelper {
             return false;
         }
     }
+
+    /**
+     * 根据jwt令牌 解析出来账号
+     * @param jwt
+     * @return
+     */
+    public  String praseAccount(String jwt){
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(key)
+                    .parseClaimsJws(jwt)
+                    .getBody();
+            String account = (String) claims.get("id"); //可以拿到自定义的载荷
+            return account;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

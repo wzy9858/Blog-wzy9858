@@ -66,6 +66,4 @@ public class Administrators implements Serializable {
 
     private Integer isSuperAdmin;
 
-
-
 }

@@ -1,7 +1,8 @@
 <template>
     <div class="article-container">
         <!-- 文章头部样式 -->
-        <div class="article-header">
+       
+        <div class="article-header ">
             <div style="padding-bottom: 1rem;">
                 <span style="font-size: 30px; font-family: myfont1;">
 

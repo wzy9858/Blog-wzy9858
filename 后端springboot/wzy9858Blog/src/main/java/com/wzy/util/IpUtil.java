@@ -5,8 +5,6 @@ import org.lionsoul.ip2region.xdb.Searcher;
 
 import java.io.*;
 
-import java.util.concurrent.TimeUnit;
-
 public class IpUtil {
     static final String dbPath = new String("src/main/resources/ip2region/ip2region.xdb");
     static Searcher searcher = null;

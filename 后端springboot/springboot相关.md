@@ -260,3 +260,103 @@ public class ResultCode {
 
 ## JWT的使用
 
+```java
+@Component
+public class JwtHelper {
+    @Value("${jwtHelper.key}")
+    private String key;
+    //创建jwt令牌解析jwt令牌
+    @Value("${jwtHelper.validTime}")
+    private Integer time;//单位小时
+
+
+    //根据id创建 jwt令牌
+    public String createJwt(String id) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", id);
+//        claims.put("value",value);
+        String jwt = Jwts.builder()
+                .signWith(SignatureAlgorithm.HS256, key)//签名算法
+                .setClaims(claims)//自定义内容(载荷)
+                .setExpiration(new Date(System.currentTimeMillis() + time * 3600 * 1000))//设置有效期为1*time h
+                .compact();
+        return jwt;
+    }
+
+//    传过来jwt令牌解析
+    public Boolean parseJwt(String jwt) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(key)
+                    .parseClaimsJws(jwt)
+                    .getBody();
+//            Integer o = (Integer) claims.get("id"); //可以拿到自定义的载荷
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}
+```
+
+```properties
+jwtHelper:
+  key: wzy9858
+  validTime: 1 #单位 小时
+```
+
+## Ip2Region的使用
+
+```xml
+<dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+            <version>2.7.0</version>
+</dependency>
+```
+
+需要下载ip2region.xdb放在resource/ip2region目录下
+
+```java
+public class IpUtil {
+    static final String dbPath = new String("src/main/resources/ip2region/ip2region.xdb");
+    static Searcher searcher = null;
+    public static String getIpInfo(String ip) throws IOException {
+        try {
+            searcher = Searcher.newWithFileOnly(dbPath);
+        } catch (IOException e) {
+            System.out.printf("failed to create searcher with `%s`: %s\n", dbPath, e);
+            return null;
+        }
+        try {
+            long sTime = System.nanoTime();
+            String region = searcher.search(ip);
+            return region;
+//            long cost = TimeUnit.NANOSECONDS.toMicros((long) (System.nanoTime() - sTime));
+//            System.out.printf("{region: %s, ioCount: %d, took: %d μs}\n", region, searcher.getIOCount(), cost);
+        } catch (Exception e) {
+            System.out.printf("failed to search(%s): %s\n", ip, e);
+        }
+        // 3、关闭资源
+        searcher.close();
+        return null;
+    }
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
+    }
+}
+```
+

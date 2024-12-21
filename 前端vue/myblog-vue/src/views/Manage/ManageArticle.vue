@@ -50,6 +50,7 @@
 
     <!-- 点击 -->
     <el-dialog v-model="handleClick" title="编辑" width="500" center>
+
         <div class="edit-container">
             <div style="padding: 0.5rem;">
                 <span style="padding: 0.5rem;">作者</span>
@@ -186,6 +187,7 @@ function saveArticle() {
     }
 }
 import { deleteArticles } from '../../ts/axios/articleHttp';
+
 function deleteArticle() {
     // deleteId 是一个集合包含了要删除的id
     if (deleteId.length == 0) {
@@ -232,6 +234,7 @@ function createArticleInfoBtn() {
     handleClick.value = true
 
     // router.push('/edit')
+
 }
 const inputTitle = ref('')
 let pagination = ref({
@@ -239,6 +242,7 @@ let pagination = ref({
     pageSize: 10, // 每页显示条目数
     currentPage: 1 // 当前页码
 });
+
 // 挂载的时候获取文章列表
 import { getArtilesList } from '../../ts/axios/articleHttp'
 

@@ -5,22 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "axios": "^1.7.9",
     "element-plus": "^2.8.8",
     "gsap": "^3.12.5",
     "md-editor-v3": "^5.0.2",
+    "nprogress": "^0.2.0",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.3.0",
     "vue": "^3.5.12",
     "vue-router": "^4.5.0",
+    "vue3-animate-onscroll": "^1.0.6",
     "vue3-cookies": "^1.0.6",
     "vue3-particles": "^1.43.1"
   },
   "devDependencies": {
+    "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^5.1.4",
     "typescript": "~5.6.2",
     "vite": "^5.4.10",
