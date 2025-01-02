@@ -1,13 +1,16 @@
 <template>
     <div>
         <!-- 博客首页的文字描述区域 -->
-        <div class="description animate__animated animate__rotateIn animate__delay-0.3s animate__faster animate__repeat-1 ">
+        <div  class="description animate__animated animate__rotateIn animate__delay-0.3s animate__faster animate__repeat-1 ">
             <div style="margin-bottom: 1rem;">
+                
                 <div class="top-info">
                     <el-avatar :size="200" :src="head_img" />
                     <span style="font-family: myfont1; font-size: 2rem;margin-top: 0.5rem;">{{ nickname }}</span>
                 </div>
+
             </div>
+
 
             <div class="typewriter">
                 {{ typedText }}
@@ -28,13 +31,13 @@
                     <!-- <h1>运行天数</h1> -->
                 </div class="tip-item">
 
-                <div class="tip-item" @click="vistiorNum()">
+                <div  class="tip-item" @click="vistiorNum()">
                     <!-- PiRhydon -->
                     <!-- <h1>访客数量</h1> -->
                     <v-icon class="vistiorNum" name="pi-rhydon" scale="2" />
                 </div>
 
-                <div class="tip-item" @click="addOne()">
+                <div class="tip-item" @click="addOne()"  >
                     <!-- GiRocketThruster -->
                     <v-icon class="addOne" name="gi-rocket-thruster" scale="2" />
 
@@ -223,7 +226,9 @@ function vistiorNum() {
 }
 
 let addOneNum = 1;
+
 function addOne() {
+    
     const tl = gsap.timeline();
     tl.to(".addOne", { x: -15, y: 15, duration: 0.5, ease: "power1.inOut" })
         .to(".addOne", { x: 20, y: -20, duration: 1, ease: "bounce" })
