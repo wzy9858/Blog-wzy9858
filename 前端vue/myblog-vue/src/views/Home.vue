@@ -3,12 +3,10 @@
         <!-- 博客首页的文字描述区域 -->
         <div  class="description animate__animated animate__rotateIn animate__delay-0.3s animate__faster animate__repeat-1 ">
             <div style="margin-bottom: 1rem;">
-                
                 <div class="top-info">
                     <el-avatar :size="200" :src="head_img" />
                     <span style="font-family: myfont1; font-size: 2rem;margin-top: 0.5rem;">{{ nickname }}</span>
                 </div>
-
             </div>
 
 
