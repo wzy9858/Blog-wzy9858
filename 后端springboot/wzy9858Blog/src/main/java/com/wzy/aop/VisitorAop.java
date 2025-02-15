@@ -47,7 +47,9 @@ public class VisitorAop {
     @Before(value = "execution(public * com.wzy.controller.*.*(..)) && args(.., request)")
     public void visitorApi(JoinPoint joinPoint, HttpServletRequest request) throws IOException {
         String url = request.getRequestURL().toString();//访问路径
+
         String ipAddr = IpUtil.getIpAddr(request);//ip地址
+
         //获取浏览器信息
         String ua = request.getHeader("User-Agent");
         //转成UserAgent对象

@@ -34,7 +34,7 @@ class Wzy9858BlogApplicationTests {
 
 	@Test
 	void contextLoads() throws IOException {
-		String ipInfo = IpUtil.getIpInfo("171.10.92.133");
+		String ipInfo = IpUtil.getIpInfo("171.10.178.203");
 		System.out.println(ipInfo);
 //		LocalDateTime now = LocalDateTime.now();
 //
