@@ -11,6 +11,7 @@ import ManageVisitor from '../views/Manage/ManageVisitor.vue';
 import EditAboutMe from '../views/EditAboutMe.vue';
 import EditArticle from '../views/EditArticle.vue';
 import NProgress from 'nprogress';
+import AI from '../views/AI.vue';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -36,7 +37,8 @@ const router = createRouter({
     component: About,
   }, {
     path: '/record',
-    component: Record,
+    // component: Record,
+    component: AI,
   }, {
     path: '/accountManage',
     component: ManageAccount,
