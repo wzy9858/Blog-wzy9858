@@ -49,8 +49,8 @@ window.addEventListener('beforeunload', function (event) {
 const options = {
     background: {
         color: {
-            // value: '#0d47a1',
             value: 'aliceblue;',
+
         },
         // image: './image/2.jpg',
         // image: "url('~/image/2.jpg')",
@@ -142,6 +142,8 @@ const options = {
     position: relative;
     z-index: 0;
     /* 容器的z-index设置为0 */
+
+    /* background: linear-gradient(to right,#ff7e5f,#feb47b); 渐变背景 */
 }
 
 .particle {

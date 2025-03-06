@@ -3,7 +3,7 @@ import About from '../views/About.vue';
 import Home from '../views/Home.vue';
 import Article from '../views/Article.vue';
 import Archives from '../views/Archives/Archives.vue';
-import Record from '../views/Record.vue';
+// import Record from '../views/Record.vue';
 
 import ManageAccount from '../views/Manage/ManageAccount.vue';
 import ManageArticle from '../views/Manage/ManageArticle.vue';
@@ -12,7 +12,7 @@ import EditAboutMe from '../views/EditAboutMe.vue';
 import EditArticle from '../views/EditArticle.vue';
 import NProgress from 'nprogress';
 import AI from '../views/AI.vue';
-
+import test from '../components/test.vue';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -54,6 +54,9 @@ const router = createRouter({
   },{
     path: '/editAboutMe',
     component:EditAboutMe
+  },{
+    path: '/test',
+    component:test
   }
 
   ],

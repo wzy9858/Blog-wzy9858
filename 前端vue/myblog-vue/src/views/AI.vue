@@ -1,23 +1,23 @@
 <template>
   <div class="ai-container">
-    
-    <div class="chat-window">
-      <div class="chat-box">
-        <div v-for="(msg, index) in chatHistory" :key="index" :class="msg.role === 'user' ? 'message-right' : 'message-left'">
-          <div class="name">
-            <span>{{ msg.role === 'user' ? '用户' : 'AI' }}</span>
-          </div>
-          <div class="chat_message">
-            {{ msg.content }}
-          </div>
+    <h1 style="margin-bottom: 20px; margin-top: 20px;">AI小助手</h1>
+    <div class="chat-container">
+      <div v-for="(message, index) in messages" :key="index"
+        :class="message.align === 'left' ? 'message-left' : 'message-right'">
+        <div class="name">
+          <span>{{ message.name }} {{ message.time }} </span>
+        </div>
+        <div class="chat_message">
+          {{ message.text }}
         </div>
       </div>
+
+      <div v-if="loading" class="loading">加载中...</div>
 
       <div class="input-box">
         <textarea v-model="userInput" placeholder="输入你的问题"></textarea>
         <button @click="sendMessage">发送</button>
       </div>
-      
     </div>
   </div>
 </template>
@@ -26,21 +26,50 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
+const messages = ref([
+  {
+    text: "你好！我是一个 AI 助手，可以帮助你解决问题、提供建议、回答问题或协助你完成各种任务。我能够处理各种主题，包括学习、工作、娱乐、日常生活相关的问题，还能进行聊天，随时陪你沟通。 无论是查找信息、写文章、翻译、数学计算，或者提供技术支持，我都可以帮忙！如果有任何问题或者需要帮助的地方，请随时告诉我！😊",
+    align: "left", name: "AI", time: new Date().toLocaleTimeString()
+  },
+  // { text: "你好！", align: "right", name: "丽丝", time: "19:21" },
+  // { text: "如何才能帮助您？", align: "left", name: "王阳阳", time: "21:26" },
+  // {
+  //   text: "我需要帮助进行Vue.js开发我需要帮助进行Vue.js开发我需要帮助进行Vue.js开发我需要帮助进行Vue.js开发",
+  //   align: "right",
+  //   name: "丽丝",
+  //   time: "22:37"
+  // }
+]);
 const userInput = ref('');
-const response = ref(null);
-const chatHistory = ref([]);
+const loading = ref(false);
 
 const sendMessage = async () => {
   console.log('Sending message:', userInput.value); // 调试信息
-  chatHistory.value.push({ role: 'user', content: userInput.value });
+
+  if (userInput.value.trim() !== '') {
+    messages.value.push({
+      text: userInput.value,
+      align: 'right',
+      name: '用户',
+      time: new Date().toLocaleTimeString()
+    });
+  }
+  userInput.value = '';
+  loading.value = true;
+
   try {
+    const formattedMessages = messages.value.map(msg => ({
+      role: msg.align === 'right' ? 'user' : 'assistant',
+      content: msg.text
+    }));
+
     const result = await axios.post('https://models.inference.ai.azure.com/chat/completions', {
       messages: [
         {
           role: 'system',
-          content: 'You are a helpful assistant.',
+          content: 'You are a helpful assistant.',  // 发送的信息
         },
-        ...chatHistory.value,
+        ...formattedMessages,  // 历史记录
       ],
       model: 'gpt-4o',
     }, {
@@ -49,20 +78,28 @@ const sendMessage = async () => {
         'Authorization': `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`, // 替换为你的 API Key
       },
     });
+
     console.log('Response received:', result.data); // 调试信息
     const aiResponse = result.data.choices[0].message.content.trim();
-    chatHistory.value.push({ role: 'assistant', content: aiResponse });
-    response.value = aiResponse;
+
+    messages.value.push({
+      text: aiResponse,
+      align: 'left',
+      name: 'AI',
+      time: new Date().toLocaleTimeString()
+    });
+
   } catch (error) {
     console.error('Error sending message:', error);
+  } finally {
+    loading.value = false;
   }
-  userInput.value = '';
 };
 </script>
 
 <style scoped>
 .ai-container {
-  padding-top: 20px;
+  padding-top: 80px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -71,31 +108,34 @@ const sendMessage = async () => {
   flex-direction: column;
 }
 
-.chat-window {
-  width: 60%;
-  height: 80%;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+.chat-container {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  background: #ffffff;
+  border: 1px solid #e4e7ed;
+  border-radius: 3px;
+  padding: 16px;
 }
 
-.chat-box {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 20px;
+.name {
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  font-size: 12px;
+  color: #909399;
+  margin-bottom: 6px;
 }
 
-.chat-message {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  max-width: 70%;
+.chat_message {
+  padding: 6px 12px;
+  background: #f8f8f9;
+  border-radius: 4px;
+  margin-bottom: 15px;
   word-wrap: break-word;
-  display: inline-block;
+  font-weight: 400;
+  font-size: 14px;
+  color: #303133;
 }
 
 .message-left {
@@ -104,16 +144,11 @@ const sendMessage = async () => {
 }
 
 .message-left .chat_message {
-  background-color: #f1f1f1;
+  background-color: #f8f8f9;
 }
 
 .message-left .name {
   align-self: flex-start;
-  font-family: PingFangSC-Regular;
-  font-weight: 400;
-  font-size: 12px;
-  color: #909399;
-  margin-bottom: 6px;
 }
 
 .message-right {
@@ -124,33 +159,29 @@ const sendMessage = async () => {
 }
 
 .message-right .chat_message {
-  background-color: #007bff;
-  color: white;
+  background-color: #ebf3ff;
 }
 
 .message-right .name {
   align-self: flex-end;
-  font-family: PingFangSC-Regular;
-  font-weight: 400;
-  font-size: 12px;
-  color: #909399;
-  margin-bottom: 6px;
 }
 
 .input-box {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 textarea {
   width: 100%;
   height: 100px;
   margin-bottom: 10px;
+  resize: none;
 }
 
 button {
-  align-self: flex-end;
-  padding: 10px 20px;
+  width: 100%;
+  padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -160,5 +191,36 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.loading {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #007bff;
+}
+
+/* 添加媒体查询以适应手机端 */
+@media (max-width: 600px) {
+  .chat-container {
+    width: 90%;
+    padding: 8px;
+  }
+
+  .chat_message {
+    font-size: 12px;
+  }
+
+  .name {
+    font-size: 10px;
+  }
+
+  textarea {
+    height: 80px;
+  }
+
+  button {
+    padding: 8px;
+  }
 }
 </style>

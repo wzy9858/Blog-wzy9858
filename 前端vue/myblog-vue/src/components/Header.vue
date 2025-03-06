@@ -17,12 +17,12 @@
                 </RouterLink>
 
                 <RouterLink to="/record" class="center-all item">
-                    <v-icon class="archive" name="bi-battery-full" scale="1.8" />
-                    <span style="font-size: 1.3rem;"> 记录 </span>
+                    <v-icon class="archive" name="co-airbnb" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> AI助手 </span>
                 </RouterLink>
 
                 <RouterLink to="/about" class="center-all item">
-                    <v-icon class="archive" name="co-about-me" scale="1.8" />
+                    <v-icon class="archive" name="md-personsearch-outlined" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </RouterLink>
             </ul>
@@ -53,7 +53,11 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
+                        <el-dropdown-item @click="computer_articleManage">文章管理</el-dropdown-item>
+                        <el-dropdown-item @click="computer_visitorManage">访客管理</el-dropdown-item>
+                        <el-dropdown-item @click="computer_accountManage">账号管理</el-dropdown-item>
                         <el-dropdown-item @click="quitlogin">退出登录</el-dropdown-item>
+
                         <!-- <el-dropdown-item>Action 2</el-dropdown-item>
                         <el-dropdown-item>Action 3</el-dropdown-item>
                         <el-dropdown-item disabled>Action 4</el-dropdown-item>
@@ -99,13 +103,13 @@
                 </div>
 
                 <div class="side-menu-item" @click="btn_record()">
-                    <v-icon class="archive" name="bi-battery-full" scale="1.8" />
-                    <span style="font-size: 1.3rem;"> 记录 </span>
+                    <v-icon class="archive" name="co-airbnb" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> AI助手 </span>
                 </div>
 
                 <div class="side-menu-item" @click="btn_about()">
                     <!-- CoAboutMe -->
-                    <v-icon class="archive" name="co-about-me" scale="1.8" />
+                    <v-icon class="archive" name="md-personsearch-outlined" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </div>
 
@@ -177,9 +181,20 @@
                     </el-tab-pane>
 
                     <el-tab-pane label="注册" name="second" style="width: 100%;">
-                        <div style="font-family: myfont1; margin: 2rem;">
-                            注册功能暂未开放,请联系管理员拿取账号!
-                        </div>
+                        <el-form style="max-width: 600px;width: 100%;" label-width="auto">
+                            <el-form-item style="width: 100%;">
+                                <el-input class="input-width" v-model="inputUserName" placeholder="请输入邮箱" />
+                            </el-form-item>
+
+                            <el-form-item>
+                                <el-input v-model="inputPassWord" placeholder="请输入密码" type="password" />
+                            </el-form-item>
+
+                            <div class="center-all" style="width: 100%;">
+                                <el-button type="primary" style="width: 100%;" @click="accountSignUp">注册</el-button>
+                            </div>
+
+                        </el-form>
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -220,6 +235,12 @@ onMounted(() => {
 
     }
 })
+// 账号注册函数
+function accountSignUp() {
+    console.log(inputUserName.value, inputPassWord.value);
+    ElMessage.success("注册成功")
+}
+
 
 function accountLogin() {
 
@@ -250,6 +271,18 @@ function quitlogin() {
     cookies.remove("accountToken")
     window.location.reload();
 }
+
+// 电脑端 登录成功后文章 访客 账号管理的点击事件
+function computer_articleManage() {
+    router.push('/articleManage')
+}
+function computer_visitorManage() {
+    router.push('/visitorManage')
+}
+function computer_accountManage() {
+    router.push('/accountManage')
+}
+
 
 let activeName = ref('first')
 let router = useRouter()

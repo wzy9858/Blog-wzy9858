@@ -8,7 +8,8 @@ import {
      FaFlag, RiZhihuFill, FaHome, BiBatteryFull,
      RiMenuFoldFill, PxSortNumeric, PiCharizardShiny,
      PxLabelAltMultiple, GiCampfire, IoTimeOutline, PiRhydon,
-     GiRocketThruster, PxArchive, CoAboutMe, HiLogin, IoSettingsOutline,CoVerticalAlignTop
+     GiRocketThruster, PxArchive, MdPersonsearchOutlined, HiLogin, IoSettingsOutline,CoVerticalAlignTop,
+     CoAirbnb
 } from "oh-vue-icons/icons";
 import './assets/fonts/text.css'
 
@@ -19,7 +20,8 @@ import router from './router/index.ts';
 
 import { createPinia } from 'pinia';
 import VueCookies from 'vue3-cookies';
-addIcons(FaFlag, GiRocketThruster, CoAboutMe, CoVerticalAlignTop,HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill, PxSortNumeric);
+addIcons(FaFlag, GiRocketThruster, MdPersonsearchOutlined, CoVerticalAlignTop,HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill,
+      PxSortNumeric,CoAirbnb);
 
 // 加载进度条动画
 import NProgress from 'nprogress';
