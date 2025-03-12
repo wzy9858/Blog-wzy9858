@@ -18,6 +18,8 @@ public interface ArticlesMapper extends BaseMapper<Articles> {
     IPage<Articles> selectPageVo(IPage<?> page, Integer id);
 
     List<Articles> getAllInfo();
+
+
 }
 
 

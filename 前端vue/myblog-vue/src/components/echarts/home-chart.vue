@@ -5,20 +5,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'; // 从 Vue 中导入 ref 和 onMounted 函数
 import * as echarts from 'echarts'; // 导入 ECharts 库
+import axios from 'axios'; // 导入 axios 库
 
 const chart = ref(null); // 创建一个 ref，用于引用图表容器
 
 // 初始化图表的函数
-const initChart = () => {
+const initChart = (data) => {
   const chartDom = chart.value; // 获取图表容器的 DOM 元素
   const myChart = echarts.init(chartDom); // 初始化 ECharts 实例
   const option = {
     title: {
-      text: '示例饼图', // 图表标题
-      subtext: '副标题',
+      text: '标签', // 图表标题
+      subtext: '文章标签比例分布',
       left: 'center', // 标题居中
       top: '50px' 
-    //   show: false
     },
     tooltip: {
       trigger: 'item' // 提示框触发类型，'item' 表示数据项触发
@@ -30,16 +30,10 @@ const initChart = () => {
     },
     series: [
       {
-        name: '访问来源', // 系列名称
+        name: '标签名', // 系列名称
         type: 'pie', // 图表类型为饼图
         radius: '80%', // 饼图的半径
-        data: [
-          { value: 1048, name: '搜索引擎' }, // 数据项
-          { value: 735, name: '直接访问' },
-          { value: 580, name: '邮件营销' },
-          { value: 484, name: '联盟广告' },
-          { value: 300, name: '视频广告' }
-        ],
+        data: data, // 使用请求获得的数据
         emphasis: {
           itemStyle: {
             shadowBlur: 10, // 高亮状态下的阴影模糊大小
@@ -58,10 +52,23 @@ const initChart = () => {
   };
   myChart.setOption(option); // 使用指定的配置项和数据显示图表
 };
+import {getHomePanelData} from '../../ts/axios/articleHttp.ts'
+getHomePanelData().then(
+  s => {
+    console.log(s);
+    const data = s.data
+    initChart(data);
 
-// 在组件挂载后初始化图表
+  }
+).catch(
+  e =>{
+   console.error('获取数据失败:', error);
+  }
+)
+// 在组件挂载后获取数据并初始化图表
 onMounted(() => {
-  initChart();
+
+  getHomePanelData();
 });
 </script>
 

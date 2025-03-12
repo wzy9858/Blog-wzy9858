@@ -15,10 +15,10 @@
     </div>
 
     <!-- 改成超链接形式 -->
-     <div class="app-link-container">
+    <div class="app-link-container">
 
 
-     </div>
+    </div>
 
 
     <!-- 博客功能描述区域 访问量 运行天数 文章数量  已经改成超连接形式-->
@@ -44,11 +44,18 @@
     </div> -->
 
 
+    <!-- 放一些超链接-快捷键 -->
+    <div class="top-container">
+      <Home_Top />
+    </div>
+
+
 
 
     <div class="contain">
       <div class="items">
-        <div v-animate-onscroll.repeat="{down: 'animated animate__bounceIn'}" class="item" v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
+        <div v-animate-onscroll.repeat="{ down: 'animated animate__bounceIn' }" class="item"
+          v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
           <div class="item-image">
             <img v-if="item.homeDisplayImageUrl != ''" :src="item.homeDisplayImageUrl" alt="">
             <img v-else src="../assets/img/img_load_fail.png" alt="">
@@ -75,7 +82,8 @@
         </div>
 
         <div class="split-page">
-          <el-pagination background layout="prev, pager, next" :total="pagination.total" :page-size="pagination.pageSize" @current-change="changePage" />
+          <el-pagination background layout="prev, pager, next" :total="pagination.total"
+            :page-size="pagination.pageSize" @current-change="changePage" />
         </div>
       </div>
 
@@ -94,6 +102,7 @@
 </template>
 
 <script setup>
+import Home_Top from '../components/Home_Top.vue';
 import homeChart from '../components/echarts/home-chart.vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
@@ -222,6 +231,25 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+/* 顶部的div */
+
+.top-container {
+  background-color: rgb(29, 124, 172);
+  /* height: 20px; */
+  display: flex;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 30px;
+
+  /* border-radius: 6rem; */
+
+  flex-wrap: wrap;
+}
+
+
+
+
+
 /* 针对桌面电脑 */
 @media only screen and (min-width: 767px) {
   .split-page {
@@ -450,10 +478,12 @@ onBeforeUnmount(() => {
 
 /* 光标闪烁动画 */
 @keyframes blink-caret {
+
   from,
   to {
     border-color: transparent
   }
+
   50% {
     border-color: black
   }

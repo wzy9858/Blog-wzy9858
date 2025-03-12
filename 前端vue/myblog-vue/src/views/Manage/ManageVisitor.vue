@@ -12,7 +12,7 @@
         <div class="table">
             <el-table :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="28" />
-                <el-table-column fixed prop="visitorId" label="id" width="40" />
+                <el-table-column fixed prop="visitorId" label="id" width="49" />
                 <el-table-column prop="visitorNotes" label="访客备注" width="120" />
                 <el-table-column prop="ipAddress" label="ip" width="90" />
                 <el-table-column prop="geoLocation" label="地理位置" width="120" />

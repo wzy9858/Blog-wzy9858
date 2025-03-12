@@ -9,7 +9,7 @@ import {
      RiMenuFoldFill, PxSortNumeric, PiCharizardShiny,
      PxLabelAltMultiple, GiCampfire, IoTimeOutline, PiRhydon,
      GiRocketThruster, PxArchive, MdPersonsearchOutlined, HiLogin, IoSettingsOutline,CoVerticalAlignTop,
-     CoAirbnb
+     CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,HiUserGroup
 } from "oh-vue-icons/icons";
 import './assets/fonts/text.css'
 
@@ -21,7 +21,10 @@ import router from './router/index.ts';
 import { createPinia } from 'pinia';
 import VueCookies from 'vue3-cookies';
 addIcons(FaFlag, GiRocketThruster, MdPersonsearchOutlined, CoVerticalAlignTop,HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill,
-      PxSortNumeric,CoAirbnb);
+      PxSortNumeric,CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,
+      HiUserGroup
+
+     );
 
 // 加载进度条动画
 import NProgress from 'nprogress';

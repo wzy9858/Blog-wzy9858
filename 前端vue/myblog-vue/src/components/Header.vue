@@ -56,6 +56,7 @@
                         <el-dropdown-item @click="computer_articleManage">文章管理</el-dropdown-item>
                         <el-dropdown-item @click="computer_visitorManage">访客管理</el-dropdown-item>
                         <el-dropdown-item @click="computer_accountManage">账号管理</el-dropdown-item>
+                        <el-dropdown-item @click="computer_panel">仪表盘</el-dropdown-item>
                         <el-dropdown-item @click="quitlogin">退出登录</el-dropdown-item>
 
                         <!-- <el-dropdown-item>Action 2</el-dropdown-item>
@@ -191,7 +192,7 @@
                             </el-form-item>
 
                             <div class="center-all" style="width: 100%;">
-                                <el-button type="primary" style="width: 100%;" @click="accountSignUp">注册</el-button>
+                                <el-button type="success" style="width: 100%;" @click="accountSignUp">注册</el-button>
                             </div>
 
                         </el-form>
@@ -235,10 +236,22 @@ onMounted(() => {
 
     }
 })
+import { ElNotification } from 'element-plus'
 // 账号注册函数
 function accountSignUp() {
     console.log(inputUserName.value, inputPassWord.value);
-    ElMessage.success("注册成功")
+    // ElNotification({
+    //     title: '成功',
+    //     message: '注册成功啦',
+    //     type: 'success',
+    // })
+
+    ElNotification({
+        title: '失败',
+        message: '😭注册功能暂未开放',
+        type: 'error',
+    })
+
 }
 
 
@@ -249,13 +262,21 @@ function accountLogin() {
             console.log(s);
             if (s.data.code != 404) {
                 dialogVisible.value = false//登录成功关闭对话框
-                ElMessage.success("登录成功")
+
+               
+                ElMessage.success("✨登录成功啦✨")
                 head_img.value = s.data.data.avatarUrl
                 nickname.value = s.data.data.nickname
                 cookies.set("accountToken", s.data.data.token, '1h')
                 window.location.reload();
             } else {
-                ElMessage.error("账号或密码错误")
+                // ElMessage.error("账号或密码错误")
+
+                ElNotification({
+                    title: '错误',
+                    message: '☠️账号或密码错误',
+                    type: 'error',
+                })
             }
         }
     ).catch(
@@ -269,6 +290,13 @@ function accountLogin() {
 // 注销登录的方法
 function quitlogin() {
     cookies.remove("accountToken")
+ 
+    router.push('/home')
+
+    setTimeout(() => {
+      console.log("休眠 2 秒后执行");
+    }, 3000);
+
     window.location.reload();
 }
 
@@ -281,6 +309,9 @@ function computer_visitorManage() {
 }
 function computer_accountManage() {
     router.push('/accountManage')
+}
+function computer_panel() {
+    router.push('/panel')
 }
 
 
@@ -500,7 +531,7 @@ onBeforeUnmount(() => {
 
 .item {
     margin-left: 40px;
-    color:black;
+    color: black;
 
 }
 

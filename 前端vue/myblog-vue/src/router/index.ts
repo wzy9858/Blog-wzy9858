@@ -5,6 +5,7 @@ import Article from '../views/Article.vue';
 import Archives from '../views/Archives/Archives.vue';
 // import Record from '../views/Record.vue';
 
+import Panel from '../views/echarts/Panel.vue';
 import ManageAccount from '../views/Manage/ManageAccount.vue';
 import ManageArticle from '../views/Manage/ManageArticle.vue';
 import ManageVisitor from '../views/Manage/ManageVisitor.vue';
@@ -27,6 +28,9 @@ const router = createRouter({
 
     // ]
   }, {
+    path: '/home',
+    component: Home,
+  },{
     path: '/article',
     component: Article,
   }, {
@@ -57,7 +61,11 @@ const router = createRouter({
   },{
     path: '/test',
     component:test
+  },{
+    path: '/panel',
+    component:Panel
   }
+
 
   ],
 })

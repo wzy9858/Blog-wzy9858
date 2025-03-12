@@ -50,3 +50,18 @@ export function saveVisitorNote(visitor:any){
         e => { throw e }
     )
 }
+
+
+// ----------------------------------
+// 比赛专用接口
+
+
+// 仪表盘 上方的访客数量和日期   http://localhost:8080/complete/panelVisitornumAndDate
+export function getVisitorDateAndNum(){
+    return axios.get('/api/complete/panelVisitornumAndDate',
+        { withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

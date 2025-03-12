@@ -3,6 +3,7 @@
 }
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* 上下左右对齐 */

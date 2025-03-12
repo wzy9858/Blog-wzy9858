@@ -71,3 +71,17 @@ export function saveArticleContent(article:any) {
         e => { throw e }
     )
 }
+
+
+
+
+// 比赛特用接口 ---------------------------------------
+// 首页饼图 数据获取
+
+export function getHomePanelData(){
+    return http.get('/complete/homePanelData').then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

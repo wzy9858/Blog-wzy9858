@@ -36,7 +36,7 @@ public class AdministratorController {
      * <p>
      * 包括  昵称 简介 头像地址  电子邮箱
      * <p>
-     * sql语句应该通过是否超级远管理员进行筛选
+     * sql语句应该通过是否超级远管理员进行筛选  ==1的
      */
     @GetMapping("/getSuperInfo")
     public R getSUperInfo() {
@@ -109,6 +109,7 @@ public class AdministratorController {
 
     /**
      * 删除账号 根据传过来的ids
+     *
      */
     @DeleteMapping("deleteByIds")
     public R deleteByIds(@RequestParam("id") List<String> ids, HttpServletRequest request) {
