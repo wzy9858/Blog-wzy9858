@@ -8,12 +8,12 @@ import com.wzy.mapper.ArticlesMapper;
 import com.wzy.mapper.VisitorsMapper;
 import com.wzy.pojo.Articles;
 import com.wzy.pojo.Visitors;
+import com.wzy.util.IpUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +96,14 @@ public class CompleteInterController {
         return list;
 
 
+    }
+
+//    访问这个接口就返回ip及对应的地址
+    @GetMapping("getIpAndAdress")
+    public String getIpAndAdress( HttpServletRequest request) throws IOException {
+        String ipAddr = IpUtil.getIpAddr(request);//ip地址
+        String ipInfo = IpUtil.getIpInfo(ipAddr);//得到城市信息
+        return ipAddr+"\n"+ipInfo;
     }
 
 
