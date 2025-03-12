@@ -65,3 +65,13 @@ export function getVisitorDateAndNum(){
         e => { throw e }
     )
 }
+
+export function getPanelPopularityRankings(){
+    //http://localhost:8080/complete/panelPopularityRankings
+    return axios.get('/api/complete/panelPopularityRankings',
+        { withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

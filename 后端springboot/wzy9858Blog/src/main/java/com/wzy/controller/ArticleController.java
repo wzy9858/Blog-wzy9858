@@ -1,10 +1,12 @@
 package com.wzy.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wzy.mapper.ArticlesMapper;
 import com.wzy.pojo.Articles;
-import com.wzy.service.ArticlesService;
+
 import com.wzy.util.JwtHelper;
 import com.wzy.util.R;
 import jakarta.servlet.http.Cookie;
@@ -43,7 +45,7 @@ public class ArticleController {
      * 按照置顶数值进行排序
      */
 
-    @GetMapping("getList/{id}") //此方法在主页调用 根据页数查找
+    @GetMapping("getList/{id}")  //此方法在主页调用 根据页数查找
     public R getList(@PathVariable Integer id,HttpServletRequest request) {//传过来页数
         //设置分页参数  第几页 页容量
         Page<Articles> page = new Page<>(id, 10);
@@ -79,6 +81,17 @@ public class ArticleController {
         Articles one = articlesMapper.selectById(id);
         R ok = R.ok();
         ok.data("article", one);
+
+
+//        访问这篇文章成功之后, 热度+1
+// update articles set popularity = popularity+1 where id = 16;
+
+
+        LambdaUpdateWrapper<Articles> lambdaUpdate = new LambdaUpdateWrapper<>();
+        lambdaUpdate
+                .setSql("popularity = popularity + 1")
+                .eq(Articles::getId, id);
+        articlesMapper.update(null, lambdaUpdate);
 
 
         return ok;

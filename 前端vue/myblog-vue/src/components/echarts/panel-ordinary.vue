@@ -3,39 +3,77 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
-import {getVisitorDateAndNum} from '../../ts/axios/visitorHttp.ts';
+import { getPanelPopularityRankings } from '../../ts/axios/visitorHttp.ts';
+
+const xAxisData = ref([]);
+const seriesData = ref([]);
 
 onMounted(() => {
   var chartDom = document.getElementById('main-left');
   var myChart = echarts.init(chartDom);
   var option = {
     title: {
-      text: '文章热度统计'
+      text: '文章热度排行'
     },
     tooltip: {},
     legend: {
-      data: ['分类']
+      data: ['热度']
     },
     xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+      type: 'category',
+      data: xAxisData.value
     },
-    yAxis: {},
+    yAxis: {
+      type: 'value'
+    },
     series: [
       {
-        name: '分类',
+        name: '热度',
         type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
+        data: seriesData.value
       }
     ]
   };
   myChart.setOption(option);
+
+  getPanelPopularityRankings().then(res => {
+
+    console.log('-----res----');
+    
+    console.log(res.data[0].title);
+    for (let i = 0; i < res.data.length; i++) {
+      xAxisData.value.push(res.data[i].title);
+      seriesData.value.push(res.data[i].popularition);
+    }
+
+    console.log(res.data[0].popularition);
+    
+    
+
+    // xAxisData.value = ['1','2']
+    // seriesData.value = ['222','444'];
+
+      
+    myChart.setOption({
+      xAxis: {
+        data: xAxisData.value
+      },
+      series: [
+        {
+          name: '热度',
+          type: 'bar',
+          data: seriesData.value
+        }
+      ]
+    });
+  });
 });
 </script>
 
 <style scoped>
-#main {
+#main-left {
   width: 100%;
   height: 400px;
 }

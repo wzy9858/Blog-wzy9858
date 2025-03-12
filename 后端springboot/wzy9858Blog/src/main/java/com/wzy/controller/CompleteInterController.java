@@ -6,6 +6,7 @@ package com.wzy.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wzy.mapper.ArticlesMapper;
 import com.wzy.mapper.VisitorsMapper;
+import com.wzy.pojo.Articles;
 import com.wzy.pojo.Visitors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -64,11 +65,37 @@ public class CompleteInterController {
         List<Map<String, Object>> list = visitorsMapper.selectMaps(queryWrapper);
 
         System.out.println("--------");
+
         for (Map<String, Object> map : list) {
             System.out.println("访问日期: " + map.get("访问日期") + ", 访问量: " + map.get("访问量"));
         }
 
         return list;
+    }
+
+
+    //    文章热度统计仪表盘 获取热度最高的几组数据
+    @GetMapping("/panelPopularityRankings")
+    public List<Map<String, Object>>  getPopularityRankings(){
+// SELECT article_title,popularity FROM articles ORDER BY popularity DESC LIMIT 10;
+
+        QueryWrapper<Articles> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .select("article_title as title", "popularity as popularition")  // 指定查询字段
+                .orderByDesc("popularity")              // 按 popularity 降序
+                .last("LIMIT 10");                      // 限制 10 条
+
+
+        System.out.println("-----------");
+
+        List<Map<String, Object>> list = articlesMapper.selectMaps(queryWrapper);
+//        List<Map<String, Object>> list = visitorsMapper.selectMaps(queryWrapper);
+//        System.out.println(list);
+        System.out.println("------");
+
+        return list;
+
+
     }
 
 
