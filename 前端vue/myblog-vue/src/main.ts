@@ -9,19 +9,21 @@ import {
      RiMenuFoldFill, PxSortNumeric, PiCharizardShiny,
      PxLabelAltMultiple, GiCampfire, IoTimeOutline, PiRhydon,
      GiRocketThruster, PxArchive, MdPersonsearchOutlined, HiLogin, IoSettingsOutline,CoVerticalAlignTop,
-     CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,HiUserGroup
+     CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,HiUserGroup,FcFeedback
 } from "oh-vue-icons/icons";
 import './assets/fonts/text.css'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+// 黑暗主题
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import router from './router/index.ts';
 
 import { createPinia } from 'pinia';
 import VueCookies from 'vue3-cookies';
 addIcons(FaFlag, GiRocketThruster, MdPersonsearchOutlined, CoVerticalAlignTop,HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill,
-      PxSortNumeric,CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,
+      PxSortNumeric,CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,FcFeedback,
       HiUserGroup
 
      );

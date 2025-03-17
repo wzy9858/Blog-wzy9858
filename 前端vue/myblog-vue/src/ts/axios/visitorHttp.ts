@@ -75,3 +75,24 @@ export function getPanelPopularityRankings(){
         e => { throw e }
     )
 }
+
+//http://localhost:8080/complete/getPanelSomeInfo 仪表盘上方的一些信息
+export function getPanelSomeInfo(){
+    return axios.get('/api/complete/getPanelSomeInfo',
+        { withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}
+
+//http://localhost:8080/complete/getIpAndAdress
+// 拿到用户的ip及其相关城市信息
+export function getIpAndAdress(){
+    return axios.get('/api/complete/getIpAndAdress',
+        { withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

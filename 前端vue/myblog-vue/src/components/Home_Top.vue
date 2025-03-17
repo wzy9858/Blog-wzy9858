@@ -14,30 +14,30 @@
 
         <div class="link-container">
 
-            <a class="link-item" href="BiTranslate">
+            <a class="link-item" href="https://fanyi.youdao.com/">
                 <v-icon style="color: #FFFFFF;" class="archive" name="bi-translate" scale="2.6" />
                 <h3 style="color: #FFFFFF;">有道翻译</h3>
             </a>
 
-            <a class="link-item">
+            <a class="link-item" href="https://www.123pan.com/">
                 <v-icon style="color: #FFFFFF;" class="archive" name="co-icloud" scale="2.6" />
                 <h3 style="color: #FFFFFF;">123云盘</h3>
             </a>
 
-            <div class="link-item">
+            <a class="link-item" href="https://github.com/">
                 <v-icon style="color: #FFFFFF;" class="archive" name="bi-github" scale="2.6" />
                 <h3 style="color: #FFFFFF;">github</h3>
-            </div>
+            </a>
 
-            <div class="link-item">
+            <a class="link-item" href="https://gitee.com/">
                    <v-icon style="color: #FFFFFF;" class="archive" name="si-gitee" scale="2.6" />
                    <h3 style="color: #FFFFFF;">gitee</h3>
-            </div>
+            </a>
 
-            <div class="link-item">
+            <a class="link-item" href="https://www.bilibili.com/">
                 <v-icon style="color: #FFFFFF;" class="archive" name="ri-bilibili-fill" scale="2.6" />
                 <h3 style="color: #FFFFFF;">bilibili</h3>
-            </div>
+            </a>
 
         </div>
     </div>

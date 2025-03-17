@@ -87,14 +87,35 @@
         </div>
       </div>
 
+
       <div class="right-container">
         <homeChart />
-        <!-- <div class="one-card">
-          还没想好放神魔...
+
+        <div style="margin-top: 30px;">
+          <el-button type="info" @click="centerDialogVisible = true">
+            <v-icon name="fc-feedback" scale="1.3" />
+             bug反馈
+          </el-button>
         </div>
-        <div class="one-card">
-          还没想好放神魔...
-        </div> -->
+        <!-- bug反馈对话框 -->
+        <el-dialog v-model="centerDialogVisible" title="问题反馈" width="500" align-center >
+          <textarea v-model="userFeedback" placeholder="请输入你要反馈的问题" style="width: 100%; height: 100px;">
+          </textarea>
+          <textarea v-model="userFeedbackContect"  placeholder="你的联系方式" style="width: 100%;">
+
+          </textarea>
+          
+
+          <template #footer>
+            <div class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">取消</el-button>
+              <el-button type="primary" @click="sendFeedbackMail">
+                发送
+              </el-button>
+            </div>
+          </template>
+        </el-dialog>
+
       </div>
     </div>
   </div>
@@ -111,11 +132,17 @@ import { getArtilesList } from '../ts/axios/articleHttp';
 import { getSuperInfo } from '../ts/axios/adminHttp';
 import Footer from '../components/Footer.vue';
 import gsap from 'gsap';
-
+const userFeedback = ref('');
+const userFeedbackContect = ref('')
 let router = useRouter();
 let head_img = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png");
 let nickname = ref('');
-
+let centerDialogVisible = ref(false)
+function sendFeedbackMail(){
+  console.log("input="+userFeedback.value);// 用户输入的内容
+  console.log("联系方式="+userFeedbackContect.value);// 用户的联系方式
+  // centerDialogVisible.value = false;//点击发送就关闭
+}
 function toArticle(id, index) {
   router.push(`/article?id=${id}`);
 }
@@ -127,7 +154,7 @@ onMounted(() => {
   }).catch(e => {
     ElMessage.error("网络错误");
   });
-
+  //获得超级管理员的相关信息
   getSuperInfo().then(s => {
     head_img.value = s.data.data.admin.avatarUrl;
     nickname.value = s.data.data.admin.nickname;
@@ -153,6 +180,8 @@ let pagination = ref({
   pageSize: 10,
   currentPage: 1
 });
+
+
 
 function changePage(newPage) {
   getArtilesList(newPage).then(s => {

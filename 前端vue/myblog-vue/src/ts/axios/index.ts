@@ -2,7 +2,8 @@ import axios from 'axios';
 import NProgress from 'nprogress';
 
 const http = axios.create({
-    baseURL: 'http://139.9.114.22:8080', // 设置基础URL
+    // baseURL: 'http://139.9.114.22:8080', // 设置基础URL
+    baseURL: 'http://127.0.0.1:8080', // 设置基础URL
     timeout: 5000, // 请求超时时间
 });
 
@@ -37,7 +38,6 @@ http.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-
 
 export {
     http,

@@ -14,6 +14,7 @@ import EditArticle from '../views/EditArticle.vue';
 import NProgress from 'nprogress';
 import AI from '../views/AI.vue';
 import test from '../components/test.vue';
+import MailAgreeOrNot from '../views/MailAgreeOrNot.vue';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -64,6 +65,9 @@ const router = createRouter({
   },{
     path: '/panel',
     component:Panel
+  },{
+    path: '/register',
+    component:MailAgreeOrNot
   }
 
 

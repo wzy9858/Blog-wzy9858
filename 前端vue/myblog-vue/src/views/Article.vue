@@ -225,4 +225,5 @@ onMounted(() => {
     flex-direction: column;
     background-color: aliceblue;
 }
+
 </style>

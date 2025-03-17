@@ -2,14 +2,14 @@
     <div class="visitor-manage-container">
 
         <!-- 顶栏标签 -->
-        <div class="top-tab">
+        <div class="top-tab" v-if="cookies.get('isAdmin') === '1'">
             <el-button type="danger" size="small" @click="deleteVisitorBtn">
                 删除所选
             </el-button>
 
         </div>
 
-        <div class="table">
+        <div class="table" v-if="cookies.get('isAdmin') === '1'">
             <el-table :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="28" />
                 <el-table-column fixed prop="visitorId" label="id" width="49" />
@@ -32,6 +32,11 @@
             </el-table>
         </div>
 
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 300px;" v-else>
+            <h1 style="font-family: myfont1; font-size: 50px;">普通用户,无权访问</h1>
+        </div>
+
+    
     </div>
 
     <!-- 点击事件 -->
@@ -59,7 +64,8 @@ import { onMounted } from 'vue';
 const handleClick = ref(false)
 const inputTitle = ref('')
 import { getVisitorList } from '../../ts/axios/visitorHttp';
-
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
 
 let deleteId = []
 function handleSelectionChange(selection) {
@@ -69,6 +75,8 @@ function handleSelectionChange(selection) {
     });
     console.log(deleteId);
 }
+
+
 // 点击备注时的按钮
 function VisitorNoteBtn(row) {
     visitor.value = row
@@ -115,7 +123,19 @@ function visitorNoteSaveBtn() {
 
 }
 
+// import { useCookies } from "vue3-cookies";
+// const { cookies } = useCookies();
+// cookies.get('accountToken') == null
+
+
 onMounted(() => {
+
+    // // 如果没有cookie就不显示
+    // if (cookies.get('accountToken') == null) {
+    //     console.log("没有cookie");
+    //     return
+    // }
+
     getVisitorList().then(
         s => {
             // console.log(s);

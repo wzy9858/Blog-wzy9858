@@ -5,6 +5,7 @@
                 删除所选
             </el-button>
         </div>
+
         <div class="table">
             <el-table :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="28" />
@@ -28,6 +29,8 @@
                 </el-table-column>
             </el-table>
         </div>
+
+
     </div>
     <!-- 对话框 -->
     <el-dialog v-model="handleClick" title="编辑" width="500" center>
@@ -77,24 +80,44 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { getAccountList } from '../../ts/axios/adminHttp';
+import { getAloneAccount } from '../../ts/axios/adminHttp';
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+
+
 const handleClick = ref(false)
 
 import { useRouter } from 'vue-router';
 
 let router = useRouter()
-function editAboutMeBtn(){
+function editAboutMeBtn() {
     saveAccount()
     router.push(`/editAboutMe?id=${account.value.account}`)//还是传过去账号
 }
 onMounted(() => {
-    getAccountList().then(
-        s => {
-            tableData.value = s.data.data.list
-            tableData.value.forEach(e => {
-                e.bio = "太长啦 展示不下"
-            })
-        }
-    ).catch()
+    if (cookies.get('isAdmin') === '1') {
+        getAccountList().then(
+            s => {
+                tableData.value = s.data.data.list
+                tableData.value.forEach(e => {
+                    e.bio = "太长啦 展示不下"
+                })
+            }
+        ).catch()
+    } else {
+        getAloneAccount(cookies.get('account')).then(
+            s => {
+                tableData.value = s.data.data.list
+                tableData.value.forEach(e => {
+                    e.bio = "太长啦 展示不下"
+                })
+            }
+        ).catch()
+    }
+
+
+
+
 })
 let account = ref({
     account: "账号",
@@ -109,26 +132,46 @@ let account = ref({
     isSuperAdmin: '是否超级管理员',
 })
 import { updateAccountInfo } from '../../ts/axios/adminHttp';
+import { updateOrdinaryAccountInfo } from '../../ts/axios/adminHttp';
 // 保存账号内容
 // import { accountPinia } from '../../ts/store';
 // let pinia = accountPinia()
 function saveAccount() {
     // pinia.bio = account.value.bio
-   
+
     account.value.bio = null
-    updateAccountInfo(account.value).then(
-        s =>{
-            if(s.data.code == 200){
-                ElMessage.success("保存成功")
-            }else{
+    if (cookies.get('isAdmin') === '1') {
+        updateAccountInfo(account.value).then(
+            s => {
+                if (s.data.code == 200) {
+                    ElMessage.success("保存成功")
+                } else {
+                    ElMessage.error("保存失败")
+                }
+            }
+        ).catch(
+            e => {
                 ElMessage.error("保存失败")
             }
-        }
-    ).catch(
-        e=>{
-            ElMessage.error("保存失败")
-        }
-    )
+        )
+    }else{
+        updateOrdinaryAccountInfo(account.value).then(
+            s => {
+                if (s.data.code == 200) {
+                    ElMessage.success("保存成功")
+                } else {
+                    ElMessage.error("保存失败")
+                }
+            }
+        ).catch(
+            e => {
+                ElMessage.error("保存失败")
+            }
+        )
+    }
+
+
+
 
 }
 
@@ -188,6 +231,7 @@ function handleSelectionChange(selection: any[]) {
     });
     // console.log(deleteId);
 }
+
 
 
 </script>

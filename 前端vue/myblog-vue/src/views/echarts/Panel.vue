@@ -8,20 +8,17 @@
           <v-icon name="bi-file-earmark-text" scale="3" />
         </div>
         <div style="display: flex; flex-direction: column;">
-          <h1 style="font-family: myfont1;">123</h1>
+          <h1 style="font-family: myfont1;">{{articleNum}}</h1>
 
           <span style="font-weight: 100; font-size: 15px;">文章总数</span>
         </div>
-
       </div>
-
-
       <div class="panel-top-item part2">
         <div>
           <v-icon name="hi-user-group" scale="3" />
         </div>
         <div style="display: flex; flex-direction: column;">
-          <h1 style="font-family: myfont1;">123</h1>
+          <h1 style="font-family: myfont1;">{{visitorNum}}</h1>
           <span style="font-weight: 100; font-size: 15px;">访问总数</span>
         </div>
       </div>
@@ -31,7 +28,7 @@
           <v-icon name="hi-login" scale="3" />
         </div>
         <div style="display: flex; flex-direction: column;">
-          <h1 style="font-family: myfont1;">123</h1>
+          <h1 style="font-family: myfont1;">{{userNum}}</h1>
           用户总数
         </div>
       </div>
@@ -65,6 +62,15 @@ import panelOrdinary from '../../components/echarts/panel-ordinary.vue';
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { getVisitorDateAndNum } from '../../ts/axios/visitorHttp.ts';
+import { getPanelSomeInfo } from '../../ts/axios/visitorHttp.ts';
+
+
+let articleNum = ref('');
+let visitorNum = ref('');
+let userNum = ref('');
+
+
+
 
 // Generate data
 let category = []; // 日期类别数据
@@ -172,6 +178,17 @@ const initBarChart = () => {
 };
 
 onMounted(() => {
+  getPanelSomeInfo().then(
+  s => {
+    // console.log(s.data);
+    articleNum.value =  s.data.split('-')[0];
+    visitorNum.value =  s.data.split('-')[1];
+    userNum.value =  s.data.split('-')[2];
+  }
+).catch(err => {
+  // console.error(err);
+});
+
   getVisitorDateAndNum().then(
     s => {
       s.data.forEach(item => {

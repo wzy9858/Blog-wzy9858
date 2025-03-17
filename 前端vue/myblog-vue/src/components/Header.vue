@@ -218,6 +218,8 @@ let inputUserName = ref('')
 let inputPassWord = ref('')
 import { ElMessage } from 'element-plus'
 import { accountLogin as userLogin } from '../ts/axios/adminHttp';
+import { accountRegister as userRegister } from '../ts/axios/adminHttp';
+
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 let head_img = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png")
@@ -231,6 +233,7 @@ onMounted(() => {
             s => {
                 head_img.value = s.data.data.admin.avatarUrl
                 nickname.value = s.data.data.admin.nickname
+
             }
         ).catch()
 
@@ -239,27 +242,61 @@ onMounted(() => {
 import { ElNotification } from 'element-plus'
 // 账号注册函数
 function accountSignUp() {
-    console.log(inputUserName.value, inputPassWord.value);
-    // ElNotification({
-    //     title: '成功',
-    //     message: '注册成功啦',
-    //     type: 'success',
-    // })
+    
+    userRegister(inputUserName.value, inputPassWord.value).then(
+        s => {
+            console.log(s);
+            if (s.data.code != 404) {
+                dialogVisible.value = false//注册成功关闭对话框
+
+             
+                ElNotification({
+                    title: '🎈等待',
+                    message: '✨审核结果将会以邮件形式告知',
+                    type: 'info',
+                })
+
+            } else {
+                ElNotification({
+                    title: '失败',
+                    message: '😭注册失败啦',
+                    type: 'error',
+                })
+            }
+        }
+    ).catch(
+        e => {
+            ElMessage.error("网络出错了")
+        }
+    )
 
     ElNotification({
-        title: '失败',
-        message: '😭注册功能暂未开放',
-        type: 'error',
-    })
+                    title: '🎈等待',
+                    message: '✨已提交注册申请，请等待管理员审核',
+                    type: 'info',
+                })
+  
+
+
+    // console.log(inputUserName.value, inputPassWord.value);
+    // // ElNotification({
+    // //     title: '成功',
+    // //     message: '注册成功啦',
+    // //     type: 'success',
+    // // })
+
+    // ElNotification({
+    //     title: '失败',
+    //     message: '😭注册功能暂未开放',
+    //     type: 'error',
+    // })
 
 }
 
-
 function accountLogin() {
-
     userLogin(inputUserName.value, inputPassWord.value).then(
         s => {
-            console.log(s);
+            // console.log(s);
             if (s.data.code != 404) {
                 dialogVisible.value = false//登录成功关闭对话框
 
@@ -267,7 +304,17 @@ function accountLogin() {
                 ElMessage.success("✨登录成功啦✨")
                 head_img.value = s.data.data.avatarUrl
                 nickname.value = s.data.data.nickname
+
+                // console.log("---------=======-------");
+                // console.log(s.data.data.isAdmin);
+                cookies.set("isAdmin", s.data.data.isAdmin, '1h')
                 cookies.set("accountToken", s.data.data.token, '1h')
+                cookies.set("account", inputUserName.value, '1h')
+                
+
+                // 如果登录成功看要看一下是不是管理员用户 普通用户一些功能就不显示
+                
+                
                 window.location.reload();
             } else {
                 // ElMessage.error("账号或密码错误")
@@ -289,16 +336,14 @@ function accountLogin() {
 
 // 注销登录的方法
 function quitlogin() {
-    cookies.remove("accountToken")
- 
-    router.push('/home')
 
-    setTimeout(() => {
-      console.log("休眠 2 秒后执行");
-    }, 3000);
-
-    window.location.reload();
+    cookies.remove("accountToken");
+    cookies.remove("isAdmin");
+    cookies.remove("account");
+    router.push('/home');
+    // window.location.reload();
 }
+
 
 // 电脑端 登录成功后文章 访客 账号管理的点击事件
 function computer_articleManage() {

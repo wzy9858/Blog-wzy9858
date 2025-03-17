@@ -6,6 +6,7 @@ import com.wzy.mapper.ArticlesMapper;
 import com.wzy.pojo.Articles;
 import com.wzy.util.IpUtil;
 import com.wzy.util.JwtHelper;
+import com.wzy.util.SendmailUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,23 @@ class Wzy9858BlogApplicationTests {
 
 	@Autowired
 	JwtHelper jwtHelper;
+
+
+	@Autowired
+	SendmailUtil sendmailUtil;
+
+
+	@Test
+	void testMail(){
+//		String jwt = jwtHelper.createJwt("admin-account");//创建一个jwt
+//		String s = jwtHelper.praseAccount(jwt);//解析
+
+		String str = "admin-account";
+		System.out.println(str.split("-")[0]);
+
+
+
+	}
 
 
 

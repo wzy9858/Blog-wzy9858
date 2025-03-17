@@ -1,8 +1,11 @@
 <template>
-    <div class="particle-container">
+    <div v-if="viewCur" class="particle-container">
         <!-- 粒子效果 -->
         <Particles id="tsparticles" :options="options" class="particle" />
         <Header class="on-up"></Header>
+        <RouterView />
+    </div>
+    <div v-else>
         <RouterView />
     </div>
     <el-backtop :bottom="100">
@@ -11,21 +14,55 @@
 </template>
 
 <script setup>
+
 import Header from './components/Header.vue';
 import Home from './views/Home.vue';
 
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { http } from './ts/axios';
 
 import { ElNotification } from 'element-plus'
+import { getIpAndAdress } from './ts/axios/visitorHttp.ts';
+
+// -------------
+
+const fullPath = window.location.href;
+console.log(fullPath); // 输出: http://localhost:5173/#/register
+const lastPart = fullPath.split('/').pop();
+console.log(lastPart); // 输出: register
+const viewCur = ref(true) //false为不显示
+//getIpAndAdress
+// ---------
 onMounted(() => {
+    if (lastPart == 'register') {
+        viewCur.value = false
+        return
+    }
     // const startTime = new Date();//开始计时
 
-    ElNotification({
-        title: '欢迎你',
-        message: '来自于河南焦作的朋友',
-        type: 'success',
-    })
+    //http://localhost:8080/complete/getIpAndAdress
+    // 拿到用户的ip地址 ip-city
+
+    let ipInfo;
+    getIpAndAdress().then(
+        s => {
+            ipInfo = s.data;
+            console.log("发送请求成功");
+            console.log(s);
+
+            ElNotification({
+                title: '✨✨✨欢迎你',
+                message: '来自于 ['+ipInfo.split('-')[1]+'] 的朋友<br>' + "您的ip地址为: " + ipInfo.split('-')[0] ,
+                type: 'success',
+                dangerouslyUseHTMLString: true
+            })
+
+        }
+    ).catch(
+        e => {
+            console.log("发送请求失败");
+        }
+    )
 })
 // //关闭之后
 // window.addEventListener('beforeunload', function (event) {

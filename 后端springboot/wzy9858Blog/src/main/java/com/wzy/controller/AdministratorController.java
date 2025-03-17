@@ -67,7 +67,7 @@ public class AdministratorController {
 
         if (administrators1 != null) {//登录成功 返回头像信息
             String jwt = jwtHelper.createJwt(administrators1.getAccount());
-            return R.ok().data("avatarUrl", administrators1.getAvatarUrl()).data("token", jwt);
+            return R.ok().data("avatarUrl", administrators1.getAvatarUrl()).data("token", jwt).data("isAdmin",administrators1.getIsSuperAdmin());
         } else {
             return R.error();
         }
@@ -84,8 +84,8 @@ public class AdministratorController {
                 if (cookie.getName().equals("accountToken")) {
                     String account = jwtHelper.praseAccount(cookie.getValue());
                     QueryWrapper queryWrapper = new QueryWrapper();
-                    System.out.println("--------");
-                    System.out.println(account);
+//                    System.out.println("--------");
+//                    System.out.println(account);
                     queryWrapper.eq("account", account);//账号和解析出来的相同q
                     queryWrapper.eq("is_super_admin", 1);//是超级管理员
                     if (administratorsMapper.exists(queryWrapper)) {
@@ -104,6 +104,16 @@ public class AdministratorController {
         } else {
             return R.error().message("未携带cookie");
         }
+    }
+
+    @GetMapping("/getAloneAccount")//得到自己的账号信息
+    public R getAloneAccount(@RequestParam("account") String account){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("account", account);//账号和解析出来的相同q
+        List list = administratorsMapper.selectList(queryWrapper);
+        R ok = R.ok();
+        ok.data("list", list);
+        return ok;
     }
 
 
@@ -143,6 +153,8 @@ public class AdministratorController {
     /***
      * 更新账号信息
      */
+
+
     @PostMapping("/updateAccount")
     public R updateAccount(@RequestBody Administrators administrators, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -171,6 +183,12 @@ public class AdministratorController {
         }
     }
 
+    // 单独的账号更新
+    @PostMapping("/updateOrdinaryAccount")
+    public R updateAccount(@RequestBody Administrators administrators) {
+        administratorsMapper.updateById(administrators);
+        return R.ok();
+    }
 
     /**
      * 根据account获取关于我

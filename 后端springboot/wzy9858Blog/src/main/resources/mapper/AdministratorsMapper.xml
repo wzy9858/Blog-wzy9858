@@ -26,7 +26,7 @@
     <select id="selectSuperInfo" resultType="com.wzy.pojo.Administrators">
         select  account,nickname,password,
                 bio,avatar_url,ip_address,
-                creation_time,last_login_time,email
+                creation_time,last_login_time,email,is_super_admin
         from administrators
         where is_super_admin = 1
     </select>

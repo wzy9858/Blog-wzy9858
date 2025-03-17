@@ -34,10 +34,44 @@ export function accountLogin(name: any, pass: any) {
     )
 
 }
+// 用户注册函数 
+export function accountRegister(name: any, pass: any) {
+
+    let account = {
+        "account": name,
+        "password": pass
+    }
+
+    return http.post('/complete/register', account).then(
+        s => {
+            return s
+        }
+    ).catch(
+        e => {
+            throw e
+        }
+    )
+
+}
+
 import axios from "axios";
 // 拿到账号列表 需要验证token
 export function getAccountList() {
     return axios.get("/api/admin/getAccountList", {
+        withCredentials: true
+    }).then(
+        s => {
+            return s
+        }
+    ).catch(
+        e => {
+            throw e
+        }
+    )
+}
+// 普通用户拿到自己的账号信息
+export function getAloneAccount(account: any) {
+    return axios.get("/api/admin/getAloneAccount?account="+account, {
         withCredentials: true
     }).then(
         s => {
@@ -80,11 +114,40 @@ export function updateAccountInfo(account: any) {
         }
     )
 }
+// 普通用户更改自己的信息
+export function updateOrdinaryAccountInfo(account: any) {
+    // account.bio = null
+    return axios.post('/api/admin/updateOrdinaryAccount', account, { withCredentials: true }).then(
+        s => {
+            return s
+        }
+    ).catch(
+        e => {
+            return e
+        }
+    )
+}
 
 
 // 根据id获取关于我的 不需要加密
 export function getAboutMe(account: string) {
     return http.get(`/admin/getAboutMe?account=${account}`).then(
+        s => {
+            return s
+        }
+    ).catch(
+        e => {
+            return e
+        }
+    )
+}
+
+
+
+// 同意注册
+
+export function agreeRegister(jwt: string) {
+    return http.get(`/complete/newAccount/${jwt}`).then(
         s => {
             return s
         }
