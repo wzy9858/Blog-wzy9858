@@ -28,6 +28,7 @@ public class ImgController {
             Path filePath = Paths.get(UPLOAD_DIR).resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
+
             if (resource.exists() && resource.isReadable()) {
                 BufferedImage originalImage = ImageIO.read(resource.getFile());
 
@@ -43,6 +44,8 @@ public class ImgController {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 ImageIO.write(resizedImage, "jpg", outputStream);
                 byte[] imageBytes = outputStream.toByteArray();
+
+                System.out.println("访问了图片接口: resource="+resource);
 
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")

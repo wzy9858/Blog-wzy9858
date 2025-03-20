@@ -61,13 +61,12 @@ public class ArticleController {
     }
 
     @GetMapping("/getAllInfo")
-    public R getAllInfo(HttpServletRequest request) {//此页面为归档页面调用  返回所有信息
+    public R getAllInfo() {//此页面为归档页面调用  返回所有信息
         List<Articles> allInfo = articlesMapper.getAllInfo();
         R ok = R.ok();
         ok.data("total", allInfo.size());
         ok.data("list", allInfo);
         return ok;
-
     }
 
 

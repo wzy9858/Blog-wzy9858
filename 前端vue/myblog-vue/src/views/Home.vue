@@ -130,6 +130,7 @@ import { ElMessage } from 'element-plus';
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { getArtilesList } from '../ts/axios/articleHttp';
 import { getSuperInfo } from '../ts/axios/adminHttp';
+import { sendFeedback } from '../ts/axios/visitorHttp';
 import Footer from '../components/Footer.vue';
 import gsap from 'gsap';
 const userFeedback = ref('');
@@ -141,7 +142,21 @@ let centerDialogVisible = ref(false)
 function sendFeedbackMail(){
   console.log("input="+userFeedback.value);// 用户输入的内容
   console.log("联系方式="+userFeedbackContect.value);// 用户的联系方式
+
   // centerDialogVisible.value = false;//点击发送就关闭
+  sendFeedback(userFeedback.value+"-"+userFeedbackContect.value).then(
+    s =>{
+      ElMessage.success("🎈已成功发送邮件")
+      userFeedback.value = ''
+      userFeedbackContect.value=''
+      centerDialogVisible.value = false;//关闭弹窗
+    }
+  ).catch(
+    e => {
+      ElMessage.success("网络出错啦!")
+    }
+  );
+
 }
 function toArticle(id, index) {
   router.push(`/article?id=${id}`);

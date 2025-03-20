@@ -14,6 +14,7 @@ import com.wzy.util.IpUtil;
 import com.wzy.util.JwtHelper;
 import com.wzy.util.SendmailUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -118,6 +119,7 @@ public class CompleteInterController {
         String ipInfo = IpUtil.getIpInfo(ipAddr);//得到城市信息
         return ipAddr+"-"+ipInfo;
     }
+
     @Autowired
     SendmailUtil sendmailUtil;
 
@@ -141,7 +143,7 @@ public class CompleteInterController {
             		String jwt = jwtHelper.createJwt(administrators.getAccount()+"-"+administrators.getPassword());//创建一个jwt
 //            		String s = jwtHelper.praseAccount(jwt);//解析
 
-            sendmailUtil.sendSimpleEmail("985891315@qq.com","博客新用户注册","新用户注册了一个新账号,点击链接同意或拒绝。\n" +
+            sendmailUtil.sendSimpleEmail("985891315@qq.com","博客新用户注册","新用户["+administrators.getAccount()+"]申请注册了一个账号,点击链接同意申请。如拒绝请忽略本条消息!\n" +
                     url+jwt);
         }
     }
@@ -187,12 +189,14 @@ public class CompleteInterController {
 
     private static final String UPLOAD_DIR = "uploads/";
 
+    @Value("${fileUpload.url}")
+    String uploadReturnUrl;//后面应该加上文件名
+
     @PostMapping("/img/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("文件为空");
         }
-
         try {
             // 确保上传目录存在
             File uploadDir = new File(UPLOAD_DIR);
@@ -204,14 +208,17 @@ public class CompleteInterController {
             Path filePath = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
             Files.write(filePath, file.getBytes());
 
-            System.out.println("-------------");
-            System.out.println(filePath);
 
-            // 构建文件的访问URL
-            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/uploads/")
-                    .path(file.getOriginalFilename())
-                    .toUriString();
+            // 构建文件的访问URL  这种方法构造服务端无法显示端口号 所以使用配置文件固定读取
+//            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                    .path("/uploads/")
+//                    .path(file.getOriginalFilename())
+//                    .toUriString();
+
+            System.out.println("---------11111");
+            String fileDownloadUri = uploadReturnUrl+file.getOriginalFilename();
+//            System.out.println(file.getOriginalFilename());//这就是文件名
+
 
             return ResponseEntity.ok().body(new UploadResponse(fileDownloadUri));
         } catch (IOException e) {
@@ -235,6 +242,18 @@ public class CompleteInterController {
         }
     }
 
+
+
+//    反馈按钮的接口
+    @GetMapping("/feedback")
+    public void UserFeedback(@RequestParam("info") String information){
+        String message = information.split("-")[0];
+        String user = information.split("-")[1];
+        System.out.println("user = "+user);
+        System.out.println("message = "+message);
+        sendmailUtil.sendSimpleEmail("985891315@qq.com","有人提交了bug反馈","用户:["+user+"] \n 反馈:["+message+"]");
+
+    }
 
 
 }

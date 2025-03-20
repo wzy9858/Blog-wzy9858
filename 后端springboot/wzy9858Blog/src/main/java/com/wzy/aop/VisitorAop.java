@@ -25,6 +25,8 @@ import java.util.Date;
 import static java.rmi.server.LogStream.log;
 
 
+
+
 /**
  * 记录访客的信息 当有来访的时候获取ip及其一些列信息存进数据库
  */

@@ -96,3 +96,14 @@ export function getIpAndAdress(){
         e => { throw e }
     )
 }
+
+
+
+// 发送邮件反馈的方法
+export function sendFeedback(information:any){// 格式user-message
+    return axios.get(`/api/complete/feedback?info=${information}`,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}
