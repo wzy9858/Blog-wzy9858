@@ -4,6 +4,7 @@ package com.wzy.controller;
 //比赛扩展接口 饼图 等
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wzy.mapper.AdministratorsMapper;
 import com.wzy.mapper.ArticlesMapper;
 import com.wzy.mapper.VisitorsMapper;
@@ -12,6 +13,7 @@ import com.wzy.pojo.Articles;
 import com.wzy.pojo.Visitors;
 import com.wzy.util.IpUtil;
 import com.wzy.util.JwtHelper;
+import com.wzy.util.R;
 import com.wzy.util.SendmailUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
@@ -29,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +46,24 @@ public class CompleteInterController {
 
     @Autowired
     VisitorsMapper visitorsMapper;
+
+    @Autowired
+    SendmailUtil sendmailUtil;
+
+    @Autowired
+    JwtHelper jwtHelper;
+
+    @Autowired
+    AdministratorsMapper administratorsMapper;
+
+    //    注册功能的实现
+    @Value("${test.url}")
+    String url;
+
+    private static final String UPLOAD_DIR = "uploads/";
+
+    @Value("${fileUpload.url}")
+    String uploadReturnUrl;//后面应该加上文件名
 
     //    文章种类 饼图 首页右下方的饼图数据 文章种类
     @GetMapping("/homePanelData")
@@ -120,18 +141,7 @@ public class CompleteInterController {
         return ipAddr+"-"+ipInfo;
     }
 
-    @Autowired
-    SendmailUtil sendmailUtil;
 
-    @Autowired
-    JwtHelper jwtHelper;
-
-    @Autowired
-    AdministratorsMapper administratorsMapper;
-
-//    注册功能的实现
-    @Value("${test.url}")
-    String url;
 
     @PostMapping("/register")
     public void register(@RequestBody Administrators administrators){//传过来的有账号和密码
@@ -187,10 +197,7 @@ public class CompleteInterController {
     }
 
 
-    private static final String UPLOAD_DIR = "uploads/";
 
-    @Value("${fileUpload.url}")
-    String uploadReturnUrl;//后面应该加上文件名
 
     @PostMapping("/img/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -255,6 +262,96 @@ public class CompleteInterController {
 
     }
 
+//    搜索功能的插件
+    /***
+     * 接受 searchKeyword 关键的值
+     * 返回数据的格式:
+     * [
+     *   {
+     *     id: 8,
+     *     name: 'Vue3实战教程',
+     *     description: '深入讲解Vue3组合式API和Element Plus集成'
+     *   },
+     *   {
+     *     id: 8,
+     *     name: 'Element Plus组件指南',
+     *     description: '全面解析Element Plus组件的使用技巧'
+     *   },
+     *   {
+     *     id: 8,
+     *     name: '前端工程化实践',
+     *     description: 'Webpack+Vue3+TypeScript项目配置指南'
+     *   }
+     * ]
+     */
+    @GetMapping("search")
+    public List<Articles> searchApi(@RequestParam String keyWords){
+        // 构建查询条件：查询标题包含"技术"的文章
+        QueryWrapper<Articles> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("article_title", keyWords) .or()
+                .like("tags", keyWords);  // 默认自动添加%通配符（需结合数据库方言）
+        List<Articles> articles = articlesMapper.selectList(queryWrapper);
+
+
+
+//        articlesMapper.selectList();
+        return articles;
+
+    }
+
+
+//    触发彩蛋 发送邮件通知
+@GetMapping("/caidan")
+public void caidan(@RequestParam("info") String information){
+    String title = information.split("-")[0];
+    String url = information.split("-")[1];
+
+    sendmailUtil.sendSimpleEmail("985891315@qq.com","✨彩蛋触发","您的文章:["+title+"]点赞已超66+，可以文章置顶或提升优先级! \n 详情请查看:["+url+"]");
+
+}
+
+
+// 获取tags
+    @GetMapping("/getTags")
+    public List getTags(){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.select("DISTINCT tags");
+//        queryWrapper.select("tags");
+
+        List<Articles> list = articlesMapper.selectList(queryWrapper);
+        List l1 = new ArrayList();
+        l1.add("全部");
+        for (Articles articles : list) {
+            l1.add(articles.getTags());
+        }
+        return l1;
+    }
+
+    @GetMapping("getArticlesByList")
+    public R getArticlesListByTags(@RequestParam("tag") String tag){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("tags",tag);
+
+        List<Articles> list = articlesMapper.selectList(queryWrapper);
+        for (Articles articles : list) {
+            articles.setArticleContent("");
+        }
+
+
+
+
+//        Page<Articles> page = new Page<>(id, 6);
+//
+//        articlesMapper.selectPageVo(page, null);//这个id什么用处
+//        //获取分页数据
+//        List<Articles> list = page.getRecords();
+        R ok = R.ok();
+        ok.data("hasNext", "false");
+        ok.data("total", 6);
+        ok.data("list", list);
+
+        return ok;
+    }
 
 }
 

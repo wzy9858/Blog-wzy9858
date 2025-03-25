@@ -85,3 +85,27 @@ export function getHomePanelData(){
         e => { throw e }
     )
 }
+
+
+// 创建评论 
+export function createComment(comments: any) {
+    return axios.post("/api/comments/create", comments).then(
+
+            s => {
+                return s
+            }
+        ).catch(
+            e => {
+                throw e
+            }
+        )
+}
+
+// 拿到评论信息   http://localhost:8080/comments/get/1
+export function getComments(id:any){
+    return http.get('/comments/get/'+id).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

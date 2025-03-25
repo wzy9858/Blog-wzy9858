@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -33,6 +34,7 @@ import static java.rmi.server.LogStream.log;
 @Aspect
 // @Component注解保证这个切面类能够放入IOC容器
 @Component
+@Transactional
 
 public class VisitorAop {
 

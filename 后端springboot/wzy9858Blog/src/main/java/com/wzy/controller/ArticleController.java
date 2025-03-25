@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  * 所有请求均根据项目文档的请求接口来定义
  */
 
+@Transactional
 @CrossOrigin
 @RestController
 @RequestMapping("/article")
@@ -48,7 +50,8 @@ public class ArticleController {
     @GetMapping("getList/{id}")  //此方法在主页调用 根据页数查找
     public R getList(@PathVariable Integer id,HttpServletRequest request) {//传过来页数
         //设置分页参数  第几页 页容量
-        Page<Articles> page = new Page<>(id, 10);
+        Page<Articles> page = new Page<>(id, 6);
+
         articlesMapper.selectPageVo(page, null);//这个id什么用处
         //获取分页数据
         List<Articles> list = page.getRecords();
@@ -56,7 +59,7 @@ public class ArticleController {
         ok.data("hasNext", page.hasNext());
         ok.data("total", page.getTotal());
         ok.data("list", list);
-        System.out.println(list);
+//        System.out.println(list);
         return ok;
     }
 

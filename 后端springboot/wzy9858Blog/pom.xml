@@ -61,6 +61,11 @@
             <artifactId>ip2region</artifactId>
             <version>${ip2region-version}</version>
         </dependency>
+<!--加入事务管理-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
 
 
         <dependency>

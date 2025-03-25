@@ -53,7 +53,12 @@
 
 
     <div class="contain">
+
       <div class="items">
+        <div class="hidden-phone" style="width: 100%;  background-color: aqua; margin-bottom: 20px;">
+          <Home_Top_category  @triggerMethodA="parentMethodA"/>
+        </div>
+
         <div v-animate-onscroll.repeat="{ down: 'animated animate__bounceIn' }" class="item"
           v-for="(item, index) in articleList" :key="index" @click="toArticle(item.id, index)">
           <div class="item-image">
@@ -123,6 +128,8 @@
 </template>
 
 <script setup>
+
+import Home_Top_category from '../components/Home_Top_category.vue';
 import Home_Top from '../components/Home_Top.vue';
 import homeChart from '../components/echarts/home-chart.vue';
 import { useRouter } from 'vue-router';
@@ -139,6 +146,38 @@ let router = useRouter();
 let head_img = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png");
 let nickname = ref('');
 let centerDialogVisible = ref(false)
+
+
+import { getAllArticlesByTag } from '../ts/axios/visitorHttp';
+const parentMethodA = (payload) => {
+  // console.log('执行方法A', payload.params)
+  if(payload != '全部'){ // 不等于全部 说明选择了其他
+    // console.log("true----");
+
+    getAllArticlesByTag(payload).then(
+        s =>{
+          pagination.value.total = s.data.data.total;
+          articleList.value = s.data.data.list;
+        }
+    ).catch(
+      e =>{
+        ElMessage.error("网络出错啦!");
+      }
+    )
+  }else{
+    getArtilesList(1).then(s => {
+    pagination.value.total = s.data.data.total;
+    articleList.value = s.data.data.list;
+  }).catch(e => {
+    ElMessage.error("网络错误");
+  });
+  }
+  // console.log('执行方法A', payload)
+
+}
+
+
+
 function sendFeedbackMail(){
   console.log("input="+userFeedback.value);// 用户输入的内容
   console.log("联系方式="+userFeedbackContect.value);// 用户的联系方式
@@ -192,7 +231,7 @@ let articleList = ref([{
 
 let pagination = ref({
   total: 20,
-  pageSize: 10,
+  pageSize: 6,
   currentPage: 1
 });
 
@@ -275,6 +314,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+
+
 /* 顶部的div */
 
 .top-container {
@@ -414,6 +455,9 @@ onBeforeUnmount(() => {
     justify-content: space-between;
     width: 100%;
     height: 100%;
+  }
+  .hidden-phone{
+    display: none;
   }
 }
 

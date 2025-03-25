@@ -1,7 +1,7 @@
 <template>
     <div class="edit-container">
         <div style="width: 100%;height: 46rem;">
-            <MdEditor style="height: 100%;" v-model="text" @onSave="handleSave" :preview="false" />
+            <MdEditor @onUploadImg="onUploadImg" style="height: 100%;" v-model="text" @onSave="handleSave" :preview="false" />
         </div>
 
     </div>
@@ -14,9 +14,30 @@ import 'md-editor-v3/lib/style.css';
 import { ElMessage } from 'element-plus'
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import axios from 'axios';
 let route = useRoute();
 const text = ref('# Hello Editor');
+// 上传图片的方法
+const onUploadImg = async (files: (string | Blob)[], callback: (arg0: any[]) => void) => {
+  const res = await Promise.all(
+    files.map((file: string | Blob) => {
+      return new Promise((rev, rej) => {
+        const form = new FormData();
+        form.append('file', file);
 
+        axios
+          .post('/api/complete/img/upload', form, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then((res: { data: { url: string } }) => rev(res))
+          .catch((error) => rej(error));
+      });
+    })
+  );
+  callback(res.map((item:any) => item.data.url));
+};
 let a = ref({
     account: '',
     bio: 'aboutMe'
@@ -45,6 +66,7 @@ onMounted(() => {
     }
 });
 import { updateAccountInfo } from '../ts/axios/adminHttp';
+
 
 function handleSave() {
     a.value.bio = text.value

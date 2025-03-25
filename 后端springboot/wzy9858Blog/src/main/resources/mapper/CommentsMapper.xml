@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzy.mapper.CommentsMapper">
+
+    <resultMap id="BaseResultMap" type="com.wzy.pojo.Comments">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="articleId" column="article_id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="userAccount" column="user_account" jdbcType="VARCHAR"/>
+            <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="isParent" column="is_parent" jdbcType="TINYINT"/>
+            <result property="parentCommentId" column="parent_comment_id" jdbcType="BIGINT"/>
+            <result property="backupComment" column="backup_comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,article_id,content,
+        user_account,user_avatar,create_time,
+        is_parent,parent_comment_id,backup_comment
+    </sql>
+</mapper>

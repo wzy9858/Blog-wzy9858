@@ -11,21 +11,26 @@
         <!-- item区域 -->
         <div class="container-items center-all">
             <ul class="items">
+
                 <RouterLink to="/archives" class="center-all item">
                     <v-icon class="archive" name="px-archive" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 归档 </span>
                 </RouterLink>
 
                 <RouterLink to="/record" class="center-all item">
-                    <v-icon class="archive" name="co-airbnb" scale="1.8" />
+                    <v-icon class="archive" name="co-airbnb" scale="1.5" />
                     <span style="font-size: 1.3rem;"> AI助手 </span>
                 </RouterLink>
+                
 
                 <RouterLink to="/about" class="center-all item">
                     <v-icon class="archive" name="md-personsearch-outlined" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 关于 </span>
                 </RouterLink>
+
+
             </ul>
+
         </div>
 
         <div class="phone-menu" @click="drawer = true;">
@@ -33,8 +38,16 @@
         </div>
 
         <div class="hiddenOnPhone" style="width: 15%;"></div>
+
+        <div class="search-btn hiddenOnPhone"  @click="searchDialog = true" style="margin-right: 2rem;">
+                    <v-icon name="md-managesearch-twotone" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 搜索 </span>
+        </div>
+        
         <div v-if="cookies.get('accountToken') == null" class="container-items center-all hiddenOnPhone">
             <ul class="items">
+
+               
                 <li class="center-all item" @click="login()">
                     <v-icon class="archive" name="hi-login" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 登录 </span>
@@ -204,16 +217,29 @@
         </div>
     </el-dialog>
 
+
+    <!-- 搜索框 -->
+    <el-dialog v-model="searchDialog" :modal="false">
+        <!-- <span>搜索</span> -->
+        <template #footer>
+           <div>
+                <Search></Search>
+           </div>
+        </template>
+    </el-dialog>
+
 </template>
 
 
 <script setup lang="ts">
+import Search from './Search.vue'
 import { ref, onMounted } from 'vue';
 import gsap from 'gsap';
 import type { DrawerProps } from 'element-plus'
 import { useRouter } from 'vue-router';
 
 let dialogVisible = ref(false)
+const searchDialog = ref(false)
 let inputUserName = ref('')
 let inputPassWord = ref('')
 import { ElMessage } from 'element-plus'
@@ -242,14 +268,14 @@ onMounted(() => {
 import { ElNotification } from 'element-plus'
 // 账号注册函数
 function accountSignUp() {
-    
+
     userRegister(inputUserName.value, inputPassWord.value).then(
         s => {
             console.log(s);
             if (s.data.code != 404) {
                 dialogVisible.value = false//注册成功关闭对话框
 
-             
+
                 ElNotification({
                     title: '🎈等待',
                     message: '✨审核结果将会以邮件形式告知',
@@ -271,11 +297,11 @@ function accountSignUp() {
     )
 
     ElNotification({
-                    title: '🎈等待',
-                    message: '✨已提交注册申请，请等待管理员审核',
-                    type: 'info',
-                })
-  
+        title: '🎈等待',
+        message: '✨已提交注册申请，请等待管理员审核',
+        type: 'info',
+    })
+
 
 
     // console.log(inputUserName.value, inputPassWord.value);
@@ -300,7 +326,6 @@ function accountLogin() {
             if (s.data.code != 404) {
                 dialogVisible.value = false//登录成功关闭对话框
 
-               
                 ElMessage.success("✨登录成功啦✨")
                 head_img.value = s.data.data.avatarUrl
                 nickname.value = s.data.data.nickname
@@ -310,11 +335,13 @@ function accountLogin() {
                 cookies.set("isAdmin", s.data.data.isAdmin, '1h')
                 cookies.set("accountToken", s.data.data.token, '1h')
                 cookies.set("account", inputUserName.value, '1h')
+                cookies.set("accountImgUrl", s.data.data.avatarUrl, '1h')// 存储一下头像
                 
 
+
                 // 如果登录成功看要看一下是不是管理员用户 普通用户一些功能就不显示
-                
-                
+
+
                 window.location.reload();
             } else {
                 // ElMessage.error("账号或密码错误")
@@ -473,6 +500,9 @@ onBeforeUnmount(() => {
 
 /* 针对所有手机 */
 @media only screen and (max-width: 767px) {
+    .search-btn:hover {
+        display: none;
+}
 
     .dialog-width {
         width: 100%;
@@ -572,6 +602,10 @@ onBeforeUnmount(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.search-btn:hover {
+    background-color: #2580db; /* 带5%蓝调的晨雾白 */
+    border-radius: 1rem;
 }
 
 .item {

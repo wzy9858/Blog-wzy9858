@@ -1,6 +1,7 @@
 package com.wzy.wzy9858blog;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wzy.controller.CommentsController;
 import com.wzy.mapper.AdministratorsMapper;
 import com.wzy.mapper.ArticlesMapper;
 import com.wzy.pojo.Articles;
@@ -33,18 +34,14 @@ class Wzy9858BlogApplicationTests {
 	@Autowired
 	SendmailUtil sendmailUtil;
 
+	@Autowired
+	CommentsController commentsController;
 
 	@Test
 	void testMail(){
-//		String jwt = jwtHelper.createJwt("admin-account");//创建一个jwt
-//		String s = jwtHelper.praseAccount(jwt);//解析
-
-		String str = "admin-account";
-		System.out.println(str.split("-")[0]);
-
-
-
+		commentsController.getComment(1);
 	}
+
 
 
 

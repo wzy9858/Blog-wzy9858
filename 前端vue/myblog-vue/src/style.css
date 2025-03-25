@@ -31,3 +31,90 @@ a {
   ::-webkit-scrollbar-track {
     background-color: #f1f1f1; /* 轨道颜色 */
   }
+
+
+  /* 全局鼠标样式
+ */
+ /* 全局默认光标 */
+/* 全局隐藏默认光标 */
+* {
+  cursor: none !important;
+}
+
+/* 自定义黑色圆点样式 */
+.custom-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(145deg, 
+    rgba(0,0,0,0.9) 20%, 
+    rgba(30,30,30,0.7) 80%);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 15px rgba(0,255,255,0.4),
+    inset 0 0 10px rgba(0,0,0,0.5);
+  pointer-events: none;
+  z-index: 9999;
+  transition: 
+    transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.3s ease;
+  mix-blend-mode: difference;
+  /* 动态核心 */
+  &::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(0,255,255,0.6);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: core-pulse 1.5s infinite;
+  }
+  /* 量子拖尾 */
+  &::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(0,255,255,0.2);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: quantum-trail 2s linear infinite;
+  }
+}
+
+@keyframes core-pulse {
+  0% { box-shadow: 0 0 5px rgba(0,255,255,0.4); }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.8);
+    box-shadow: 0 0 20px rgba(0,255,255,0.8);
+  }
+  100% { box-shadow: 0 0 5px rgba(0,255,255,0.4); }
+}
+
+@keyframes quantum-trail {
+  0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.6); }
+  100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* 交互增强 */
+body:active .custom-cursor {
+  transform: scale(0.85);
+  filter: brightness(1.5);
+  &::before {
+    background: rgba(255,0,0,0.6);
+  }
+}
+
+/* 悬停状态 */
+a:hover ~ .custom-cursor {
+  transform: scale(1.2);
+  border-color: rgba(0,255,255,0.8);
+}
+

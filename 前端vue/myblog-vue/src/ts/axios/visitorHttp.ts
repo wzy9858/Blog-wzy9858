@@ -107,3 +107,40 @@ export function sendFeedback(information:any){// 格式user-message
         e => { throw e }
     )
 }
+// 搜索功能的api
+export function search(keywords:any){// 格式user-message
+    return axios.get(`/api/complete/search?keyWords=${keywords}`,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}
+
+//  触发彩蛋的方法
+export function caidan(information:any){// 格式user-message
+    return axios.get(`/api/complete/caidan?info=${information}`,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}
+
+//  获取所有文章的分类
+export function getAllCategory(){// 格式user-message
+    return axios.get(`/api/complete/getTags`,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}
+
+
+// 根据tag获取所有文章信息
+// http://localhost:8080/complete/getArticlesByList?tag=tag1
+export function getAllArticlesByTag(information:any){// 格式user-message
+    return axios.get(`/api/complete/getArticlesByList?tag=${information}`,{ withCredentials: true }).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

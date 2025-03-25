@@ -1,4 +1,5 @@
 <template>
+     <Cursor />
     <div v-if="viewCur" class="particle-container">
         <!-- 粒子效果 -->
         <Particles id="tsparticles" :options="options" class="particle" />
@@ -14,7 +15,7 @@
 </template>
 
 <script setup>
-
+import Cursor from './components/Cursor.vue';
 import Header from './components/Header.vue';
 import Home from './views/Home.vue';
 

@@ -19,7 +19,7 @@
         </div>
         <div style="display: flex; flex-direction: column;">
           <h1 style="font-family: myfont1;">{{visitorNum}}</h1>
-          <span style="font-weight: 100; font-size: 15px;">访问总数</span>
+          <span style="font-weight: 100; font-size: 15px;">访客总数</span>
         </div>
       </div>
 
