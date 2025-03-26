@@ -140,6 +140,7 @@ import { getSuperInfo } from '../ts/axios/adminHttp';
 import { sendFeedback } from '../ts/axios/visitorHttp';
 import Footer from '../components/Footer.vue';
 import gsap from 'gsap';
+import { getIpAndAdress } from '../ts/axios/visitorHttp';
 const userFeedback = ref('');
 const userFeedbackContect = ref('')
 let router = useRouter();
@@ -213,6 +214,26 @@ onMounted(() => {
     head_img.value = s.data.data.admin.avatarUrl;
     nickname.value = s.data.data.admin.nickname;
   }).catch();
+
+  let ipInfo;
+  getIpAndAdress().then(
+        s => {
+            ipInfo = s.data;
+            console.log("发送请求成功");
+            console.log(s);
+            ElNotification({
+                title: '✨✨✨欢迎你',
+                message: '来自于 ['+ipInfo.split('-')[1]+'] 的朋友<br>' + "您的ip地址为: " + ipInfo.split('-')[0] ,
+                type: 'success',
+                dangerouslyUseHTMLString: true
+            })
+
+        }
+    ).catch(
+        e => {
+            console.log("发送请求失败");
+        }
+    )
 });
 
 let articleList = ref([{

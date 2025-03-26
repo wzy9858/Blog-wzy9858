@@ -28,12 +28,13 @@ import { getIpAndAdress } from './ts/axios/visitorHttp.ts';
 // -------------
 
 const fullPath = window.location.href;
-console.log(fullPath); // 输出: http://localhost:5173/#/register
+// console.log(fullPath); // 输出: http://localhost:5173/#/register
 const lastPart = fullPath.split('/').pop();
-console.log(lastPart); // 输出: register
+// console.log(lastPart); // 输出: register
 const viewCur = ref(true) //false为不显示
 //getIpAndAdress
 // ---------
+
 onMounted(() => {
     if (lastPart == 'register') {
         viewCur.value = false
@@ -44,26 +45,26 @@ onMounted(() => {
     //http://localhost:8080/complete/getIpAndAdress
     // 拿到用户的ip地址 ip-city
 
-    let ipInfo;
-    getIpAndAdress().then(
-        s => {
-            ipInfo = s.data;
-            console.log("发送请求成功");
-            console.log(s);
+    // let ipInfo;
+    // getIpAndAdress().then(
+    //     s => {
+    //         ipInfo = s.data;
+    //         console.log("发送请求成功");
+    //         console.log(s);
 
-            ElNotification({
-                title: '✨✨✨欢迎你',
-                message: '来自于 ['+ipInfo.split('-')[1]+'] 的朋友<br>' + "您的ip地址为: " + ipInfo.split('-')[0] ,
-                type: 'success',
-                dangerouslyUseHTMLString: true
-            })
+    //         ElNotification({
+    //             title: '✨✨✨欢迎你',
+    //             message: '来自于 ['+ipInfo.split('-')[1]+'] 的朋友<br>' + "您的ip地址为: " + ipInfo.split('-')[0] ,
+    //             type: 'success',
+    //             dangerouslyUseHTMLString: true
+    //         })
 
-        }
-    ).catch(
-        e => {
-            console.log("发送请求失败");
-        }
-    )
+    //     }
+    // ).catch(
+    //     e => {
+    //         console.log("发送请求失败");
+    //     }
+    // )
 })
 // //关闭之后
 // window.addEventListener('beforeunload', function (event) {

@@ -4,11 +4,11 @@ package com.wzy.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wzy.mapper.CommentsMapper;
 import com.wzy.pojo.Comments;
+import com.wzy.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,21 +17,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/comments")
 public class CommentsController {
+
     @Autowired
     CommentsMapper commentsMapper;
-    @PostMapping("/create")
-    public void create(@RequestBody Comments comments){
-        comments.setCreateTime(new Date());
-//        comments.setId(null);
 
-        commentsMapper.insert(comments); //插入一条评论
+    @PostMapping("/create")
+    public int create(@RequestBody Comments comments) {
         System.out.println(comments);
+        comments.setCreateTime(new Date());
+        int insert = commentsMapper.insert(comments);//插入一条评论
+        System.out.println(comments);
+        return insert;
     }
 
 
-//    根据文章id获取文章的评论
+    //    根据文章id获取文章的评论
     @GetMapping("/get/{id}")
-    public List<Comments> getComment(@PathVariable Integer id){
+    public List<Comments> getComment(@PathVariable Integer id) {
 //        Comments c1 = new Comments();
 //        c1.setId(5l);
 //        c1.setArticleId(1l);
@@ -63,20 +65,19 @@ public class CommentsController {
 
 
         QueryWrapper q1 = new QueryWrapper();
-        q1.eq("article_id",id);//查询所有评论
+        q1.eq("article_id", id);//查询所有评论
         List<Comments> l1 = commentsMapper.selectList(q1);
 
 
         for (Comments comments : l1) {//遍历所有评论
-            if(comments.getParentCommentId()!=null){//如果有父评论
-                for(Comments a : l1){
-                    if(a.getId() == comments.getParentCommentId()){
+            if (comments.getParentCommentId() != null) {//如果有父评论
+                for (Comments a : l1) {
+                    if (a.getId() == comments.getParentCommentId()) {
                         a.getReplies().add(comments);
                     }
                 }
             }
         }
-
 
         for (int i = l1.size() - 1; i >= 0; i--) {
             Comments comments = l1.get(i);
@@ -84,11 +85,34 @@ public class CommentsController {
                 l1.remove(i); // 直接删除当前索引元素
             }
         }
-
-
-
         return l1;
+    }
+
+    //    获取评论的接口
+    @GetMapping("/getAllComment")
+    public List<Comments> getAllComment() {
+        QueryWrapper q1 = new QueryWrapper();
+        q1.orderByDesc("create_time");
+        List<Comments> list = commentsMapper.selectList(q1);
+
+        return list;
+    }
+
+    //    删除评论
+    @DeleteMapping("deleteByIds")
+    public R deleteVisitor(@RequestParam("id") List<Integer> ids) {
+        int count = 0;
+        for (Integer id : ids) {
+            commentsMapper.deleteById(id);
+            count++;
+        }
+
+        if (count == ids.size())
+            return R.ok();
+        else
+            return R.error().message("删除数据不完全");
 
     }
+
 
 }

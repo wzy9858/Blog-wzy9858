@@ -34,9 +34,7 @@
 
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 300px;" v-else>
             <h1 style="font-family: myfont1; font-size: 50px;">普通用户,无权访问</h1>
-        </div>
-
-    
+        </div>    
     </div>
 
     <!-- 点击事件 -->

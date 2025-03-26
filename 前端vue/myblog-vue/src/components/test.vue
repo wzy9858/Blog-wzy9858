@@ -12,7 +12,7 @@
           </div>
           <button class="reply-btn" @click="startReply(comment.id, comment.userAccount)">回复</button>
         </div>
-        <div class="content">{{ comment.content }} {{comment.replies.length}}</div>
+        <div class="content">{{ comment.content }} {{ comment.replies.length }}</div>
 
         <!-- 子评论 -->
         <div v-if="comment.replies.length > 0" class="replies">
@@ -90,28 +90,26 @@ const processComment = (comment) => {
 //       }
 //     ]
 //   }],
+import { useRoute } from 'vue-router';
+let route = useRoute();
 
 function getCommentFcn() {
-  if (cookies.get("CommentArticleId")) {
-    console.log("查找评论 所属id-----");
-    
-    console.log(cookies.get("CommentArticleId"));
-    
-    getComments(30).then(res => {
-      comments.value = res.data
-      // comments.value = res.data.map(comment => ({
-      //   ...comment,
-      //   createTime: new Date(comment.createTime),
-      //   replies: comment.replies ? [{
-      //     ...comment.replies,
-      //     createTime: new Date(comment.replies.createTime),
-      //   }] : []
-      // }))
-    }).catch(console.error)
-  }
+  let id = ref(route.query.id)
+  // console.log("评论组件 id=",id.value);
+  getComments(30).then(res => {
+    comments.value = res.data.map(comment => ({
+      ...comment,
+      createTime: new Date(comment.createTime),
+      replies: comment.replies ? [{
+        ...comment.replies,
+        createTime: new Date(comment.replies.createTime),
+      }] : []
+    }))
+  }).catch(console.error)
+
 }
 
-onMounted(() => {  
+onMounted(() => {
   getCommentFcn();
 })
 
@@ -128,6 +126,7 @@ const formatTime = (date) => {
     minute: '2-digit'
   })
 }
+
 
 const startReply = (commentId, userAccount) => {
   replyingToId.value = commentId

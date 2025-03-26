@@ -144,3 +144,37 @@ export function getAllArticlesByTag(information:any){// 格式user-message
         e => { throw e }
     )
 }
+
+
+
+//  获取所有评论
+
+export function getCommentsList() {
+    return http.get("/comments/getAllComment"
+    ).then(
+        s => {
+            return s
+        }
+
+    ).catch(
+        e => {
+            throw e
+        }
+    )
+}
+
+// 删除评论
+export function deleteComments(ids:[]) {
+    let strPath = ''
+    ids.forEach(item => {
+        strPath = strPath + "id=" + item + "&"
+    })
+    strPath = strPath.substring(0, strPath.length - 1)
+    // console.log(strPath);
+    
+    return http.delete(`/comments/deleteByIds?${strPath}`).then(
+        s => { return s }
+    ).catch(
+        e => { throw e }
+    )
+}

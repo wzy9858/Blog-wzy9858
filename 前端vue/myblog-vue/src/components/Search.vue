@@ -32,6 +32,7 @@
       <el-table-column prop="tags" label="标签" width="120" />
       <el-table-column prop="createdAt" label="创建时间" sortable />
       <el-table-column prop="updatedAt" label="更新时间" sortable />
+
       <el-table-column label="封面图" width="140">
         <template #default="{ row }">
           <el-image 
@@ -42,6 +43,7 @@
           />
         </template>
       </el-table-column>
+      
     </el-table>
   </div>
 </template>

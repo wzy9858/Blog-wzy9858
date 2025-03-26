@@ -15,6 +15,8 @@ import NProgress from 'nprogress';
 import AI from '../views/AI.vue';
 import test from '../components/test.vue';
 import MailAgreeOrNot from '../views/MailAgreeOrNot.vue';
+import lxyTest from '../components/lxyTest.vue';
+import ManageComment from '../views/Manage/ManageComment.vue';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -68,6 +70,12 @@ const router = createRouter({
   },{
     path: '/register',
     component:MailAgreeOrNot
+  },{
+    path: '/lxyTest',
+    component:lxyTest
+  },{
+    path: '/commentManage',
+    component:ManageComment
   }
 
 

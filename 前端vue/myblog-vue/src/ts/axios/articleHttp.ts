@@ -89,7 +89,7 @@ export function getHomePanelData(){
 
 // 创建评论 
 export function createComment(comments: any) {
-    return axios.post("/api/comments/create", comments).then(
+    return http.post("/comments/create", comments).then(
 
             s => {
                 return s

@@ -21,7 +21,7 @@
                     <v-icon class="archive" name="co-airbnb" scale="1.5" />
                     <span style="font-size: 1.3rem;"> AI助手 </span>
                 </RouterLink>
-                
+
 
                 <RouterLink to="/about" class="center-all item">
                     <v-icon class="archive" name="md-personsearch-outlined" scale="1.8" />
@@ -39,16 +39,17 @@
 
         <div class="hiddenOnPhone" style="width: 15%;"></div>
 
-        <div class="search-btn hiddenOnPhone"  @click="searchDialog = true" style="margin-right: 2rem;">
-                    <v-icon name="md-managesearch-twotone" scale="1.8" />
-                    <span style="font-size: 1.3rem;"> 搜索 </span>
-        </div>
-        
+
+
         <div v-if="cookies.get('accountToken') == null" class="container-items center-all hiddenOnPhone">
             <ul class="items">
 
-               
-                <li class="center-all item" @click="login()">
+                <li class="search-btn hiddenOnPhone item" @click="searchDialog = true" style="margin-right: 2rem;">
+                    <v-icon name="md-managesearch-twotone" scale="1.8" />
+                    <span style="font-size: 1.3rem;"> 搜索 </span>
+                </li>
+
+                <li class="center-all item" @click="login()" style="margin-right: 4rem;">
                     <v-icon class="archive" name="hi-login" scale="1.8" />
                     <span style="font-size: 1.3rem;"> 登录 </span>
                 </li>
@@ -57,11 +58,16 @@
 
         <!-- 登录成功后的头像显示 --电脑端的 -->
         <div v-else class="hiddenOnPhone center-all">
+
+             <div class="search-btn hiddenOnPhone item" @click="searchDialog = true" style="margin-right: 2rem;">
+                        <v-icon name="md-managesearch-twotone" scale="1.8" />
+                        <span style="font-size: 1.3rem;"> 搜索 </span>
+                    </div>
             <el-dropdown>
                 <span>
-                    <div class="center-all">
+                    <div class="center-all" style="width: 250px;">
                         <el-avatar :src="head_img" />
-                        <span style="margin-left: 0.2rem;">{{ nickname }}</span>
+                        <span style="margin-left: 0.2rem; ">{{ nickname }}</span>
                     </div>
                 </span>
                 <template #dropdown>
@@ -69,6 +75,9 @@
                         <el-dropdown-item @click="computer_articleManage">文章管理</el-dropdown-item>
                         <el-dropdown-item @click="computer_visitorManage">访客管理</el-dropdown-item>
                         <el-dropdown-item @click="computer_accountManage">账号管理</el-dropdown-item>
+
+                        <el-dropdown-item @click="computer_commentManage">评论管理</el-dropdown-item>
+
                         <el-dropdown-item @click="computer_panel">仪表盘</el-dropdown-item>
                         <el-dropdown-item @click="quitlogin">退出登录</el-dropdown-item>
 
@@ -152,9 +161,15 @@
                                     <v-icon class="archive" name="hi-login" scale="1.4" />
                                     <span style="font-size: 1.3rem;"> 访客 </span>
                                 </el-menu-item>
+
                                 <el-menu-item index="1-3" @click="accountManage()">
                                     <v-icon class="archive" name="hi-login" scale="1.4" />
                                     <span style="font-size: 1.3rem;"> 账号 </span>
+                                </el-menu-item>
+
+                                <el-menu-item index="1-4" @click="commentManage()">
+                                    <v-icon class="archive" name="hi-login" scale="1.4" />
+                                    <span style="font-size: 1.3rem;"> 评论 </span>
                                 </el-menu-item>
 
                             </el-menu-item-group>
@@ -222,9 +237,9 @@
     <el-dialog v-model="searchDialog" :modal="false">
         <!-- <span>搜索</span> -->
         <template #footer>
-           <div>
+            <div>
                 <Search></Search>
-           </div>
+            </div>
         </template>
     </el-dialog>
 
@@ -336,7 +351,7 @@ function accountLogin() {
                 cookies.set("accountToken", s.data.data.token, '1h')
                 cookies.set("account", inputUserName.value, '1h')
                 cookies.set("accountImgUrl", s.data.data.avatarUrl, '1h')// 存储一下头像
-                
+
 
 
                 // 如果登录成功看要看一下是不是管理员用户 普通用户一些功能就不显示
@@ -382,6 +397,9 @@ function computer_visitorManage() {
 function computer_accountManage() {
     router.push('/accountManage')
 }
+function computer_commentManage() {
+    router.push('/commentManage')
+}
 function computer_panel() {
     router.push('/panel')
 }
@@ -423,6 +441,14 @@ function accountManage() {
     router.push('/accountManage')
     drawer.value = false;
 }
+
+function commentManage() {
+    router.push('/commentManage')
+    drawer.value = false;
+}
+
+
+
 
 const drawer = ref(false)
 const direction = ref<DrawerProps['direction']>('ltr')
@@ -502,7 +528,7 @@ onBeforeUnmount(() => {
 @media only screen and (max-width: 767px) {
     .search-btn:hover {
         display: none;
-}
+    }
 
     .dialog-width {
         width: 100%;
@@ -603,12 +629,20 @@ onBeforeUnmount(() => {
     justify-content: space-between;
     align-items: center;
 }
+
+.search-btn {
+    margin-left: 40px;
+    color: black;
+}
+
 .search-btn:hover {
-    background-color: #2580db; /* 带5%蓝调的晨雾白 */
+    background-color: #2580db;
+    /* 带5%蓝调的晨雾白 */
     border-radius: 1rem;
 }
 
 .item {
+    width: 90px;
     margin-left: 40px;
     color: black;
 

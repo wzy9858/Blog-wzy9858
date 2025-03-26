@@ -68,12 +68,10 @@ const processComment = (comment) => {
 
 
 function getCommentFcn() {
-  if (cookies.get("CommentArticleId")) {
-    console.log("查找评论 所属id-----");
-    
-    console.log(cookies.get("CommentArticleId"));
-    
-    getComments(cookies.get("CommentArticleId")).then(res => {
+
+  let id = ref(route.query.id)
+  // console.log("评论组件 id=",id.value);
+    getComments(id.value).then(res => {
       comments.value = res.data.map(comment => ({
         ...comment,
         createTime: new Date(comment.createTime),
@@ -83,13 +81,14 @@ function getCommentFcn() {
         }] : []
       }))
     }).catch(console.error)
-  }
+  
 }
-
+import { useRoute } from 'vue-router';
+let route = useRoute();
 onMounted(() => {  
+
   getCommentFcn();
 })
-
 
 
 const newComment = ref('')
@@ -107,6 +106,8 @@ const formatTime = (date) => {
 const startReply = (commentId, userAccount) => {
   replyingToId.value = commentId
   replyingToUsername.value = userAccount
+
+
 }
 
 const cancelReply = () => {
