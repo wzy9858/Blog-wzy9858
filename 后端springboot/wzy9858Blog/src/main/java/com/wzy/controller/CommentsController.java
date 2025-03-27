@@ -63,11 +63,9 @@ public class CommentsController {
 //        commentsMapper
 //        List<Comments> allList = new ArrayList<>();//封装的数据都放在这里面
 
-
         QueryWrapper q1 = new QueryWrapper();
         q1.eq("article_id", id);//查询所有评论
         List<Comments> l1 = commentsMapper.selectList(q1);
-
 
         for (Comments comments : l1) {//遍历所有评论
             if (comments.getParentCommentId() != null) {//如果有父评论

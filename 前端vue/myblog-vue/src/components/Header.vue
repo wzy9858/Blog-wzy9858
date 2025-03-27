@@ -268,15 +268,19 @@ let nickname = ref('')
 import { getSuperInfo } from '../ts/axios/adminHttp';
 
 onMounted(() => {
+    
     if (cookies.get("accountToken") != null) {
         // head_img = s.data.data.avatarUrl
-        getSuperInfo().then(
-            s => {
-                head_img.value = s.data.data.admin.avatarUrl
-                nickname.value = s.data.data.admin.nickname
+        // getSuperInfo().then(
+        //     s => {
+        //         head_img.value = s.data.data.admin.avatarUrl
+        //         nickname.value = s.data.data.admin.nickname
 
-            }
-        ).catch()
+        //     }
+        // ).catch()
+
+        nickname.value = cookies.get("account")
+        head_img.value = cookies.get("accountImgUrl")
 
     }
 })
@@ -351,7 +355,6 @@ function accountLogin() {
                 cookies.set("accountToken", s.data.data.token, '1h')
                 cookies.set("account", inputUserName.value, '1h')
                 cookies.set("accountImgUrl", s.data.data.avatarUrl, '1h')// 存储一下头像
-
 
 
                 // 如果登录成功看要看一下是不是管理员用户 普通用户一些功能就不显示
