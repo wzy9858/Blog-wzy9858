@@ -91,66 +91,55 @@ onMounted(() => {
 const options = {
     background: {
         color: {
-            value: 'aliceblue;',
-
+            value: '#E3F2FD', // 背景色调整为浅蓝色，与整体风格一致
         },
-        // image: './image/2.jpg',
-        // image: "url('~/image/2.jpg')",
-        // position: "50% 50%",
-        // repeat: "no-repeat",
-        // size: "cover",
-        // opacity: 1
     },
     fpsLimit: 120,
     interactivity: {
         events: {
             onClick: {
-                enable: false,
-                // mode: 'push',
+                enable: true, // 启用点击交互
                 mode: 'bubble',
             },
             onHover: {
-                enable: false,
-                // mode: 'repulse',
-                mode: 'push',
+                enable: true, // 启用悬浮交互
+                mode: 'repulse', // 鼠标悬浮时粒子排斥
             },
             resize: true,
         },
         modes: {
             bubble: {
-                distance: 400,
+                distance: 300,
                 duration: 2,
                 opacity: 0.8,
-                size: 40,
+                size: 20, // 调整气泡大小
             },
             push: {
                 quantity: 4,
             },
             repulse: {
-                distance: 200,
+                distance: 150, // 调整排斥距离
                 duration: 0.4,
             },
         },
     },
     particles: {
         color: {
-            // value: '#ffffff',
-            value: '#dddd',
+            value: '#64B5F6', // 粒子颜色调整为浅蓝色
         },
-        // links: {
-        //     color: '#dddd',
-        //     // color: '#ffffff',
-        //     distance: 150,
-        //     enable: true,
-        //     opacity: 0.5,
-        //     width: 1,
-        // },
+        links: {
+            color: '#BBDEFB', // 粒子连线颜色调整为柔和蓝色
+            distance: 150,
+            enable: true,
+            opacity: 0.5,
+            width: 1,
+        },
         move: {
             direction: 'none',
             enable: true,
             outMode: 'bounce',
             random: false,
-            speed: 1,
+            speed: 1.5, // 调整粒子移动速度
             straight: false,
         },
         number: {
@@ -158,19 +147,17 @@ const options = {
                 enable: true,
                 area: 800,
             },
-            value: 80,
+            value: 100, // 增加粒子数量
         },
         opacity: {
-            // value: 0.5,
-            value: 5,
+            value: 0.7, // 调整粒子透明度
         },
         shape: {
-            // type: 'circle',
-            type: 'star',
+            type: 'circle', // 将形状改为圆形
         },
         size: {
             random: true,
-            value: 10,
+            value: 8, // 调整粒子大小
         },
     },
     detectRetina: true,
@@ -183,9 +170,7 @@ const options = {
     height: 100%;
     position: relative;
     z-index: 0;
-    /* 容器的z-index设置为0 */
-
-    /* background: linear-gradient(to right,#ff7e5f,#feb47b); 渐变背景 */
+    background: linear-gradient(to right, #E3F2FD, #BBDEFB); /* 添加渐变背景，与整体风格一致 */
 }
 
 .particle {
@@ -202,5 +187,29 @@ const options = {
     position: fixed;
     top: 0;
     z-index: 1;
+    background-color: #1E88E5; /* 深蓝色，与 Header 保持一致 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+.el-backtop {
+    background-color: #1E88E5; /* 深蓝色，与整体风格一致 */
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+    transition: all 0.3s ease;
+}
+
+.el-backtop:hover {
+    background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+    transform: scale(1.1); /* 鼠标悬浮时放大效果 */
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* 增强阴影效果 */
+}
+
+.v-icon {
+    color: white; /* 图标颜色为白色，与按钮背景形成对比 */
+    transition: color 0.3s ease;
+}
+
+.v-icon:hover {
+    color: #E3F2FD; /* 鼠标悬浮时图标颜色变为浅蓝色 */
 }
 </style>

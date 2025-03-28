@@ -237,8 +237,71 @@ function handleSelectionChange(selection: any[]) {
 </script>
 
 <style scoped>
+/* 容器样式 */
 .account-manage-container {
     margin-top: 70px;
+    padding: 20px;
+    background-color: #F5F5F5; /* 浅灰色背景 */
+    border-radius: 8px; /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+/* 表格样式 */
+.table {
+    margin: 1rem auto;
+    border-radius: 8px; /* 添加圆角 */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+.table .el-table {
+    border-radius: 8px; /* 表格圆角 */
+}
+
+.table :deep(.el-table__row:hover) {
+    background-color: #BBDEFB; /* 鼠标悬浮时的柔和蓝色背景 */
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.table :deep(.el-button) {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+}
+
+.table :deep(.el-button:hover) {
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
+}
+
+/* 顶部按钮样式 */
+.center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem; /* 增加按钮之间的间距 */
+}
+
+.center-all .el-button {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+}
+
+.center-all .el-button:hover {
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
+}
+
+.center-all .el-button[type="danger"] {
+    background-color: #E53935; /* 红色背景 */
+    color: white;
+    border: none;
+}
+
+.center-all .el-button[type="danger"]:hover {
+    background-color: #B71C1C; /* 鼠标悬浮时的深红色 */
+}
+
+/* 编辑弹窗样式 */
+.el-dialog {
+    border-radius: 8px; /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 }
 
 .edit-container {
@@ -246,5 +309,33 @@ function handleSelectionChange(selection: any[]) {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 1rem; /* 增加输入框之间的间距 */
+}
+
+.edit-container span {
+    font-weight: bold;
+    color: #1565C0; /* 深蓝色字体 */
+}
+
+.edit-container .el-input {
+    border-radius: 8px; /* 添加圆角 */
+    transition: border-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.edit-container .el-input:focus {
+    border-color: #64B5F6; /* 聚焦时的浅蓝色边框 */
+}
+
+.edit-container .el-button {
+    background-color: #1E88E5; /* 深蓝色按钮背景 */
+    color: white;
+    border: none;
+    border-radius: 8px; /* 添加圆角 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+}
+
+.edit-container .el-button:hover {
+    background-color: #0056b3; /* 鼠标悬浮时的深蓝色 */
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
 }
 </style>

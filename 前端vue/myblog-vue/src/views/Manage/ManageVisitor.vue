@@ -195,14 +195,100 @@ const tableData = ref([
 </script>
 
 <style scoped>
+/* 顶部按钮样式 */
 .top-tab {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
+    gap: 1rem; /* 增加按钮之间的间距 */
 }
 
+.top-tab .el-button {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+}
+
+.top-tab .el-button:hover {
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
+}
+
+.top-tab .el-button[type="danger"] {
+    background-color: #E53935; /* 红色背景 */
+    color: white;
+    border: none;
+}
+
+.top-tab .el-button[type="danger"]:hover {
+    background-color: #B71C1C; /* 鼠标悬浮时的深红色 */
+}
+
+/* 表格样式 */
+.table {
+    margin: 1rem auto;
+    border-radius: 8px; /* 添加圆角 */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+.table .el-table {
+    border-radius: 8px; /* 表格圆角 */
+}
+
+.table :deep(.el-table__row:hover) {
+    background-color: #BBDEFB; /* 鼠标悬浮时的柔和蓝色背景 */
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.table :deep(.el-button) {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+}
+
+.table :deep(.el-button:hover) {
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
+}
+
+/* 弹窗样式 */
+.el-dialog {
+    border-radius: 8px; /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+}
+
+.el-dialog .el-input {
+    border-radius: 8px; /* 添加圆角 */
+    transition: border-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.el-dialog .el-input:focus {
+    border-color: #64B5F6; /* 聚焦时的浅蓝色边框 */
+}
+
+.el-dialog .el-button {
+    background-color: #1E88E5; /* 深蓝色按钮背景 */
+    color: white;
+    border: none;
+    border-radius: 8px; /* 添加圆角 */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
+}
+
+.el-dialog .el-button:hover {
+    background-color: #0056b3; /* 鼠标悬浮时的深蓝色 */
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
+}
+
+/* 无权限访问提示样式 */
+.visitor-manage-container h1 {
+    font-family: 'myfont1';
+    font-size: 50px;
+    color: #E53935; /* 红色字体，强调无权限提示 */
+    text-align: center;
+}
+
+/* 容器样式 */
 .visitor-manage-container {
     margin-top: 70px;
+    padding: 20px;
+    background-color: #F5F5F5; /* 浅灰色背景 */
+    border-radius: 8px; /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 }
 </style>

@@ -106,40 +106,43 @@ const sendMessage = async () => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #E3F2FD; /* 浅蓝色背景，与整体风格一致 */
 }
 
 .chat-container {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 800px; /* 增加宽度 */
   background: #ffffff;
-  border: 1px solid #e4e7ed;
-  border-radius: 3px;
-  padding: 16px;
+  border: 1px solid #BBDEFB; /* 柔和蓝色边框 */
+  border-radius: 8px; /* 添加圆角 */
+  padding: 24px; /* 增加内边距 */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 }
 
 .name {
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px; /* 增大字体 */
   color: #909399;
   margin-bottom: 6px;
 }
 
 .chat_message {
-  padding: 6px 12px;
+  padding: 12px 20px; /* 增加内边距 */
   background: #f8f8f9;
-  border-radius: 4px;
-  margin-bottom: 15px;
+  border-radius: 8px; /* 添加圆角 */
+  margin-bottom: 20px; /* 增加间距 */
   word-wrap: break-word;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px; /* 增大字体 */
   color: #303133;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
 }
 
 .message-left {
-  max-width: 418px;
+  max-width: 600px; /* 增加最大宽度 */
   align-self: flex-start;
 }
 
@@ -147,12 +150,17 @@ const sendMessage = async () => {
   background-color: #f8f8f9;
 }
 
+.message-left .chat_message:hover {
+  background-color: #BBDEFB; /* 鼠标悬浮时的柔和蓝色背景 */
+  transform: scale(1.02); /* 鼠标悬浮时放大效果 */
+}
+
 .message-left .name {
   align-self: flex-start;
 }
 
 .message-right {
-  max-width: 418px;
+  max-width: 600px; /* 增加最大宽度 */
   align-self: flex-end;
   display: flex;
   flex-direction: column;
@@ -160,6 +168,11 @@ const sendMessage = async () => {
 
 .message-right .chat_message {
   background-color: #ebf3ff;
+}
+
+.message-right .chat_message:hover {
+  background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色背景 */
+  transform: scale(1.02); /* 鼠标悬浮时放大效果 */
 }
 
 .message-right .name {
@@ -174,53 +187,67 @@ const sendMessage = async () => {
 
 textarea {
   width: 100%;
-  height: 100px;
-  margin-bottom: 10px;
+  height: 120px; /* 增加高度 */
+  margin-bottom: 15px; /* 增加间距 */
   resize: none;
+  border: 1px solid #BBDEFB; /* 柔和蓝色边框 */
+  border-radius: 8px; /* 添加圆角 */
+  padding: 12px; /* 增加内边距 */
+  font-size: 16px; /* 增大字体 */
+  color: #303133;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  border-color: #64B5F6; /* 聚焦时的浅蓝色边框 */
+  outline: none;
 }
 
 button {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px; /* 增加按钮高度 */
+  background-color: #1E88E5; /* 深蓝色按钮背景 */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px; /* 添加圆角 */
   cursor: pointer;
+  font-size: 18px; /* 增大字体 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* 鼠标悬浮时的深蓝色背景 */
+  transform: scale(1.02); /* 鼠标悬浮时放大效果 */
 }
 
 .loading {
   text-align: center;
   margin: 10px 0;
-  font-size: 14px;
-  color: #007bff;
+  font-size: 16px; /* 增大字体 */
+  color: #1E88E5; /* 深蓝色加载文字 */
 }
 
 /* 添加媒体查询以适应手机端 */
 @media (max-width: 600px) {
   .chat-container {
     width: 90%;
-    padding: 8px;
+    padding: 16px; /* 减少内边距 */
   }
 
   .chat_message {
-    font-size: 12px;
+    font-size: 14px; /* 减小字体 */
   }
 
   .name {
-    font-size: 10px;
+    font-size: 12px; /* 减小字体 */
   }
 
   textarea {
-    height: 80px;
+    height: 100px; /* 减小高度 */
   }
 
   button {
-    padding: 8px;
+    padding: 10px; /* 减小按钮高度 */
   }
 }
 </style>

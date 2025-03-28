@@ -120,7 +120,6 @@
   <style scoped>
   .category-container {
     position: relative;
-    /* max-width: 1200px; */
     width: 900px;
     margin: 0 auto;
     padding: 0 60px;
@@ -139,17 +138,25 @@
     min-width: 120px;
     padding: 8px 16px;
     border-radius: 20px;
-    background: #f5f5f5;
+    background: #E3F2FD; /* 与之前的浅蓝色保持一致 */
+    color: #1565C0; /* 深蓝色字体 */
     cursor: pointer;
     transition: all 0.3s;
     text-align: center;
     margin-right: 10px;
+    font-weight: 500;
+  }
+  
+  .category-item:hover {
+    background: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+    color: white; /* 悬浮时字体颜色变为白色 */
+    transform: scale(1.05); /* 悬浮时放大效果 */
   }
   
   .category-item.active {
-    background: #e4393c;
+    background: #1E88E5; /* 激活状态的深蓝色 */
     color: white;
-    font-weight: 500;
+    font-weight: bold;
   }
   
   .nav-button {
@@ -159,8 +166,8 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: #FFFFFF; /* 按钮背景为白色 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border: none;
     cursor: pointer;
     z-index: 1;
@@ -168,8 +175,8 @@
   }
   
   .nav-button:hover {
-    background: #f5f5f5;
-    transform: translateY(-50%) scale(1.1);
+    background: #F5F5F5; /* 鼠标悬浮时的浅灰色 */
+    transform: translateY(-50%) scale(1.1); /* 悬浮时放大效果 */
   }
   
   .nav-button.left {

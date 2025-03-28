@@ -49,7 +49,7 @@
     </div>
 
     <!-- 点击 -->
-    <el-dialog v-model="handleClick" title="编辑" width="500" center>
+    <el-dialog v-model="handleClick" title="新建/编辑" width="500" center>
 
         <div class="edit-container">
             <div style="padding: 0.5rem;">
@@ -86,10 +86,10 @@
                 <el-input v-model="article.isPinned" style="width: 160px;" placeholder="请输入置顶数值" />
             </div>
 
-            <div style="padding: 0.5rem;">
+            <!-- <div style="padding: 0.5rem;">
                 <span style="padding: 0.5rem;">是否加密</span>
                 <el-switch v-model="value1" />
-            </div>
+            </div> -->
 
             <div style="padding: 0.5rem;">
                 <el-button type="success" size="small" @click="saveArticle">
@@ -100,6 +100,58 @@
                     编辑内容
                 </el-button>
 
+            </div>
+
+        </div>
+
+    </el-dialog>
+
+
+    <!-- 这是新建文章的 -->
+    <!-- 点击 -->
+    <el-dialog v-model="createArticlehandleClick" title="新建/编辑" width="500" center>
+
+        <div class="edit-container">
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">作者</span>
+                <el-input v-model="article.owner" style="width: 160px;" placeholder="请输入文章作者" />
+            </div>
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">热度</span>
+                <el-input v-model="article.popularity" style="width: 160px;" placeholder="请输入文章热度" />
+            </div>
+
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">文章标题</span>
+                <el-input v-model="article.articleTitle" style="width: 160px;" placeholder="请输入文章标题" />
+            </div>
+
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">文章标签</span>
+                <el-input v-model="article.tags" style="width: 160px;" placeholder="请输入文章标签" />
+            </div>
+
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">创建时间</span>
+                <el-input v-model="article.createdAt" style="width: 160px;" placeholder="请输入创建时间" />
+            </div>
+
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">图片地址</span>
+                <el-input v-model="article.homeDisplayImageUrl" style="width: 160px;" placeholder="请输入图片地址" />
+            </div>
+
+            <div style="padding: 0.5rem;">
+                <span style="padding: 0.5rem;">置顶数值</span>
+                <el-input v-model="article.isPinned" style="width: 160px;" placeholder="请输入置顶数值" />
+            </div>
+
+            <!-- <span style="color: red; ">Tip : 新建文章时请先保存再编辑</span> -->
+
+            <div style="padding: 0.5rem;">
+                <el-button type="success" size="small" @click="saveArticle">
+                    保存文章
+                </el-button>
             </div>
 
         </div>
@@ -118,10 +170,14 @@ import { ElMessage } from 'element-plus'
 import { createArticle } from '../../ts/axios/articleHttp';
 import { toRefs, onMounted } from 'vue';
 let router = useRouter()
+import { ElLoading } from 'element-plus'
+
 // 是否加密
 const value1 = ref(true)
 
 const handleClick = ref(false)
+const createArticlehandleClick = ref(false)
+
 
 let deleteId = []
 function handleSelectionChange(selection) {
@@ -164,6 +220,7 @@ let article = reactive({
 
 // 保存文章
 function saveArticle() {
+
     if (article.articleTitle == "") {
         ElMessage.error("标题不能为空")
     } else {
@@ -215,10 +272,11 @@ function deleteArticle() {
 
 //修改文章的按钮 应该传过去文章的id并且跳转到修改文章页面,
 function editArticle() {
-    saveArticle()//编辑文章的内容的时候先保存当前文章
+    // saveArticle()//编辑文章的内容的时候先保存当前文章
     router.push(`/edit?id=${article.id}`)
 }
 // 点击修改按钮 修改文章信息
+
 function editArticleInfo(row) {
     // 点击修改的时候应该拿到表格这一条的相关信息
     // console.log(row);//row就是
@@ -231,7 +289,7 @@ function editArticleInfo(row) {
 // 点击创建文章 
 function createArticleInfoBtn() {
 
-    handleClick.value = true
+    createArticlehandleClick.value = true
 
     // router.push('/edit')
 
@@ -239,7 +297,7 @@ function createArticleInfoBtn() {
 const inputTitle = ref('')
 let pagination = ref({
     total: 20, // 总条目数
-    pageSize: 10, // 每页显示条目数
+    pageSize: 6, // 每页显示条目数
     currentPage: 1 // 当前页码
 });
 
@@ -247,14 +305,24 @@ let pagination = ref({
 import { getArtilesList } from '../../ts/axios/articleHttp'
 
 function upData() {
+
+    const loading = ElLoading.service({
+        lock: true,
+        text: '加载中...',
+        background: 'rgba(0, 0, 0, 0.7)',
+    })
+
     getArtilesList(currentPage.value).then(
         s => {
             pagination.value.total = s.data.data.total;
             tableData.value = s.data.data.list;
+
+            loading.close()
         }
     ).catch(
         e => {
             ElMessage.error("网络错误")
+            loading.close()
         }
     )
 }
@@ -331,5 +399,157 @@ const tableData = ref([
 
 .manage-article-container {
     margin-top: 70px;
+}
+
+/* 顶部按钮样式 */
+.top-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
+    /* 增加按钮之间的间距 */
+}
+
+.top-tab .el-button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.top-tab .el-button:hover {
+    transform: scale(1.05);
+    /* 鼠标悬浮时放大效果 */
+}
+
+.top-tab .el-button[type="success"] {
+    background-color: #1E88E5;
+    /* 深蓝色背景 */
+    color: white;
+    border: none;
+}
+
+.top-tab .el-button[type="success"]:hover {
+    background-color: #0056b3;
+    /* 鼠标悬浮时的深蓝色 */
+}
+
+.top-tab .el-button[type="danger"] {
+    background-color: #E53935;
+    /* 红色背景 */
+    color: white;
+    border: none;
+}
+
+.top-tab .el-button[type="danger"]:hover {
+    background-color: #B71C1C;
+    /* 鼠标悬浮时的深红色 */
+}
+
+/* 表格样式 */
+.table {
+    margin: 1rem auto;
+    border-radius: 8px;
+    /* 添加圆角 */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
+}
+
+.table .el-table {
+    border-radius: 8px;
+    /* 表格圆角 */
+}
+
+.table :deep(.el-table__row:hover) {
+    background-color: #BBDEFB;
+    /* 鼠标悬浮时的柔和蓝色背景 */
+    transition: background-color 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.table :deep(.el-button) {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.table :deep(.el-button:hover) {
+    transform: scale(1.05);
+    /* 鼠标悬浮时放大效果 */
+}
+
+/* 分页样式 */
+.split-page {
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.split-page :deep(.el-pagination) {
+    background-color: #FFFFFF;
+    /* 白色背景 */
+    border-radius: 8px;
+    /* 添加圆角 */
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
+}
+
+/* 编辑弹窗样式 */
+.edit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    /* 增加输入框之间的间距 */
+}
+
+.edit-container span {
+    font-weight: bold;
+    color: #1565C0;
+    /* 深蓝色字体 */
+}
+
+.edit-container .el-input {
+    border-radius: 8px;
+    /* 添加圆角 */
+    transition: border-color 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.edit-container .el-input:focus {
+    border-color: #64B5F6;
+    /* 聚焦时的浅蓝色边框 */
+}
+
+.edit-container .el-button {
+    background-color: #1E88E5;
+    /* 深蓝色按钮背景 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    /* 添加圆角 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.edit-container .el-button:hover {
+    background-color: #0056b3;
+    /* 鼠标悬浮时的深蓝色 */
+    transform: scale(1.05);
+    /* 鼠标悬浮时放大效果 */
+}
+
+/* 容器样式 */
+.manage-article-container {
+    margin-top: 70px;
+    padding: 20px;
+    background-color: #F5F5F5;
+    /* 浅灰色背景 */
+    border-radius: 8px;
+    /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
 }
 </style>

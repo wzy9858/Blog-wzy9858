@@ -1,16 +1,15 @@
 <template>
     <div class="home-top">
         <!-- 中间白条的颜色 板块1-->
-        <div style="background-color: #FFFFFF; width: 100%;">
+        <div style="background-color: transparent; width: 100%;">
 
             <el-carousel indicator-position="outside">
                 <!-- 板块2的颜色 -->
-                <el-carousel-item style="background-color: #E6F2FF;" v-for="(text,index) in texts" :key="index">
-                    <h3 class="carousel-text" style="font-family: myfont1; font-size: 4rem; color: #3366CC;">{{ text }}</h3>
+                <el-carousel-item style="background-color: #E3F2FD;" v-for="(text,index) in texts" :key="index">
+                    <h3 class="carousel-text" style="font-family: myfont1; font-size: 4rem; color: #1565C0;">{{ text }}</h3>
                 </el-carousel-item>
             </el-carousel>
         </div>
-
 
         <div class="link-container">
 
@@ -60,25 +59,34 @@ const texts = ref([
 .link-container {
     display: flex;
     direction: column;
-
 }
 
 .link-item {
-    background-color:#1A3A5F;
-
+    background-color: #1E88E5; /* 更柔和的蓝色 */
     flex: 1;
-
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px; /* 添加圆角 */
+    margin: 5px; /* 增加间距 */
 }
 .link-item:hover {
-    background-color: #AED6F1;
-
+    background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+    transform: scale(1.05); /* 鼠标悬浮时放大效果 */
 }
+
+.link-item h3 {
+    margin-top: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 .home-top {
     width: 100%;
+    background-color: #F5F5F5; /* 整体背景色 */
 }
+
 @media only screen and (max-width: 767px) {
     .home-top {
         display: none;
@@ -92,18 +100,18 @@ const texts = ref([
     /* 水平居中 */
     align-items: center;
     /* 垂直居中 */
-    color: #475669;
-    opacity: 0.75;
+    color: #0D47A1; /* 更深的蓝色 */
+    opacity: 0.85;
     height: 300px;
     /* 确保高度与 line-height 一致 */
     margin: 0;
 }
 
 .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+    background-color: #BBDEFB; /* 更柔和的背景色 */
 }
 
 .el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
+    background-color: #E3F2FD; /* 更浅的背景色 */
 }
 </style>

@@ -23,10 +23,11 @@ public class CommentsController {
 
     @PostMapping("/create")
     public int create(@RequestBody Comments comments) {
-        System.out.println(comments);
+
+
         comments.setCreateTime(new Date());
         int insert = commentsMapper.insert(comments);//插入一条评论
-        System.out.println(comments);
+
         return insert;
     }
 

@@ -22,7 +22,7 @@
                 <span class="userAccount">{{ reply.userAccount }}</span>
                 <span class="createTime">{{ formatTime(reply.createTime) }}</span>
               </div>
-              <button class="reply-btn" @click="startReply(comment.id, reply.userAccount)">回复</button>
+              <!-- <button class="reply-btn" @click="startReply(comment.id, reply.userAccount)">回复</button> -->
             </div>
             <div class="content">{{ reply.content }}</div>
           </div>
@@ -55,7 +55,7 @@ import { getComments, createComment } from '../ts/axios/articleHttp';
 const { cookies } = useCookies();
 const route = useRoute();
 const comments = ref([])
-const articleId = ref(30)
+const articleId = ref(route.query.id)
 
 const newComment = ref('')
 const replyingToId = ref(null)
@@ -64,6 +64,7 @@ const replyingToUsername = ref('')
 
 // 获取评论数据
 const fetchComments = async () => {
+
   let id = ref(route.query.id)
   try {
     const res = await getComments(id.value)
@@ -183,30 +184,39 @@ const addComment = async () => {
 }
 
 onMounted(() => {
-  if (30) {
+  // if (30) {
     fetchComments()
-  } else {
-    ElMessage.error('缺少文章ID参数')
-  }
+  // } else {
+  //   ElMessage.error('缺少文章ID参数')
+  // }
 })
 </script>
 
 <style scoped>
+/* 评论区整体样式 */
 .comment-section {
   max-width: 1150px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #eee;
+  border: 1px solid #e0e0e0; /* 浅灰色边框 */
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #ffffff; /* 白色背景 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 }
 
+/* 单条评论样式 */
 .comment {
   margin: 15px 0;
   padding: 15px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0; /* 浅灰色分隔线 */
+  transition: background-color 0.3s ease; /* 添加过渡效果 */
 }
 
+.comment:hover {
+  background-color: #f9f9f9; /* 鼠标悬浮时的浅灰色背景 */
+}
+
+/* 评论头部样式 */
 .comment-header {
   display: flex;
   align-items: center;
@@ -214,19 +224,23 @@ onMounted(() => {
   position: relative;
 }
 
+/* 用户头像样式 */
 .userAvatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
   object-fit: cover;
+  border: 2px solid #e3f2fd; /* 浅蓝色边框 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
 }
 
-.userAvatar.small {
-  width: 30px;
-  height: 30px;
+.userAvatar:hover {
+  transform: scale(1.1); /* 鼠标悬浮时放大效果 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 鼠标悬浮时添加阴影 */
 }
 
+/* 用户信息样式 */
 .user-info {
   display: flex;
   flex-direction: column;
@@ -236,26 +250,29 @@ onMounted(() => {
 .userAccount {
   font-weight: 600;
   margin-bottom: 3px;
-  color: #333;
+  color: #1565c0; /* 深蓝色用户名 */
 }
 
 .createTime {
   font-size: 0.8em;
-  color: #999;
+  color: #999999; /* 浅灰色时间文字 */
 }
 
+/* 评论内容样式 */
 .content {
   margin-left: 50px;
-  color: #333;
+  color: #303133; /* 深灰色文字 */
   line-height: 1.6;
 }
 
+/* 子评论样式 */
 .replies {
   margin-left: 40px;
   padding-left: 20px;
-  border-left: 2px solid #eee;
+  border-left: 2px solid #e0e0e0; /* 浅灰色边框 */
 }
 
+/* 新评论输入框样式 */
 .new-comment {
   margin-top: 30px;
 }
@@ -265,40 +282,54 @@ onMounted(() => {
   height: 100px;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ddd;
+  border: 1px solid #bbdefb; /* 浅蓝色边框 */
   border-radius: 6px;
   resize: vertical;
   font-size: 14px;
+  color: #303133; /* 深灰色文字 */
+  transition: border-color 0.3s ease; /* 添加过渡效果 */
 }
 
+.new-comment textarea:focus {
+  border-color: #64b5f6; /* 聚焦时的浅蓝色边框 */
+  outline: none;
+}
+
+/* 按钮样式 */
 button {
-  background-color: #007bff;
+  background-color: #1e88e5; /* 深蓝色背景 */
   color: white;
   padding: 8px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #64b5f6; /* 鼠标悬浮时的浅蓝色背景 */
+  transform: scale(1.05); /* 鼠标悬浮时放大效果 */
 }
 
+/* 回复按钮样式 */
 .reply-btn {
   background: none;
-  color: #666;
+  color: #666666; /* 深灰色文字 */
   padding: 4px 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd; /* 浅灰色边框 */
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
 .reply-btn:hover {
-  background-color: #f8f9fa;
+  background-color: #f8f9fa; /* 鼠标悬浮时的浅灰色背景 */
+  color: #1565c0; /* 鼠标悬浮时的深蓝色文字 */
 }
 
+/* 回复状态样式 */
 .replying-to {
   padding: 8px 12px;
-  background-color: #f8f9fa;
+  background-color: #f8f9fa; /* 浅灰色背景 */
   border-radius: 4px;
   margin-bottom: 10px;
   display: flex;
@@ -307,12 +338,19 @@ button:hover {
   font-size: 0.9em;
 }
 
+/* 取消按钮样式 */
 .cancel-btn {
-  background-color: #dc3545;
+  background-color: #dc3545; /* 红色背景 */
+  color: white;
   padding: 4px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 添加过渡效果 */
 }
 
 .cancel-btn:hover {
-  background-color: #bb2d3b;
+  background-color: #bb2d3b; /* 鼠标悬浮时的深红色背景 */
+  transform: scale(1.05); /* 鼠标悬浮时放大效果 */
 }
 </style>

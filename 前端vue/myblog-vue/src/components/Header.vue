@@ -498,10 +498,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-/* 针对桌面电脑和平板  */
+/* 针对桌面电脑和平板 */
 @media only screen and (min-width: 768px) {
-
-    /* CSS规则 */
     .phone-menu {
         display: none;
     }
@@ -524,9 +522,6 @@ onBeforeUnmount(() => {
     }
 }
 
-
-
-
 /* 针对所有手机 */
 @media only screen and (max-width: 767px) {
     .search-btn:hover {
@@ -542,18 +537,16 @@ onBeforeUnmount(() => {
         justify-content: center;
         align-items: center;
         height: 100%;
-        /* width: 70%; */
         flex-direction: column;
     }
 
     .hiddenOnPhone {
-        display: none
+        display: none;
     }
 
     .input-width {
         width: 100%;
     }
-
 
     .phone-menu {
         width: 20%;
@@ -563,7 +556,6 @@ onBeforeUnmount(() => {
         height: 100%;
     }
 
-    /* CSS规则 */
     .items {
         display: none;
     }
@@ -579,7 +571,6 @@ onBeforeUnmount(() => {
 
     .side-container {
         display: flex;
-        /* justify-content: center; */
         align-items: center;
         flex-direction: column;
         height: 100%;
@@ -588,7 +579,6 @@ onBeforeUnmount(() => {
 
     .side-menu {
         display: flex;
-        /* justify-content: center; */
         align-items: center;
         flex-direction: column;
         height: 100%;
@@ -601,15 +591,15 @@ onBeforeUnmount(() => {
         align-items: center;
         margin: 0.5rem;
         width: 100%;
-        /* background-color: aqua; */
+        transition: background-color 0.3s ease;
     }
 
     .side-menu-item:hover {
-        background-color: rgb(173, 164, 164);
+        background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+        color: white; /* 悬浮时字体颜色变为白色 */
+        border-radius: 8px; /* 添加圆角 */
     }
 }
-
-
 
 .navbar {
     top: 0;
@@ -620,9 +610,7 @@ onBeforeUnmount(() => {
     position: fixed;
     display: flex;
     align-items: center;
-    transition: top 0.3s;
-    /* 平滑过渡效果 */
-
+    transition: top 0.3s, background-color 0.3s ease;
     font-family: 'myfont1';
 }
 
@@ -636,27 +624,27 @@ onBeforeUnmount(() => {
 .search-btn {
     margin-left: 40px;
     color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .search-btn:hover {
-    background-color: #2580db;
-    /* 带5%蓝调的晨雾白 */
-    border-radius: 1rem;
+    background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+    color: white; /* 悬浮时字体颜色变为白色 */
+    border-radius: 8px; /* 添加圆角 */
 }
 
 .item {
     width: 90px;
     margin-left: 40px;
     color: black;
-
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .item:hover {
-    background-color: rgb(177, 190, 190);
-    border-radius: 1rem;
+    background-color: #BBDEFB; /* 鼠标悬浮时的柔和蓝色 */
+    color: #1565C0; /* 悬浮时字体颜色变为深蓝色 */
+    border-radius: 8px; /* 添加圆角 */
 }
-
-
 
 .left-icon {
     width: 20%;
@@ -667,8 +655,8 @@ onBeforeUnmount(() => {
 }
 
 .left-icon .home:hover {
-    background-color: aqua;
-    border-radius: 1rem;
+    background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+    border-radius: 8px; /* 添加圆角 */
 }
 
 .container-items {
@@ -676,8 +664,8 @@ onBeforeUnmount(() => {
 }
 
 .phone-menu .menu:hover {
-    background-color: aqua;
-    border-radius: 0.2rem;
+    background-color: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
+    border-radius: 8px; /* 添加圆角 */
 }
 
 .login-header {

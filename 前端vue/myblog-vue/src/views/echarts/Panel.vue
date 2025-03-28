@@ -205,81 +205,95 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* 面板顶部项目悬浮效果 */
 .panel-top-item:hover {
-  background-color: antiquewhite;
-  transform: scale(1.05);
-  /* 轻微放大 */
+  background-color: #f5f5f5; /* 鼠标悬浮时的浅灰色背景 */
+  transform: scale(1.05); /* 鼠标悬浮时轻微放大 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* 添加平滑过渡效果 */
 }
 
+/* 面板顶部项目样式 */
 .panel-top-item {
-  height: 80px;
-  background-color: aqua;
-  transition: transform 0.3s ease;
-  /* 添加过渡效果 */
-
-
+  height: 100px; /* 增加高度 */
+  background-color: #e0f7fa; /* 默认浅蓝色背景 */
+  border-radius: 8px; /* 添加圆角 */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* 添加过渡效果 */
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 10px; /* 增加间距 */
 }
 
-
+/* 面板顶部容器样式 */
 .panel-top {
   display: flex;
-  direction: column;
+  flex-direction: row;
+  gap: 1rem; /* 增加项目之间的间距 */
+  margin-bottom: 20px;
 }
 
+/* 面板容器样式 */
 .panel-container {
   width: 80%;
   margin: auto;
   margin-top: 90px;
 }
 
+/* 图表样式 */
 .chart {
   width: 100%;
   height: 400px;
+  background-color: #ffffff; /* 白色背景 */
+  border-radius: 8px; /* 添加圆角 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  padding: 20px; /* 增加内边距 */
 }
 
+/* 灵活布局容器 */
 .flex-container {
   display: flex;
   justify-content: space-around;
   width: 100%;
+  gap: 1rem; /* 增加项目之间的间距 */
 }
 
+/* 灵活布局项目 */
 .flex-item {
-
-
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 50%;
-  /* 确保每个组件最多占据50%的宽度 */
+  max-width: 50%; /* 确保每个组件最多占据50%的宽度 */
+  background-color: #f5f5f5; /* 浅灰色背景 */
+  border-radius: 8px; /* 添加圆角 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  padding: 20px; /* 增加内边距 */
 }
 
-
+/* 不同部分的颜色样式 */
 .part1 {
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* 绿色背景 */
 }
 
 .part1:hover {
-  background-color: #388E3C;
+  background-color: #388E3C; /* 鼠标悬浮时的深绿色 */
 }
 
 .part2 {
-  background-color: #FF9800;
+  background-color: #FF9800; /* 橙色背景 */
 }
 
 .part2:hover {
-  background-color: #F57C00;
+  background-color: #F57C00; /* 鼠标悬浮时的深橙色 */
 }
 
 .part3 {
-  background-color: #2196F3;
+  background-color: #2196F3; /* 蓝色背景 */
 }
 
 .part3:hover {
-  background-color: #1976D2;
+  background-color: #1976D2; /* 鼠标悬浮时的深蓝色 */
 }
 </style>

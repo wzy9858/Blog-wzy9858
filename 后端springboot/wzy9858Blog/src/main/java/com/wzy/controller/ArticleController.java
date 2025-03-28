@@ -46,7 +46,6 @@ public class ArticleController {
      * id 标题 创建时间 更新时间  是否加密 标签 热度 主页图片url 置顶数值 作者
      * 按照置顶数值进行排序
      */
-
     @GetMapping("getList/{id}")  //此方法在主页调用 根据页数查找
     public R getList(@PathVariable Integer id,HttpServletRequest request) {//传过来页数
         //设置分页参数  第几页 页容量
@@ -88,13 +87,11 @@ public class ArticleController {
 //        访问这篇文章成功之后, 热度+1
 // update articles set popularity = popularity+1 where id = 16;
 
-
         LambdaUpdateWrapper<Articles> lambdaUpdate = new LambdaUpdateWrapper<>();
         lambdaUpdate
                 .setSql("popularity = popularity + 1")
                 .eq(Articles::getId, id);
         articlesMapper.update(null, lambdaUpdate);
-
 
         return ok;
     }
@@ -180,7 +177,7 @@ public class ArticleController {
         } else {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("accountToken")) {
-                    System.out.println(cookie.getValue());
+//                    System.out.println(cookie.getValue());
                     Boolean b = jwtHelper.parseJwt(cookie.getValue());
                     if (b) {
 //                        articles 保存文章 根据id

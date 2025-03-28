@@ -7,9 +7,14 @@
     display: flex;
     flex-direction: column;
     " @click="thumb_btn">
-        <v-icon name="md-thumbupalt-twotone" scale="6" class="like-btn"
+        <v-icon name="md-thumbupalt-twotone" scale="3" class="like-btn"
             style="color: #409EFF; /* 初始颜色保持原主题色 */"></v-icon>
         <span style="font-family: myfont1;"> {{ thumb }}</span>
+    </el-affix>
+
+
+    <el-affix class="hidden-phone" style="position: fixed; right: 20px; top: 500px;  z-index: 20;" >
+        <el-button type="primary" @click="openContent">目录开关</el-button>
     </el-affix>
 
     <div class="article-container">
@@ -59,9 +64,7 @@
         <!-- 波浪线效果 -->
 
         <div class="weave">
-            <img src="../assets/gif/打招呼.gif">
-            <img src="../assets/gif/加载.gif">
-            <img src="../assets/gif/惊讶.gif">
+
         </div>
 
         <!-- 文章内容样式 -->
@@ -77,8 +80,8 @@
                 <MdPreview :id="id" :modelValue="text" />
             </div>
 
-            <MdCatalog class="computer-catalog" :editorId="id" :scrollElement="scrollElement" />
-            
+            <MdCatalog v-if="contentSwitch" class="computer-catalog" :editorId="id" :scrollElement="scrollElement" />
+
         </div>
 
         <!-- 评论系统 -->
@@ -133,7 +136,7 @@ function thumb_btn() {
         // console.log(currentPath);
         // console.log(article.value.articleTitle);
 
-        caidanAxios(article.value.articleTitle+'-'+currentPath).then().catch();
+        caidanAxios(article.value.articleTitle + '-' + currentPath).then().catch();
     }
     if (thumb.value >= 66) {
         caidan.value = true
@@ -143,6 +146,14 @@ function thumb_btn() {
 const id = 'preview-only';
 const text = ref('# Hello Word!');
 const scrollElement = document.documentElement;
+
+
+
+// 点击就打开或者关闭目录
+let contentSwitch = ref(false)
+function openContent(){
+    contentSwitch.value = !contentSwitch.value
+}
 
 
 let route = useRoute();
@@ -186,17 +197,39 @@ onMounted(() => {
 <style scoped>
 /* 针对所有手机 */
 @media only screen and (max-width: 767px) {
-    .computer-catalog {
+
+
+
+    /* 确保所有内容不超出视口宽度 */
+    body,
+    html {
+        overflow-x: hidden;
+        /* 禁止横向滚动 */
+    }
+
+    .hidden-phone {
         display: none;
     }
 
+    .article-container {
+        width: 100%;
+        /* 确保容器宽度为100% */
+        overflow-x: hidden;
+        /* 禁止横向滚动 */
+    }
+
+    .computer-catalog {
+        display: none;
+        /* 隐藏电脑端目录 */
+    }
+
     .weave {
-        background-color: rgb(20, 115, 197);
+        background-color: #1565C0;
+        /* 深蓝色背景 */
         width: 100%;
         height: 100px;
         display: flex;
         justify-content: space-between;
-
     }
 
     .weave img {
@@ -204,79 +237,121 @@ onMounted(() => {
     }
 
     .article-content {
-        background-color: aliceblue;
+        background-color: #FFFFFF;
+        /* 白色背景 */
         width: 100%;
+        /* 确保内容宽度为100% */
         height: 100%;
+        border-radius: 8px;
+        /* 添加圆角 */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* 添加阴影效果 */
+        padding: 20px;
+        /* 增加内边距 */
+        box-sizing: border-box;
+        /* 包括内边距在宽度内 */
     }
 
     .phone-catalog {
-        background-color: antiquewhite;
+        width: 100%;
+        /* 确保目录宽度为100% */
+        background-color: #E3F2FD;
+        /* 浅蓝色背景 */
         border-radius: 1rem;
         padding: 1rem;
+        box-sizing: border-box;
+        /* 包括内边距在宽度内 */
     }
-
-
 }
 
 /* 针对桌面电脑 */
 @media only screen and (min-width: 767px) {
-
     .phone-catalog {
         display: none;
     }
 
     .computer {
+
+        display: flex;
+        justify-content: center;
+
+        overflow: visible;
+        /* 确保父容器不限制子元素的滚动 */
+    }
+
+
+    .computer-catalog {
+        background-color: #E3F2FD;
+
+        /* 浅蓝色背景 */
+        border-radius: 1rem;
+        padding: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* 添加阴影效果 */
+
+
+        position: fixed;
+        top: 60px;
+        right: 20px;
+        /* 触发固定的位置 */
+        z-index: 10;
+
+
+    }
+
+    .weave {
+        background-color: #1565C0;
+        /* 深蓝色背景 */
+        width: 100%;
+        height: 200px;
         display: flex;
         justify-content: center;
     }
 
-    .computer-catalog {
-        /* width: 10%; */
-
-        /* padding: 0.5rem; */
-        background-color: antiquewhite;
-        border-radius: 1rem;
-        padding: 1rem;
-        /* background-color: rgb(5, 201, 201); */
-    }
-
-    .weave {
-        background-color: rgb(20, 115, 197);
-        width: 100%;
-        height: 200px;
-        display: flex;
-        justify-content: space-between;
-    }
-
     .weave img {
         width: 15%;
+        transition: transform 0.3s ease;
+        /* 添加过渡效果 */
+    }
+
+    .weave img:hover {
+        transform: scale(1.1);
+        /* 鼠标悬浮时放大效果 */
     }
 
     .article-content {
-        background-color: aliceblue;
+        background-color: #FFFFFF;
+        /* 白色背景 */
         width: 70%;
         height: 100%;
+        border-radius: 8px;
+        /* 添加圆角 */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* 添加阴影效果 */
+        padding: 20px;
+        /* 增加内边距 */
     }
-
-
 }
 
-
-/* 针对平板 */
-/* @media only screen and (min-width: 768px) and (max-width: 1023px) { */
-
+/* 文章头部样式 */
 .article-header {
     padding-top: 70px;
     height: 310px;
-    /* margin-left: 10%; */
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #E3F2FD;
+    /* 浅蓝色背景 */
+    border-radius: 8px;
+    /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
 }
 
+/* 文章容器样式 */
 .article-container {
     width: 100%;
     height: 100%;
@@ -284,10 +359,97 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: #F5F5F5;
+    /* 浅灰色背景 */
 }
 
+/* 点赞按钮样式 */
+.like-btn {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    color: #409EFF;
+    /* 初始颜色为主题蓝色 */
+}
 
+.like-btn:hover {
+    filter: drop-shadow(0 0 8px rgba(64, 158, 255, 0.6));
+    /* 鼠标悬浮时添加蓝色光晕 */
+}
+
+.like-btn:active {
+    animation: heartBeat 0.6s ease;
+    color: #FF4081 !important;
+    /* 点击后变为粉色 */
+}
+
+/* 波纹动画 */
+.like-btn::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 64, 129, 0.3);
+    /* 粉色半透明波纹 */
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.like-btn:active::after {
+    animation: ripple 0.6s ease;
+}
+
+/* 评论区样式 */
+.comment-container {
+    width: 100%;
+    background-color: #FFFFFF;
+    /* 白色背景 */
+    border-radius: 8px;
+    /* 添加圆角 */
+    padding: 20px;
+    /* 增加内边距 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
+}
+
+/* 彩蛋对话框样式 */
+.el-dialog {
+    border-radius: 8px;
+    /* 添加圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
+}
+
+.el-dialog__header {
+    background-color: #E3F2FD;
+    /* 浅蓝色背景 */
+    color: #1565C0;
+    /* 深蓝色标题文字 */
+    font-weight: bold;
+}
+
+.dialog-footer .el-button {
+    border-radius: 8px;
+    /* 添加圆角 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.dialog-footer .el-button[type="primary"] {
+    background-color: #1E88E5;
+    /* 深蓝色背景 */
+    color: #ffffff;
+    /* 白色文字 */
+}
+
+.dialog-footer .el-button[type="primary"]:hover {
+    background-color: #64B5F6;
+    /* 鼠标悬浮时的浅蓝色背景 */
+    transform: scale(1.05);
+    /* 鼠标悬浮时放大效果 */
+}
 
 /* ------------------------------------以下均是点赞动画---------------- */
 /* 点赞动画 */
@@ -319,40 +481,6 @@ onMounted(() => {
         transform: scale(2);
         opacity: 0;
     }
-}
-
-.like-btn {
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s;
-}
-
-/* 点击效果 */
-.like-btn:active {
-    animation: heartBeat 0.6s ease;
-    color: #ff4081 !important;
-}
-
-/* 波纹效果 */
-.like-btn::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 120px;
-    height: 120px;
-    background: rgba(255, 64, 129, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-}
-
-.like-btn:active::after {
-    animation: ripple 0.6s ease;
-}
-
-/* 悬停效果 */
-.like-btn:hover {
-    filter: drop-shadow(0 0 8px rgba(255, 64, 129, 0.4));
 }
 
 /* 新增数字动画 */
@@ -398,5 +526,64 @@ onMounted(() => {
     border-radius: 50%;
     animation: firework 0.8s ease-out forwards;
     pointer-events: none;
+}
+
+/* 波浪线效果 */
+.weave {
+    width: 100%;
+    height: 200px;
+    /* 波浪线高度 */
+    position: relative;
+    overflow: hidden;
+    /* 隐藏超出容器的部分 */
+    background-color: #1565C0;
+    /* 深蓝色背景 */
+}
+
+.weave::before,
+.weave::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" preserveAspectRatio="none"><path fill=\'%23E3F2FD\' d=\'M 1014 264 v 122 h -808 l -172 -86 s 310.42 -22.84 402 -79 c 106 -65 154 -61 268 -12 c 107 46 195.11 5.94 275 137 z\'></path><path fill=\'%23BBDEFB\' d=\'M -302 55 s 235.27 208.25 352 159 c 128 -54 233 -98 303 -73 c 92.68 33.1 181.28 115.19 235 108 c 104.9 -14 176.52 -173.06 267 -118 c 85.61 52.09 145 123 145 123 v 74 l -1306 10 z\'></path><path fill=\'%23E3F2FD\' d=\'M -286 255 s 214 -103 338 -129 s 203 29 384 101 c 145.57 57.91 178.7 50.79 272 0 c 79 -43 301 -224 385 -63 c 53 101.63 -62 129 -62 129 l -107 84 l -1212 12 z\'></path><path fill=\'%23BBDEFB\' d=\'M -24 69 s 299.68 301.66 413 245 c 8 -4 233 2 284 42 c 17.47 13.7 172 -132 217 -174 c 54.8 -51.15 128 -90 188 -39 c 76.12 64.7 118 99 118 99 l -12 132 l -1212 12 z\'></path><path fill=\'%23E3F2FD\' d=\'M -12 201 s 70 83 194 57 s 160.29 -36.77 274 6 c 109 41 184.82 24.36 265 -15 c 55 -27 116.5 -57.69 214 4 c 49 31 95 26 95 26 l -6 151 l -1036 10 z\'></path></svg>');
+    background-size: cover;
+    /* 确保波浪图案覆盖整个容器 */
+    animation: wave-animation 8s linear infinite;
+    /* 添加动画 */
+}
+
+.weave::after {
+    top: 20px;
+    /* 第二层波浪稍微偏移 */
+    opacity: 0.6;
+    /* 增加透明度，形成层次感 */
+    animation-delay: -4s;
+    /* 延迟动画，制造错位效果 */
+}
+
+/* 动画关键帧 */
+@keyframes wave-animation {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* 图片悬浮效果 */
+.weave img {
+    width: 15%;
+    transition: transform 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+.weave img:hover {
+    transform: scale(1.1);
+    /* 鼠标悬浮时放大效果 */
 }
 </style>
