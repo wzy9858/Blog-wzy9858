@@ -71,6 +71,12 @@
           </div>
 
           <div class="tab">
+            <!-- 这里放文章作者 -->
+            <div class="center-all" style="margin-right: 1rem;">
+              <v-icon name="fa-user-edit" scale="1" />
+              {{ item.owner }}
+            </div>
+          <!-- 文章标签 -->
             <div class="center-all" style="margin-right: 1rem;">
               <v-icon name="px-label-alt-multiple" scale="1" />
               {{ item.tags }}

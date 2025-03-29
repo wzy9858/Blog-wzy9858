@@ -13,7 +13,7 @@
     </el-affix>
 
 
-    <el-affix class="hidden-phone" style="position: fixed; right: 20px; top: 500px;  z-index: 20;" >
+    <el-affix class="hidden-phone" style="position: fixed; right: 20px; top: 500px;  z-index: 20;">
         <el-button type="primary" @click="openContent">目录开关</el-button>
     </el-affix>
 
@@ -28,13 +28,18 @@
                     {{ article.articleTitle }}
                 </span>
             </div>
-            <div>
+
+            <div class="phone-tip">
+                <span style="margin-right: 0.5rem; font-size: 15px;">
+                    <v-icon name="fa-user-edit" scale="1" />
+                    {{ article.owner }}
+                </span>
+
                 <!-- 15px -->
                 <span style="margin-right: 0.5rem; font-size: 15px;">
                     <v-icon name="px-label-alt-multiple" scale="1" />
                     {{ article.tags }}
                 </span>
-
 
                 <span style="margin-right: 0.5rem; font-size: 15px;">
                     <v-icon name="gi-campfire" scale="1" />
@@ -151,7 +156,7 @@ const scrollElement = document.documentElement;
 
 // 点击就打开或者关闭目录
 let contentSwitch = ref(false)
-function openContent(){
+function openContent() {
     contentSwitch.value = !contentSwitch.value
 }
 
@@ -198,6 +203,13 @@ onMounted(() => {
 /* 针对所有手机 */
 @media only screen and (max-width: 767px) {
 
+
+    .phone-tip {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+    }
 
 
     /* 确保所有内容不超出视口宽度 */

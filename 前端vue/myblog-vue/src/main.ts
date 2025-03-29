@@ -10,7 +10,7 @@ import {
      PxLabelAltMultiple, GiCampfire, IoTimeOutline, PiRhydon,
      GiRocketThruster, PxArchive, MdPersonsearchOutlined, HiLogin, IoSettingsOutline,CoVerticalAlignTop,
      CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,HiUserGroup,FcFeedback,
-     MdManagesearchTwotone,MdThumbupaltTwotone
+     MdManagesearchTwotone,MdThumbupaltTwotone,FaUserEdit
 } from "oh-vue-icons/icons";
 import './assets/fonts/text.css'
 
@@ -25,7 +25,7 @@ import { createPinia } from 'pinia';
 import VueCookies from 'vue3-cookies';
 addIcons(FaFlag, GiRocketThruster, MdPersonsearchOutlined, CoVerticalAlignTop,HiLogin, PxArchive, IoSettingsOutline, PxLabelAltMultiple, RiZhihuFill, IoTimeOutline, GiCampfire, FaHome, PiRhydon, PiCharizardShiny, BiBatteryFull, RiMenuFoldFill,
       PxSortNumeric,CoAirbnb,BiTranslate,CoIcloud,BiGithub,SiGitee,RiBilibiliFill,BiFileEarmarkText,FcFeedback,
-      HiUserGroup,MdManagesearchTwotone,MdThumbupaltTwotone
+      HiUserGroup,MdManagesearchTwotone,MdThumbupaltTwotone,FaUserEdit
 
      );
 
