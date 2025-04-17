@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzy.mapper.CustomAiInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.wzy.pojo.CustomAiInfo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="customAiStatement" column="custom_ai_statement" jdbcType="VARCHAR"/>
+            <result property="referenceData" column="reference_data" jdbcType="VARCHAR"/>
+            <result property="announcement" column="announcement" jdbcType="VARCHAR"/>
+            <result property="conversationData" column="conversation_data" jdbcType="VARCHAR"/>
+            <result property="spareData" column="spare_data" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,custom_ai_statement,reference_data,
+        announcement,conversation_data,spare_data
+    </sql>
+</mapper>

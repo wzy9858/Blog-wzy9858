@@ -97,8 +97,18 @@ public class VisitorAop {
 //        先查询 查询失败就插入
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("ip_address", ipAddr);
-        Visitors visitors2 = visitorsMapper.selectOne(queryWrapper);
 
+
+        Visitors visitors2 = null;
+
+//        这里的bug  查询出来两个
+        try{
+            visitors2 = visitorsMapper.selectOne(queryWrapper);
+        }catch (Exception e){
+            System.out.println("----------出现异常---两个IP");
+            System.out.println(e);
+            return;
+        }
 
         if (visitors2 == null) {//没查到
             visitor.setFirstVisitTime(new Date());

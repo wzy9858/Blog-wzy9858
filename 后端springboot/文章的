@@ -1,0 +1,411 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/article/getList/{id}" : {
+      "get" : {
+        "summary" : "拿到文章列表  在首页的请求",
+        "description" : "拿到文章列表  在首页的请求",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/getAllInfo" : {
+      "get" : {
+        "summary" : "getAllInfo",
+        "description" : "getAllInfo",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/getArticleById/{id}" : {
+      "get" : {
+        "summary" : "*",
+        "description" : "*",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/create" : {
+      "post" : {
+        "summary" : "传过来有id就是更新文章 没有id就是创建文章",
+        "description" : "传过来有id就是更新文章 没有id就是创建文章",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "description" : "文章的id 自增"
+                  },
+                  "articleTitle" : {
+                    "type" : "string",
+                    "description" : "文章的标题"
+                  },
+                  "articleContent" : {
+                    "type" : "string",
+                    "description" : "文章的内容"
+                  },
+                  "createdAt" : {
+                    "type" : "string",
+                    "description" : "文章的创建时间"
+                  },
+                  "updatedAt" : {
+                    "type" : "string",
+                    "description" : "文章的更新时间"
+                  },
+                  "isEncrypted" : {
+                    "type" : "integer",
+                    "description" : "是否加密 默认为0"
+                  },
+                  "tags" : {
+                    "type" : "string",
+                    "description" : "标签"
+                  },
+                  "popularity" : {
+                    "type" : "integer",
+                    "description" : "热度"
+                  },
+                  "homeDisplayImageUrl" : {
+                    "type" : "string",
+                    "description" : "首页图片的展示地址"
+                  },
+                  "isPinned" : {
+                    "type" : "integer",
+                    "description" : "是否置顶  默认为0"
+                  },
+                  "owner" : {
+                    "type" : "string",
+                    "description" : "文章所属人  作者"
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/deleteByIds" : {
+      "delete" : {
+        "summary" : "*",
+        "description" : "*",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "nullable" : false,
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/saveArticleContent" : {
+      "put" : {
+        "summary" : "saveArticle",
+        "description" : "saveArticle",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "id" : {
+                    "type" : "integer",
+                    "description" : "文章的id 自增"
+                  },
+                  "articleTitle" : {
+                    "type" : "string",
+                    "description" : "文章的标题"
+                  },
+                  "articleContent" : {
+                    "type" : "string",
+                    "description" : "文章的内容"
+                  },
+                  "createdAt" : {
+                    "type" : "string",
+                    "description" : "文章的创建时间"
+                  },
+                  "updatedAt" : {
+                    "type" : "string",
+                    "description" : "文章的更新时间"
+                  },
+                  "isEncrypted" : {
+                    "type" : "integer",
+                    "description" : "是否加密 默认为0"
+                  },
+                  "tags" : {
+                    "type" : "string",
+                    "description" : "标签"
+                  },
+                  "popularity" : {
+                    "type" : "integer",
+                    "description" : "热度"
+                  },
+                  "homeDisplayImageUrl" : {
+                    "type" : "string",
+                    "description" : "首页图片的展示地址"
+                  },
+                  "isPinned" : {
+                    "type" : "integer",
+                    "description" : "是否置顶  默认为0"
+                  },
+                  "owner" : {
+                    "type" : "string",
+                    "description" : "文章所属人  作者"
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : { }
+}

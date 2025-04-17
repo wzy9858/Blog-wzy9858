@@ -1,5 +1,5 @@
 <template>
-    <div class="visitor-manage-container">
+    <div class="visitor-manage-container" v-if="cookies.get('isAdmin') === '1'">
 
         <!-- 顶栏标签 -->
         <div class="top-tab" v-if="cookies.get('isAdmin') === '1'">
@@ -20,11 +20,11 @@
             </el-table>
         </div>
 
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 300px;" v-else>
+     
+    </div>
+   <div style="display: flex; justify-content: center; align-items: center; margin-top: 300px;" v-else>
             <h1 style="font-family: myfont1; font-size: 50px;">普通用户,无权访问</h1>
         </div>
-    </div>
-
 </template>
 
 <script setup>

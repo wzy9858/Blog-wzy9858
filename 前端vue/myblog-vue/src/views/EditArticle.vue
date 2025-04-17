@@ -25,9 +25,14 @@
     <div class="ai-btn">
         <el-button type="primary" @click="createAiContent">ai大纲</el-button>
     </div>
+
+
+
+    <DeepSeekAI />
 </template>
 
 <script setup>
+import DeepSeekAI from './DeepSeekAI.vue';
 import { ref } from 'vue';
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
@@ -38,6 +43,17 @@ import { getArticleById, saveArticleContent } from '../ts/axios/articleHttp';
 import axios from 'axios';
 
 import { ElLoading } from 'element-plus'
+
+
+import { useTextStore } from '../ts/store/index';
+
+const textStore = useTextStore();
+
+// console.log("-------------");
+
+// console.log(textStore.longText); // 访问 store 中的 text 属性
+
+
 // const openFullScreen2 = () => {
 //   const loading = ElLoading.service({
 //     lock: true,
@@ -98,6 +114,7 @@ async function createAiContent() {
 // 文章保存事件
 function handleSave() {
     article.value.articleContent = text.value;
+
     saveArticleContent(article.value).then(
         s => {
             if (s.data.code == 200) {
@@ -116,9 +133,13 @@ function handleSave() {
 onMounted(() => {
     article.value.id = ref(route.query.id);
     getArticleById(article.value.id).then(
+
         s => {
+
             text.value = s.data.data.article.articleContent;
             article.value.articleContent = text.value;
+
+            textStore.longText = text.value; // 将获取到的内容存储到 store 中
         }
     ).catch(
         e => {

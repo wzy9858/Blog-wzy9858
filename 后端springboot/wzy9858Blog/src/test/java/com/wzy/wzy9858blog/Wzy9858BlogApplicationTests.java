@@ -1,6 +1,9 @@
 package com.wzy.wzy9858blog;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wzy.ai.DeepSeekController;
+import com.wzy.ai.DeepSeekR1;
 import com.wzy.controller.CommentsController;
 import com.wzy.mapper.AdministratorsMapper;
 import com.wzy.mapper.ArticlesMapper;
@@ -11,6 +14,7 @@ import com.wzy.util.SendmailUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -37,14 +41,16 @@ class Wzy9858BlogApplicationTests {
 	@Autowired
 	CommentsController commentsController;
 
+
+	@Autowired
+	DeepSeekController deepSeekController;
+
+
+
 	@Test
 	void testMail(){
 		commentsController.getComment(1);
 	}
-
-
-
-
 
 
 	@Test
@@ -82,4 +88,14 @@ class Wzy9858BlogApplicationTests {
 		System.out.println("是否有下一页："+page.hasNext());
 
 	}
+
+
+
+
+
+
+
+
+
+
 }

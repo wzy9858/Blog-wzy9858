@@ -12,6 +12,23 @@
     <el-backtop :bottom="100">
         <v-icon name="co-vertical-align-top" scale="1.8" />
     </el-backtop>
+
+    <el-dialog v-if="cookies.get('announceFlag') != 'yes'" v-model="announce" title="" width="500" center>
+        <span style="font-family: myfont1; font-size: 30px;">
+            <span style="display: flex; justify-content: center;">📢 公告</span>
+            
+            <br>
+            {{ customAiInfo.announcement}}
+            
+        </span>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button type="primary" @click="announce = false">
+                    确定
+                </el-button>
+            </div>
+        </template>
+    </el-dialog>
 </template>
 
 <script setup>
@@ -24,7 +41,7 @@ import { http } from './ts/axios';
 
 import { ElNotification } from 'element-plus'
 import { getIpAndAdress } from './ts/axios/visitorHttp.ts';
-
+const announce = ref(true)
 // -------------
 
 const fullPath = window.location.href;
@@ -35,36 +52,70 @@ const viewCur = ref(true) //false为不显示
 //getIpAndAdress
 // ---------
 
+
+import { getAiContent } from './ts/axios/ai.ts';
+
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+
+// cookies.set("isAdmin", s.data.data.isAdmin, '1h')
+// cookies.get("accountToken")
+
+let customAiInfo = ref({
+  "id": 1,
+  "announcement": "公告",
+})
+
+
 onMounted(() => {
+
+
+
+    getAiContent().then(
+        s=>{
+            customAiInfo.value = s.data[0]
+            cookies.set("announceFlag", "yes", '0.2h')        
+        }
+    ).catch()
+
+
     if (lastPart == 'register') {
         viewCur.value = false
         return
     }
+
+
     // const startTime = new Date();//开始计时
 
     //http://localhost:8080/complete/getIpAndAdress
     // 拿到用户的ip地址 ip-city
 
-    // let ipInfo;
-    // getIpAndAdress().then(
-    //     s => {
-    //         ipInfo = s.data;
-    //         console.log("发送请求成功");
-    //         console.log(s);
+    let ipInfo;
+    if(cookies.get("announceFlag") != "yes"){
+        getIpAndAdress().then(
+            s => {
+                ipInfo = s.data;
+                console.log("发送请求成功");
+                console.log(s);
 
-    //         ElNotification({
-    //             title: '✨✨✨欢迎你',
-    //             message: '来自于 ['+ipInfo.split('-')[1]+'] 的朋友<br>' + "您的ip地址为: " + ipInfo.split('-')[0] ,
-    //             type: 'success',
-    //             dangerouslyUseHTMLString: true
-    //         })
+                ElNotification({
+                    title: '✨✨✨欢迎你',
+                    message: '来自于 [' + ipInfo.split('-')[1] + '] 的朋友<br>' + "您的ip地址为: " + ipInfo.split('-')[0],
+                    type: 'success',
+                    dangerouslyUseHTMLString: true
+                })
 
-    //     }
-    // ).catch(
-    //     e => {
-    //         console.log("发送请求失败");
-    //     }
-    // )
+            }
+        ).catch(
+            e => {
+                console.log("发送请求失败");
+            }
+        )
+    }
+
+
+
+    
 })
 // //关闭之后
 // window.addEventListener('beforeunload', function (event) {

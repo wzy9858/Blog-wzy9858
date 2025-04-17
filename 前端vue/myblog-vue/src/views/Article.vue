@@ -24,7 +24,6 @@
         <div class="article-header ">
             <div style="padding-bottom: 1rem;">
                 <span style="font-size: 80px; font-family: myfont1;">
-
                     {{ article.articleTitle }}
                 </span>
             </div>
@@ -83,6 +82,7 @@
 
                 <!-- 这是内容区域 -->
                 <MdPreview :id="id" :modelValue="text" />
+                
             </div>
 
             <MdCatalog v-if="contentSwitch" class="computer-catalog" :editorId="id" :scrollElement="scrollElement" />
@@ -151,7 +151,6 @@ function thumb_btn() {
 const id = 'preview-only';
 const text = ref('# Hello Word!');
 const scrollElement = document.documentElement;
-
 
 
 // 点击就打开或者关闭目录

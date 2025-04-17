@@ -67,8 +67,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Comments" />
-                  <option name="tableName" value="comments" />
+                  <option name="className" value="CustomAiInfo" />
+                  <option name="tableName" value="custom_ai_info" />
                 </TableUIInfo>
               </list>
             </option>

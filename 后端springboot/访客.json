@@ -1,0 +1,212 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/visitor/getVisitorList" : {
+      "get" : {
+        "summary" : "获取访客列表 需要验证jwt令牌",
+        "description" : "获取访客列表 需要验证jwt令牌",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visitor/deleteByIds" : {
+      "delete" : {
+        "summary" : "deleteVisitor",
+        "description" : "deleteVisitor",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "nullable" : false,
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/visitor/saveVisitorNote" : {
+      "post" : {
+        "summary" : "保存访客备注的按钮",
+        "description" : "保存访客备注的按钮",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "visitorId" : {
+                    "type" : "integer",
+                    "description" : ""
+                  },
+                  "ipAddress" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "geoLocation" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "userAgent" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "deviceInfo" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "firstVisitTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "lastVisitTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "visitDuration" : {
+                    "type" : "integer",
+                    "description" : ""
+                  },
+                  "visitFrequency" : {
+                    "type" : "integer",
+                    "description" : ""
+                  },
+                  "visitorNotes" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "isBlacklisted" : {
+                    "type" : "integer",
+                    "description" : ""
+                  },
+                  "accessPath" : {
+                    "type" : "string",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : { }
+}

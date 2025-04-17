@@ -2,8 +2,9 @@ import axios from 'axios';
 import NProgress from 'nprogress';
 
 const http = axios.create({
-    baseURL: 'http://wzy9858.top:8080', // 设置基础URL
-    // baseURL: 'http://127.0.0.1:8080', // 设置基础URL
+    // baseURL: 'http://wzy9858.top:8080', // 设置基础URL
+    baseURL: 'http://127.0.0.1:8080', // 设置基础URL
+    // baseURL: 'http://123.56.28.80:8080', // 设置基础URL
     timeout: 5000, // 请求超时时间
 });
 

@@ -20,6 +20,9 @@ public interface ArticlesMapper extends BaseMapper<Articles> {
     List<Articles> getAllInfo();
 
 
+    List<Articles> geiAiInfo();
+
+
 }
 
 

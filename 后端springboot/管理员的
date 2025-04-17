@@ -1,0 +1,544 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/admin/getSuperInfo" : {
+      "get" : {
+        "summary" : "这个是默认接口  返回超级管理员的相关信息",
+        "description" : "这个是默认接口  返回超级管理员的相关信息",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/login" : {
+      "post" : {
+        "summary" : "login",
+        "description" : "login",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "account" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "nickname" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "bio" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "avatarUrl" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "ipAddress" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "creationTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "lastLoginTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "email" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "isSuperAdmin" : {
+                    "type" : "integer",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "账号是主键 应该根据账号和密码进行登录\n 如果是用邮箱注册的，账号应该与邮箱一致",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  },
+                  "description" : "账号是主键 应该根据账号和密码进行登录\n 如果是用邮箱注册的，账号应该与邮箱一致"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/getAccountList" : {
+      "get" : {
+        "summary" : "*",
+        "description" : "*",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/getAloneAccount" : {
+      "get" : {
+        "summary" : "getAloneAccount",
+        "description" : "getAloneAccount",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/deleteByIds" : {
+      "delete" : {
+        "summary" : "删除账号 根据传过来的ids",
+        "description" : "删除账号 根据传过来的ids",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "nullable" : false,
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/updateAccount" : {
+      "post" : {
+        "summary" : "*",
+        "description" : "*",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "account" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "nickname" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "bio" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "avatarUrl" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "ipAddress" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "creationTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "lastLoginTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "email" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "isSuperAdmin" : {
+                    "type" : "integer",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/updateOrdinaryAccount" : {
+      "post" : {
+        "summary" : "updateAccount",
+        "description" : "updateAccount",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "account" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "nickname" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "bio" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "avatarUrl" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "ipAddress" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "creationTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "lastLoginTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "email" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "isSuperAdmin" : {
+                    "type" : "integer",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/getAboutMe" : {
+      "get" : {
+        "summary" : "根据account获取关于我",
+        "description" : "根据account获取关于我",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : { }
+}

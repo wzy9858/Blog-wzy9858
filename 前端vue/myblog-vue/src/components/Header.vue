@@ -1,5 +1,7 @@
 <template>
+
     <div :style="navbaStyle" class="navbar">
+  
 
         <!-- 左侧图标区域  回到首页区域-->
         <router-link to="/" class="left-icon">
@@ -19,7 +21,7 @@
 
                 <RouterLink to="/record" class="center-all item">
                     <v-icon class="archive" name="co-airbnb" scale="1.5" />
-                    <span style="font-size: 1.3rem;"> AI助手 </span>
+                    <span style="font-size: 1.3rem;"> AI </span>
                 </RouterLink>
 
 
@@ -79,6 +81,8 @@
                         <el-dropdown-item @click="computer_commentManage">评论管理</el-dropdown-item>
 
                         <el-dropdown-item @click="computer_panel">仪表盘</el-dropdown-item>
+                        <el-dropdown-item @click="computer_superAi">超级AI助手</el-dropdown-item>
+
                         <el-dropdown-item @click="quitlogin">退出登录</el-dropdown-item>
 
                         <!-- <el-dropdown-item>Action 2</el-dropdown-item>
@@ -182,8 +186,6 @@
         </div>
     </el-drawer>
 
-
-
     <!-- 用户登录对话框 -->
     <el-dialog class="dialog-width" v-model="dialogVisible">
         <div class="login-container">
@@ -195,8 +197,9 @@
                     <el-tab-pane label="登录" name="first" style="width: 100%;">
                         <el-form style="max-width: 600px;width: 100%;" label-width="auto">
                             <el-form-item style="width: 100%;">
-                                <el-input class="input-width" v-model="inputUserName" placeholder="请输入邮箱" />
+                                <el-input class="input-width" v-model="inputUserName" placeholder="请输入账号" />
                             </el-form-item>
+                            
 
                             <el-form-item>
                                 <el-input v-model="inputPassWord" placeholder="请输入密码" type="password" />
@@ -265,7 +268,7 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 let head_img = ref("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png")
 let nickname = ref('')
-import { getSuperInfo } from '../ts/axios/adminHttp';
+// import { getSuperInfo } from '../ts/axios/adminHttp';
 
 onMounted(() => {
     
@@ -406,6 +409,11 @@ function computer_commentManage() {
 function computer_panel() {
     router.push('/panel')
 }
+
+function computer_superAi() {
+    router.push('/SuperAI')
+}
+
 
 
 let activeName = ref('first')
@@ -681,4 +689,7 @@ onBeforeUnmount(() => {
 .login-form {
     width: 100%;
 }
+
+
+
 </style>

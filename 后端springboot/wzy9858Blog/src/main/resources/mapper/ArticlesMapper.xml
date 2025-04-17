@@ -50,4 +50,16 @@
                owner
         from articles order by created_at desc
     </select>
+
+
+    <select id="geiAiInfo" resultType="com.wzy.pojo.Articles">
+        select id,
+               article_title,
+               tags,
+               popularity,
+               is_pinned,
+               owner,
+               CONCAT('admin', id) AS link
+        from articles order by created_at desc
+    </select>
 </mapper>

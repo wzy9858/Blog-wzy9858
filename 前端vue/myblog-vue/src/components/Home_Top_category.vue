@@ -69,20 +69,26 @@
   
   // 计算滚动参数
   const calculateDimensions = () => {
-    const container = scrollContainer.value
-    if (!container) return
-    
+    const container = scrollContainer.value;
+    if (!container) return;
+  
     // 获取单个分类项的宽度（包含margin）
-    const firstItem = container.querySelector('.category-item')
-    const itemStyle = firstItem ? getComputedStyle(firstItem) : null
-    const itemWidth = firstItem ? firstItem.offsetWidth + parseInt(itemStyle.marginRight) : 0
-    
-    // 计算每次滚动距离（8个分类项宽度）
-    scrollDistance.value = itemWidth * 8
-    
+    const firstItem = container.querySelector('.category-item');
+    const itemStyle = firstItem ? getComputedStyle(firstItem) : null;
+    const itemWidth = firstItem
+      ? firstItem.offsetWidth + parseInt(itemStyle.marginRight)
+      : 0;
+  
+    // 根据屏幕宽度动态调整每次滚动的分类项数量
+    const itemsPerScroll = window.innerWidth <= 767 ? 4 : 8; // 小屏幕滚动4个，大屏幕滚动8个
+    scrollDistance.value = itemWidth * itemsPerScroll;
+  
     // 计算最大滚动位置
-    maxScroll.value = container.scrollWidth - container.clientWidth
-  }
+    maxScroll.value = container.scrollWidth - container.clientWidth;
+  };
+  
+  // 监听窗口大小变化
+  window.addEventListener('resize', calculateDimensions);
   
   // 滚动控制
   const scroll = (direction) => {
@@ -120,41 +126,43 @@
   <style scoped>
   .category-container {
     position: relative;
-    width: 900px;
+    width: 100%; /* 宽度改为100%，适配不同屏幕 */
+    max-width: 900px; /* 最大宽度限制 */
     margin: 0 auto;
-    padding: 0 60px;
+    padding: 0 20px; /* 两侧增加内边距 */
   }
   
   .items-wrapper {
     display: flex;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    gap: 20px;
+    gap: 10px; /* 间距调整为更小的值，适配小屏幕 */
     padding: 12px 0;
   }
   
   .category-item {
     flex: 0 0 auto;
-    min-width: 120px;
-    padding: 8px 16px;
+    min-width: 80px; /* 最小宽度调整为80px，适配小屏幕 */
+    padding: 6px 12px; /* 内边距调整为更小的值 */
     border-radius: 20px;
-    background: #E3F2FD; /* 与之前的浅蓝色保持一致 */
-    color: #1565C0; /* 深蓝色字体 */
+    background: #E3F2FD;
+    color: #1565C0;
     cursor: pointer;
     transition: all 0.3s;
     text-align: center;
-    margin-right: 10px;
+    margin-right: 8px; /* 间距调整为更小的值 */
+    font-size: 14px; /* 字体大小调整为14px */
     font-weight: 500;
   }
   
   .category-item:hover {
-    background: #64B5F6; /* 鼠标悬浮时的浅蓝色 */
-    color: white; /* 悬浮时字体颜色变为白色 */
-    transform: scale(1.05); /* 悬浮时放大效果 */
+    background: #64B5F6;
+    color: white;
+    transform: scale(1.05);
   }
   
   .category-item.active {
-    background: #1E88E5; /* 激活状态的深蓝色 */
+    background: #1E88E5;
     color: white;
     font-weight: bold;
   }
@@ -163,10 +171,10 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
+    width: 32px; /* 按钮大小调整为更小的值 */
+    height: 32px;
     border-radius: 50%;
-    background: #FFFFFF; /* 按钮背景为白色 */
+    background: #FFFFFF;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border: none;
     cursor: pointer;
@@ -175,16 +183,16 @@
   }
   
   .nav-button:hover {
-    background: #F5F5F5; /* 鼠标悬浮时的浅灰色 */
-    transform: translateY(-50%) scale(1.1); /* 悬浮时放大效果 */
+    background: #F5F5F5;
+    transform: translateY(-50%) scale(1.1);
   }
   
   .nav-button.left {
-    left: 10px;
+    left: 5px; /* 左侧按钮位置调整 */
   }
   
   .nav-button.right {
-    right: 10px;
+    right: 5px; /* 右侧按钮位置调整 */
   }
   
   .nav-button:disabled {
@@ -196,5 +204,27 @@
   /* 隐藏滚动条 */
   .items-wrapper::-webkit-scrollbar {
     display: none;
+  }
+
+  /* 小屏幕适配 */
+  @media only screen and (max-width: 767px) {
+    .category-item {
+      min-width: 60px; /* 更小的最小宽度 */
+      padding: 4px 8px; /* 更小的内边距 */
+      font-size: 12px; /* 更小的字体大小 */
+    }
+  
+    .nav-button {
+      width: 28px; /* 更小的按钮大小 */
+      height: 28px;
+    }
+  
+    .nav-button.left {
+      left: 2px; /* 左侧按钮位置调整 */
+    }
+  
+    .nav-button.right {
+      right: 2px; /* 右侧按钮位置调整 */
+    }
   }
   </style>

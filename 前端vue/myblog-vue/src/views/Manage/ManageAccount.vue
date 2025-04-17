@@ -37,7 +37,7 @@
         <div class="edit-container">
             <div style="padding: 0.5rem;">
                 <span style="padding: 0.5rem;">账号</span>
-                <el-input v-model="account.account" style="width: 160px;" placeholder="请输入账号" />
+                <el-input v-model="account.account" style="width: 160px;" :disabled="true" placeholder="请输入账号" />
             </div>
 
             <div style="padding: 0.5rem;">

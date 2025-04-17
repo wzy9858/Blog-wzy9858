@@ -13,10 +13,13 @@ import EditAboutMe from '../views/EditAboutMe.vue';
 import EditArticle from '../views/EditArticle.vue';
 import NProgress from 'nprogress';
 import AI from '../views/AI.vue';
-import test from '../components/test.vue';
+
 import MailAgreeOrNot from '../views/MailAgreeOrNot.vue';
 import lxyTest from '../components/lxyTest.vue';
 import ManageComment from '../views/Manage/ManageComment.vue';
+import SuperAI from '../views/SuperAI.vue';
+import wzy from '../views/wzy.vue';
+import Test from '../views/Test.vue';
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [{
@@ -63,7 +66,7 @@ const router = createRouter({
     component:EditAboutMe
   },{
     path: '/test',
-    component:test
+    component:Test
   },{
     path: '/panel',
     component:Panel
@@ -76,6 +79,12 @@ const router = createRouter({
   },{
     path: '/commentManage',
     component:ManageComment
+  },{
+    path: '/superAI',
+    component:SuperAI
+  },{
+    path: '/wzy',
+    component:wzy
   }
 
 

@@ -1,0 +1,35 @@
+# 开发环境(linux下的环境)
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql:///wzy9858blog
+      username: root
+      password: Kdyq1108！
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jackson: #数据库涉及到时间
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true #驼峰命名
+  type-aliases-package: com.wzy.pojo #起别名
+  mapper-locations: classpath:/mapper/*.xml
+
+test:
+  url: http://localhost:5173/#/register?id=
+fileUpload:
+  url: http://127.0.0.1:8080/uploads/
+jwtHelper:
+  key: wzy9858
+  validTime: 1 #单位 小时
+
+  server:
+    use-forward-headers: true # 启用转发头
+    forwarded-headers-strategy: native # 使用原生的转发头策略
+
+
+

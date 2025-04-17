@@ -50,7 +50,7 @@ import { ref } from 'vue'
 let date = ref('')
 
 function getData() {
-    const startDate: any = new Date(2024, 11 - 1, 21);
+    const startDate: any = new Date(2025, 2 - 1, 21);// 2025年2月21日
     const now: any = new Date();
     const diff = now - startDate;
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));

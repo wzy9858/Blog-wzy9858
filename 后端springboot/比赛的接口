@@ -1,0 +1,440 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/complete/homePanelData" : {
+      "get" : {
+        "summary" : "getArticleType",
+        "description" : "getArticleType",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "key" : {
+                        "type" : "object",
+                        "properties" : { }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/panelVisitornumAndDate" : {
+      "get" : {
+        "summary" : "getVisitorNumAndDate",
+        "description" : "getVisitorNumAndDate",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "key" : {
+                        "type" : "object",
+                        "properties" : { }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/panelPopularityRankings" : {
+      "get" : {
+        "summary" : "getPopularityRankings",
+        "description" : "getPopularityRankings",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "key" : {
+                        "type" : "object",
+                        "properties" : { }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/getIpAndAdress" : {
+      "get" : {
+        "summary" : "getIpAndAdress",
+        "description" : "getIpAndAdress",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/register" : {
+      "post" : {
+        "summary" : "register",
+        "description" : "register",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "account" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "nickname" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "bio" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "avatarUrl" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "ipAddress" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "creationTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "lastLoginTime" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "email" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "isSuperAdmin" : {
+                    "type" : "integer",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/complete/newAccount/{jwt}" : {
+      "get" : {
+        "summary" : "agreeAndNot",
+        "description" : "agreeAndNot",
+        "parameters" : [ {
+          "name" : "jwt",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/complete/getPanelSomeInfo" : {
+      "get" : {
+        "summary" : "getPanelSomeInfo",
+        "description" : "getPanelSomeInfo",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/img/upload" : {
+      "post" : {
+        "summary" : "uploadFile",
+        "description" : "uploadFile",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "required" : [ "file" ],
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "type" : "string",
+                    "description" : "",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/feedback" : {
+      "get" : {
+        "summary" : "UserFeedback",
+        "description" : "UserFeedback",
+        "parameters" : [ {
+          "name" : "info",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/complete/search" : {
+      "get" : {
+        "summary" : "*",
+        "description" : "*",
+        "parameters" : [ {
+          "name" : "keyWords",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "id" : {
+                        "type" : "integer",
+                        "description" : "文章的id 自增"
+                      },
+                      "articleTitle" : {
+                        "type" : "string",
+                        "description" : "文章的标题"
+                      },
+                      "articleContent" : {
+                        "type" : "string",
+                        "description" : "文章的内容"
+                      },
+                      "createdAt" : {
+                        "type" : "string",
+                        "description" : "文章的创建时间"
+                      },
+                      "updatedAt" : {
+                        "type" : "string",
+                        "description" : "文章的更新时间"
+                      },
+                      "isEncrypted" : {
+                        "type" : "integer",
+                        "description" : "是否加密 默认为0"
+                      },
+                      "tags" : {
+                        "type" : "string",
+                        "description" : "标签"
+                      },
+                      "popularity" : {
+                        "type" : "integer",
+                        "description" : "热度"
+                      },
+                      "homeDisplayImageUrl" : {
+                        "type" : "string",
+                        "description" : "首页图片的展示地址"
+                      },
+                      "isPinned" : {
+                        "type" : "integer",
+                        "description" : "是否置顶  默认为0"
+                      },
+                      "owner" : {
+                        "type" : "string",
+                        "description" : "文章所属人  作者"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/caidan" : {
+      "get" : {
+        "summary" : "caidan",
+        "description" : "caidan",
+        "parameters" : [ {
+          "name" : "info",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "No Content"
+          }
+        }
+      }
+    },
+    "/complete/getTags" : {
+      "get" : {
+        "summary" : "getTags",
+        "description" : "getTags",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/complete/getArticlesByList" : {
+      "get" : {
+        "summary" : "getArticlesListByTags",
+        "description" : "getArticlesListByTags",
+        "parameters" : [ {
+          "name" : "tag",
+          "in" : "query",
+          "description" : "",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "nullable" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "success" : {
+                      "type" : "boolean",
+                      "description" : ""
+                    },
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "message" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "key" : {
+                          "type" : "object",
+                          "properties" : { }
+                        }
+                      },
+                      "description" : "",
+                      "default" : "new HashMap<String, Object>()"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : { }
+}
